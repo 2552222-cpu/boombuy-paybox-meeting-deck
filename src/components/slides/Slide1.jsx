@@ -1,5 +1,4 @@
 import React from "react";
-import { LOGOS } from "@/data/logos";
 
 export default function Slide1() {
   return (
@@ -11,22 +10,8 @@ export default function Slide1() {
         </span>
       </div>
 
-      {/* Main: logo grid (left/start) + text (right/end) */}
+      {/* Main: text (right) + logo image (left) */}
       <div className="flex-1 flex flex-col md:flex-row items-center gap-10 mt-8">
-        {/* Logo grid */}
-        <div className="flex-1 w-full max-w-2xl">
-          <div className="grid grid-cols-4 gap-3 md:gap-4">
-            {LOGOS.map((logo, i) => (
-              <div
-                key={i}
-                className="aspect-[3/2] rounded-xl bg-white border border-[#ECECEC] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.08)] flex items-center justify-center px-2 hover:shadow-md transition-shadow"
-              >
-                {logo.render()}
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Text block */}
         <div className="flex-1 w-full max-w-md text-right">
           <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mb-6 mr-0 ml-auto" />
@@ -36,6 +21,15 @@ export default function Slide1() {
           <p className="mt-6 text-xl md:text-2xl font-bold text-[#2D7FF9]">
             גם ללא הצורך בסבסוד ההטבה
           </p>
+        </div>
+
+        {/* Logo wall image */}
+        <div className="flex-1 w-full max-w-xl flex justify-center">
+          <img
+            src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/d4ee3f0d1_.jpg"
+            alt="לוגואי שותפים"
+            className="w-full h-auto rounded-xl object-contain"
+          />
         </div>
       </div>
 
