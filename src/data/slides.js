@@ -28,21 +28,21 @@ export const PRODUCTS = [
     fullPrice: "2,190 ₪",
     coins: "791",
     cash: "1,399",
-    image: "https://images.unsplash.com/photo-1567690187548-f07b1c7b9518?w=400&q=70"
+    image: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/92021a586_.jpg"
   },
   {
     title: "מארז זוג חולצות REPLAY",
     fullPrice: "200 ₪",
     coins: "100",
     cash: "100",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=70"
+    image: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/0e73b93dc_.jpg"
   },
   {
     title: "תיק גב ממותג",
     fullPrice: "79 ₪",
     coins: "40",
     cash: "39",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=70"
+    image: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/98ab31b0a_3.jpg"
   },
   {
     title: "2 לילות לזוג, מלון איב אילת + ארוחת בוקר",
@@ -56,7 +56,7 @@ export const PRODUCTS = [
     fullPrice: "350 ₪",
     coins: "270",
     cash: "80",
-    image: "https://images.unsplash.com/photo-1503095396549-807759245b35?w=400&q=70"
+    image: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/9bd28df25_.jpg"
   }
 ];
 

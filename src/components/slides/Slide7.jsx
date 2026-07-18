@@ -64,7 +64,7 @@ function ProductCard({ p }) {
           <p className="text-[10px] md:text-[11px] text-[#9CA3AF] font-medium">
             במקום <span className="line-through">{p.fullPrice}</span>
           </p>
-          <div className="mt-1 flex items-center justify-end gap-1.5 flex-wrap">
+          <div dir="rtl" className="mt-1 flex flex-row items-center justify-end gap-1.5 flex-nowrap">
             {cashNum > 0 && (
               <span className="text-sm md:text-base font-black text-[#0055FF]">{p.cash} ₪</span>
             )}
