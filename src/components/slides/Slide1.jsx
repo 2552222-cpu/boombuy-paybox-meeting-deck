@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Slide1() {
   return (
-    <div className="relative h-full w-full bg-gradient-to-br from-white to-[#F8F7F4] flex flex-col px-10 md:px-16 py-10 md:py-14 overflow-hidden">
+    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-10 md:py-14 overflow-hidden">
       {/* Pill tag */}
       <div className="flex">
         <span className="inline-flex items-center rounded-full bg-white border border-[#E0E0E0] px-4 py-1.5 text-sm text-[#333333] font-medium shadow-sm">
@@ -24,11 +24,11 @@ export default function Slide1() {
         </div>
 
         {/* Logo wall image */}
-        <div className="flex-1 w-full max-w-xl flex justify-center">
+        <div className="flex-[1.2] w-full max-w-2xl flex justify-center">
           <img
             src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/d4ee3f0d1_.jpg"
             alt="לוגואי שותפים"
-            className="w-full h-auto rounded-xl object-contain"
+            className="w-full h-auto max-h-[75vh] object-contain mix-blend-multiply"
           />
         </div>
       </div>
