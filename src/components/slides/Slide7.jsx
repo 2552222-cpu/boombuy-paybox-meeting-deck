@@ -45,33 +45,35 @@ export default function Slide7() {
 }
 
 function ProductCard({ p }) {
+  const cashNum = Number(String(p.cash).replace(/\D/g, ""));
   return (
     <div className="rounded-xl border border-[#E5E7EB] bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full">
-      <div className="relative h-[38%] shrink-0 bg-[#F9FAFB]">
+      <div className="relative h-[48%] shrink-0 bg-[#F9FAFB]">
         <img
           src={p.image}
           alt={p.title}
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        <div className="absolute top-1.5 right-1.5 rounded-md bg-[#10162A]/90 px-1.5 py-0.5 text-[9px] font-bold text-white/70 line-through">
-          {p.fullPrice}
-        </div>
       </div>
       <div className="flex-1 min-h-0 p-2.5 flex flex-col justify-between text-right">
         <h4 className="text-[11px] md:text-xs font-bold text-[#10162A] leading-snug line-clamp-2">
           {p.title}
         </h4>
-        <div className="mt-1.5 flex items-center justify-end gap-1 flex-wrap">
-          <span className="inline-flex items-center gap-1 rounded-md bg-[#FFF7DE] px-1.5 py-1">
-            <Coins className="w-3 h-3 text-[#D4AF37]" />
-            <span className="text-[11px] md:text-xs font-black text-[#10162A]">{p.coins} נק'</span>
-          </span>
-          {Number(String(p.cash).replace(/\D/g, "")) > 0 && (
-            <span className="text-[11px] md:text-xs font-black text-[#0055FF]">
-              + {p.cash} ₪
+        <div>
+          <p className="text-[10px] md:text-[11px] text-[#9CA3AF] font-medium">
+            במקום <span className="line-through">{p.fullPrice}</span>
+          </p>
+          <div className="mt-1 flex items-center justify-end gap-1.5 flex-wrap">
+            {cashNum > 0 && (
+              <span className="text-sm md:text-base font-black text-[#0055FF]">{p.cash} ₪</span>
+            )}
+            {cashNum > 0 && <span className="text-[#9CA3AF] text-xs font-bold">+</span>}
+            <span className="inline-flex items-center gap-1 rounded-md bg-[#FFF7DE] px-1.5 py-1">
+              <Coins className="w-3 h-3 text-[#D4AF37]" />
+              <span className="text-[11px] md:text-xs font-black text-[#10162A]">{p.coins} נק'</span>
             </span>
-          )}
+          </div>
         </div>
       </div>
     </div>

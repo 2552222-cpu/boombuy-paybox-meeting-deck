@@ -14,7 +14,6 @@ export const PRODUCTS = [
     fullPrice: "200 ₪",
     coins: "100",
     cash: "100",
-    badge: "100 ₪",
     image: "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=400&q=70"
   },
   {
@@ -22,7 +21,6 @@ export const PRODUCTS = [
     fullPrice: "400 ₪",
     coins: "200",
     cash: "200",
-    badge: "200 ₪",
     image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&q=70"
   },
   {
@@ -30,7 +28,6 @@ export const PRODUCTS = [
     fullPrice: "2,190 ₪",
     coins: "791",
     cash: "1,399",
-    badge: "791 ₪",
     image: "https://images.unsplash.com/photo-1567690187548-f07b1c7b9518?w=400&q=70"
   },
   {
@@ -38,7 +35,6 @@ export const PRODUCTS = [
     fullPrice: "200 ₪",
     coins: "100",
     cash: "100",
-    badge: "100 ₪",
     image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=70"
   },
   {
@@ -46,23 +42,20 @@ export const PRODUCTS = [
     fullPrice: "79 ₪",
     coins: "40",
     cash: "39",
-    badge: "40 ₪",
     image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=70"
   },
   {
-    title: "2 לילות לזוג, מלון אייב אילת + ארוחת בוקר",
+    title: "2 לילות לזוג, מלון איב אילת + ארוחת בוקר",
     fullPrice: "1,500 ₪",
     coins: "600",
     cash: "900",
-    badge: "600 ₪",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=70"
+    image: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/d31f8cf43_generated_image.png"
   },
   {
-    title: "כרטיס להצגה 'קוזלן'",
+    title: "כרטיס להצגה 'קזבלן'",
     fullPrice: "350 ₪",
     coins: "270",
     cash: "80",
-    badge: "270 ₪",
     image: "https://images.unsplash.com/photo-1503095396549-807759245b35?w=400&q=70"
   }
 ];
