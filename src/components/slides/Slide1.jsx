@@ -1,12 +1,12 @@
 import React from "react";
-import { LOGOS } from "@/data/slides";
+import { LOGOS } from "@/data/logos";
 
 export default function Slide1() {
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-10 md:py-14 overflow-hidden">
+    <div className="relative h-full w-full bg-gradient-to-br from-white to-[#F8F7F4] flex flex-col px-10 md:px-16 py-10 md:py-14 overflow-hidden">
       {/* Pill tag */}
       <div className="flex">
-        <span className="inline-flex items-center rounded-full bg-[#F5F5F5] border border-[#E0E0E0] px-4 py-1.5 text-sm text-[#333333] font-medium">
+        <span className="inline-flex items-center rounded-full bg-white border border-[#E0E0E0] px-4 py-1.5 text-sm text-[#333333] font-medium shadow-sm">
           שותף פוטנציאלי
         </span>
       </div>
@@ -16,14 +16,12 @@ export default function Slide1() {
         {/* Logo grid */}
         <div className="flex-1 w-full max-w-2xl">
           <div className="grid grid-cols-4 gap-3 md:gap-4">
-            {LOGOS.map((name, i) => (
+            {LOGOS.map((logo, i) => (
               <div
                 key={i}
-                className="aspect-[3/2] rounded-lg bg-[#FAFAFA] border border-[#EEEEEE] flex items-center justify-center px-2"
+                className="aspect-[3/2] rounded-xl bg-white border border-[#ECECEC] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.08)] flex items-center justify-center px-2 hover:shadow-md transition-shadow"
               >
-                <span className="text-[11px] md:text-xs font-bold text-[#374151] text-center leading-tight tracking-tight">
-                  {name}
-                </span>
+                {logo.render()}
               </div>
             ))}
           </div>
@@ -31,10 +29,11 @@ export default function Slide1() {
 
         {/* Text block */}
         <div className="flex-1 w-full max-w-md text-right">
-          <h1 className="text-3xl md:text-[2.7rem] leading-[1.15] font-black text-[#0F1B3D]">
+          <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mb-6 mr-0 ml-auto" />
+          <h1 className="text-3xl md:text-[2.85rem] leading-[1.18] font-black text-[#0F1B3D] tracking-tight">
             הפלטפורמה המובילה בישראל למועדוני הטבות וצרכנות חכמה
           </h1>
-          <p className="mt-5 text-xl md:text-2xl font-bold text-[#2D7FF9]">
+          <p className="mt-6 text-xl md:text-2xl font-bold text-[#2D7FF9]">
             גם ללא הצורך בסבסוד ההטבה
           </p>
         </div>
