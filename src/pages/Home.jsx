@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import Slide1 from "@/components/slides/Slide1";
 import Slide2 from "@/components/slides/Slide2";
 import Slide3 from "@/components/slides/Slide3";
@@ -11,11 +12,18 @@ const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7];
 
 export default function Home() {
   return (
-    <div className="w-full bg-black">
+    <div className="w-full bg-black snap-y snap-mandatory overflow-y-auto h-screen scroll-smooth no-scrollbar">
       {SLIDES.map((Slide, i) => (
-        <section key={i} className="h-screen w-full">
+        <motion.section
+          key={i}
+          className="h-screen w-full snap-start snap-always"
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ amount: 0.4, once: false }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
           <Slide />
-        </section>
+        </motion.section>
       ))}
     </div>
   );
