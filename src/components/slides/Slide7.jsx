@@ -48,11 +48,11 @@ function ProductCard({ p }) {
   const cashNum = Number(String(p.cash).replace(/\D/g, ""));
   return (
     <div className="rounded-xl border border-[#E5E7EB] bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full">
-      <div className="relative h-[48%] shrink-0 bg-[#F9FAFB] p-1.5">
+      <div className="relative h-[54%] shrink-0 bg-[#F9FAFB]">
         <img
           src={p.image}
           alt={p.title}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover object-top"
           loading="lazy"
         />
       </div>
