@@ -34,18 +34,19 @@ export default function Slide4() {
   return (
     <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-12 overflow-hidden">
       <div className="text-right">
-        <span className="text-sm font-bold text-[#4285F4]">המהפכה הכלכלית של BoomBuy</span>
-        <h1 className="mt-2 text-4xl md:text-5xl font-black text-[#111827]">
+        <span className="text-sm font-bold text-[#4285F4] tracking-[0.15em]">המהפכה הכלכלית של BoomBuy</span>
+        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
+        <h1 className="mt-3 text-4xl md:text-5xl font-black text-[#111827] tracking-tight leading-[1.15]">
           0% סבסוד — מקסימום ערך
         </h1>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center gap-10 mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="flex-1 flex flex-col justify-center gap-12 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {CARDS.map((c, i) => (
             <div
               key={i}
-              className={`${c.bg} rounded-2xl p-6 deck-shadow flex flex-col gap-4 min-h-[170px]`}
+              className={`${c.bg} rounded-2xl p-7 deck-shadow flex flex-col gap-5 min-h-[180px]`}
             >
               <div
                 className="w-12 h-12 rounded-xl bg-black/10 flex items-center justify-center text-2xl font-black"
@@ -66,12 +67,12 @@ export default function Slide4() {
         </div>
 
         <div className="text-right">
-          <p className="text-base font-bold text-[#374151]">איך אנחנו עושים את זה</p>
-          <div className="mt-3 flex flex-wrap gap-2.5 justify-start md:justify-end">
+          <p className="text-base font-bold text-[#374151] tracking-wide">איך אנחנו עושים את זה</p>
+          <div className="mt-4 flex flex-wrap gap-3 justify-start md:justify-end">
             {PILLS.map((p, i) => (
               <span
                 key={i}
-                className="rounded-full bg-white border border-[#E5E7EB] px-4 py-2 text-xs md:text-sm font-medium text-[#374151] shadow-sm"
+                className="rounded-full bg-white border border-[#E5E7EB] px-5 py-2.5 text-xs md:text-sm font-medium text-[#374151] shadow-sm"
               >
                 {p}
               </span>

@@ -11,20 +11,21 @@ export default function Slide5() {
   return (
     <div className="relative h-full w-full bg-gradient-to-br from-[#1a2a40] to-[#0a101d] flex flex-col px-10 md:px-14 py-10 overflow-hidden text-white">
       <div className="text-right">
-        <span className="text-sm font-bold text-[#FFCC4D]">ההצעה ל-PayBox</span>
-        <h1 className="mt-2 text-2xl md:text-4xl font-black leading-tight max-w-3xl mr-auto">
+        <span className="text-sm font-bold text-[#FFCC4D] tracking-[0.15em]">ההצעה ל-PayBox</span>
+        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
+        <h1 className="mt-3 text-2xl md:text-4xl font-black leading-[1.25] max-w-3xl mr-auto tracking-tight">
           מנוע הנאמנות: כל פעולה שלכם הופכת ל-PayBox Coins
         </h1>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center gap-8 mt-6">
+      <div className="flex-1 flex flex-col justify-center gap-9 mt-8">
         {/* Steps: RTL so 01 on right, 03 on left */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
           {STEPS.map((s, i) => (
             <React.Fragment key={i}>
-              <div className="rounded-2xl bg-white/5 border border-white/10 p-6 flex flex-col gap-3 min-h-[150px]">
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-7 flex flex-col gap-3.5 min-h-[160px]">
                 <span className="text-4xl font-black text-[#FFCC4D]">{s.num}</span>
-                <h3 className="text-lg font-bold">{s.title}</h3>
+                <h3 className="text-lg font-bold tracking-wide">{s.title}</h3>
                 <p className="text-sm text-gray-400 leading-relaxed">{s.desc}</p>
               </div>
               {i < STEPS.length - 1 && (
@@ -37,10 +38,10 @@ export default function Slide5() {
         </div>
 
         {/* Yellow pill */}
-        <div className="rounded-full bg-[#FFCC4D] flex items-center justify-between px-8 py-4 shadow-lg">
-          <span className="text-base md:text-lg font-black text-black">בלי שפייבוקס תסבסד שקל</span>
+        <div className="rounded-full bg-[#FFCC4D] flex items-center justify-between px-9 py-5 shadow-lg">
+          <span className="text-base md:text-lg font-black text-black tracking-wide">בלי שפייבוקס תסבסד שקל</span>
           <span className="text-4xl md:text-5xl font-black text-black">50%</span>
-          <span className="text-base md:text-lg font-black text-black">התוצאה: הנחה של עד</span>
+          <span className="text-base md:text-lg font-black text-black tracking-wide">התוצאה: הנחה של עד</span>
         </div>
       </div>
 
