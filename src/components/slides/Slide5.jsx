@@ -3,17 +3,17 @@ import { ArrowLeft } from "lucide-react";
 
 const STEPS = [
   { num: "01", title: "הלקוח פעיל ב-PayBox", desc: "מעביר כסף, שומר יתרה, משתמש בכרטיס האשראי" },
-  { num: "02", title: "צובר PayBox Coins", desc: "נקודות נאמנות על כל פעולה רצויה ל-PayBox" },
+  { num: "02", title: "משתמש לרכישת מוצרים בעד 50% הנחה", desc: "ב-PayBox Market" },
   { num: "03", title: "ממשש במרקטפלייס BoomBuy", desc: "רוכש את המוצרים המבוקשים ביותר בשוק" }
 ];
 
 export default function Slide5() {
   return (
     <div className="relative h-full w-full bg-gradient-to-br from-[#1a2a40] to-[#0a101d] flex flex-col px-10 md:px-14 py-10 overflow-hidden text-white">
-      <div className="text-right">
+      <div className="text-center">
         <span className="text-sm font-bold text-[#FFCC4D] tracking-[0.15em]">ההצעה ל-PayBox</span>
-        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
-        <h1 className="mt-3 text-2xl md:text-4xl font-black leading-[1.25] max-w-3xl mr-auto tracking-tight">
+        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mx-auto" />
+        <h1 className="mt-3 text-2xl md:text-4xl font-black leading-[1.25] max-w-3xl mx-auto tracking-tight">
           מנוע הנאמנות: כל פעולה שלכם הופכת ל-PayBox Coins
         </h1>
       </div>
@@ -39,9 +39,9 @@ export default function Slide5() {
 
         {/* Yellow pill */}
         <div className="rounded-full bg-[#FFCC4D] flex items-center justify-center gap-6 px-9 py-5 shadow-lg mx-auto">
-          <span className="text-base md:text-lg font-black text-black tracking-wide">בלי שפייבוקס תסבסד שקל</span>
-          <span className="text-4xl md:text-5xl font-black text-black">50%</span>
           <span className="text-base md:text-lg font-black text-black tracking-wide">התוצאה: הנחה של עד</span>
+          <span className="text-4xl md:text-5xl font-black text-black">50%</span>
+          <span className="text-base md:text-lg font-black text-black tracking-wide">גם ללא סבסוד מהותי</span>
         </div>
       </div>
 
