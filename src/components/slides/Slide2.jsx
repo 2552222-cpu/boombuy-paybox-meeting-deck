@@ -24,10 +24,7 @@ export default function Slide2() {
           תחת מכבש יוקר המחיה, הביקוש למועדוני הטבות שובר שיאים. הגופים הגדולים במשק
           מבינים שמי שלא מייצר ערך צרכני אמיתי ויומיומי — מאבד את הלקוח.
         </p>
-        <span className="mt-11 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] px-5 py-2.5 text-sm font-semibold text-[#374151] tracking-wide self-end">
-          שחקנים מובילים בזירה
-        </span>
-        <div className="mt-6 grid grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="mt-11 grid grid-cols-3 md:grid-cols-6 gap-3">
           {COMPETITOR_LOGOS.map((logo, i) => (
             <div
               key={i}

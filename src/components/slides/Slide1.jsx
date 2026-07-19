@@ -24,11 +24,11 @@ export default function Slide1() {
         </div>
 
         {/* Logo wall image */}
-        <div className="flex-[1.2] w-full max-w-2xl flex justify-center">
+        <div className="flex-[1.4] w-full h-full flex items-center justify-center">
           <img
-            src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/d4ee3f0d1_.jpg"
+            src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/b032074d4_.png"
             alt="לוגואי שותפים"
-            className="w-full h-auto max-h-[75vh] object-contain mix-blend-multiply"
+            className="w-full h-auto max-h-[85vh] max-w-2xl object-contain"
           />
         </div>
       </div>
