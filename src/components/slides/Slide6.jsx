@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowUpRight, Gift, Repeat, Wallet, Banknote } from "lucide-react";
 import RedeemPhoneMockup from "@/components/slides/RedeemPhoneMockup";
+import PriceComparison from "@/components/slides/PriceComparison";
 
 export default function Slide6() {
   return (
@@ -94,9 +95,10 @@ export default function Slide6() {
           </p>
         </div>
 
-        {/* Second mobile mockup: benefit redemption */}
-        <div className="shrink-0">
+        {/* Second mobile mockup: benefit redemption + price comparison */}
+        <div className="shrink-0 flex flex-col items-center gap-4">
           <RedeemPhoneMockup />
+          <PriceComparison />
         </div>
       </div>
 
