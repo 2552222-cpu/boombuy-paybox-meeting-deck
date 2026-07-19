@@ -2,13 +2,14 @@ import React from "react";
 import { Coins } from "lucide-react";
 
 export default function ProductCard({ p }) {
+  const imgPositionClass = p.imagePosition === "center" ? "object-center" : "object-top";
   return (
     <div className="relative rounded-2xl border border-[#E5E7EB] bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full">
-      <div className="relative h-[56%] shrink-0 bg-[#F9FAFB]">
+      <div className="relative h-[54%] shrink-0 bg-[#F9FAFB]">
         <img
           src={p.image}
           alt={p.title}
-          className="w-full h-full object-cover object-top"
+          className={`w-full h-full object-cover ${imgPositionClass}`}
           loading="lazy"
         />
         <div className="absolute top-2 right-2 flex items-center gap-1 rounded-full bg-[#FFCC4D] px-2 py-1 shadow-sm">
@@ -17,7 +18,7 @@ export default function ProductCard({ p }) {
         </div>
       </div>
       <div className="flex-1 min-h-0 p-2.5 flex flex-col justify-between text-right">
-        <h4 className="text-[11px] md:text-xs font-bold text-[#10162A] leading-snug line-clamp-2">
+        <h4 className="text-sm md:text-base font-bold text-[#10162A] leading-snug line-clamp-2">
           {p.title}
         </h4>
         <div>
