@@ -87,11 +87,11 @@ export default function Slide6() {
           <span className="text-base font-bold text-[#2D7FF9] tracking-[0.15em]">חוויית המשתמש באפליקציה</span>
           <div className="w-16 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-5 mb-1 mr-0 ml-auto" />
           <h1 className="mt-4 text-4xl md:text-5xl font-black leading-[1.25] text-[#0a1638] tracking-tight">
-            הטמעה טבעית בתוך ה-UX הקיים
+            משתמשים כרגיל, קונים בחצי מחיר.
           </h1>
           <p className="mt-6 text-lg md:text-xl leading-[1.75] text-[#4a4a4a]">
             הלקוח רואה את היתרה הפיננסית שלו, ולצידה את יתרת ה-Coins שלו — מוכנים לשימוש
-            בכל רגע. תמריץ פסיכולוגי אדיר להשאיר את הכסף בתוך האפליקציה.
+            בכל רגע.
           </p>
         </div>
 
