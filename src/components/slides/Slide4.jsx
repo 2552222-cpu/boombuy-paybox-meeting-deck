@@ -1,12 +1,13 @@
 import React from "react";
+import { Cpu, Wallet, FileSignature } from "lucide-react";
 
 const CARDS = [
   {
-    icon: "∞",
-    bg: "bg-[#FFC107]",
-    text: "#1a1a1a",
-    title: "חופש מימוש",
-    desc: "המועדון לא 'נחנק' כשהמימושים עולים"
+    icon: "₪",
+    bg: "bg-[#121926]",
+    text: "#FFC107",
+    title: "חיסכון",
+    desc: "חיסכון של מיליונים בהקמה ובניהול ההטבות"
   },
   {
     icon: "%",
@@ -16,18 +17,18 @@ const CARDS = [
     desc: "הנחות עמוקות ללא מגבלת שימושים"
   },
   {
-    icon: "₪",
-    bg: "bg-[#121926]",
-    text: "#FFC107",
-    title: "חיסכון",
-    desc: "חיסכון של מיליונים בהקמה ובניהול ההטבות"
+    icon: "∞",
+    bg: "bg-[#FFC107]",
+    text: "#1a1a1a",
+    title: "חופש מימוש",
+    desc: "המועדון לא 'נחנק' כשהמימושים עולים"
   }
 ];
 
 const PILLS = [
-  "טכנולוגיה חכמה לאיתור הזדמנויות בשוק",
-  "כוח קנייה עצום",
-  "התחייבות מראש לנפח מכירות גדול"
+  { icon: Cpu, text: "טכנולוגיה חכמה לאיתור הזדמנויות בשוק" },
+  { icon: Wallet, text: "כוח קנייה עצום" },
+  { icon: FileSignature, text: "התחייבות מראש לנפח מכירות גדול" }
 ];
 
 export default function Slide4() {
@@ -41,24 +42,24 @@ export default function Slide4() {
         </h1>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center gap-12 mt-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="flex-1 flex flex-col justify-center gap-14 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
           {CARDS.map((c, i) => (
             <div
               key={i}
-              className={`${c.bg} rounded-2xl p-7 deck-shadow flex flex-col gap-5 min-h-[180px]`}
+              className={`${c.bg} rounded-2xl p-9 deck-shadow flex flex-col gap-6 min-h-[220px]`}
             >
               <div
-                className="w-12 h-12 rounded-xl bg-black/10 flex items-center justify-center text-2xl font-black"
+                className="w-16 h-16 rounded-xl bg-black/10 flex items-center justify-center text-3xl font-black"
                 style={{ color: c.text }}
               >
                 {c.icon}
               </div>
               <div>
-                <h3 className="text-xl font-black" style={{ color: c.text }}>
+                <h3 className="text-2xl md:text-3xl font-black" style={{ color: c.text }}>
                   {c.title}
                 </h3>
-                <p className="mt-1 text-sm font-medium opacity-90" style={{ color: c.text }}>
+                <p className="mt-2 text-base md:text-lg font-medium opacity-90 leading-relaxed" style={{ color: c.text }}>
                   {c.desc}
                 </p>
               </div>
@@ -67,15 +68,20 @@ export default function Slide4() {
         </div>
 
         <div className="text-right">
-          <p className="text-base font-bold text-[#374151] tracking-wide">איך אנחנו עושים את זה</p>
-          <div className="mt-4 flex flex-wrap gap-3 justify-start md:justify-end">
+          <p className="text-lg font-bold text-[#374151] tracking-wide">איך אנחנו עושים את זה</p>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
             {PILLS.map((p, i) => (
-              <span
+              <div
                 key={i}
-                className="rounded-full bg-white border border-[#E5E7EB] px-5 py-2.5 text-xs md:text-sm font-medium text-[#374151] shadow-sm"
+                className="rounded-2xl bg-white border border-[#E5E7EB] px-6 py-6 shadow-sm flex flex-col items-center gap-3 text-center"
               >
-                {p}
-              </span>
+                <div className="w-12 h-12 rounded-full bg-[#F3F4F6] flex items-center justify-center">
+                  <p.icon className="w-6 h-6 text-[#4285F4]" />
+                </div>
+                <span className="text-sm md:text-base font-bold text-[#374151] leading-snug">
+                  {p.text}
+                </span>
+              </div>
             ))}
           </div>
         </div>
