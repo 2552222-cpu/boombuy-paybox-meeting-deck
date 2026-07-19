@@ -9,7 +9,7 @@ const STORES = [
 export default function PriceComparison() {
   return (
     <div className="w-[300px] rounded-2xl border border-[#E5E7EB] bg-white shadow-lg p-4 text-right">
-      <div className="flex items-center justify-end gap-1.5">
+      <div className="flex items-center justify-start gap-1.5">
         <span className="text-xs font-black text-[#0a1638] tracking-wide">מחיר אמיתי בשוק, לא משחק</span>
         <BadgeCheck className="w-4 h-4 text-[#16A34A]" />
       </div>
@@ -23,13 +23,10 @@ export default function PriceComparison() {
             rel="noopener noreferrer"
             className="flex items-center justify-between rounded-xl bg-[#F9FAFB] hover:bg-[#F3F4F6] transition-colors px-3 py-2.5 group"
           >
-            <span className="flex items-center gap-1 text-[11px] font-bold text-[#0055FF] group-hover:underline">
-              <ExternalLink className="w-3 h-3" />
-              לצפייה באתר
-            </span>
-            <span className="flex flex-col items-end">
-              <span className="text-sm font-black text-[#10162A]">{s.price}</span>
-              <span className="text-[10px] text-[#9CA3AF]">{s.name}</span>
+            <span className="text-sm font-black text-[#10162A]">{s.price}</span>
+            <span className="flex items-center gap-1 text-sm font-bold text-[#0055FF] group-hover:underline">
+              {s.name}
+              <ExternalLink className="w-3.5 h-3.5" />
             </span>
           </a>
         ))}

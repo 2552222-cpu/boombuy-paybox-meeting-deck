@@ -96,7 +96,7 @@ export default function Slide6() {
         </div>
 
         {/* Second mobile mockup: benefit redemption + price comparison */}
-        <div className="shrink-0 flex flex-col items-center gap-4">
+        <div className="shrink-0 flex flex-row items-center gap-4">
           <RedeemPhoneMockup />
           <PriceComparison />
         </div>
