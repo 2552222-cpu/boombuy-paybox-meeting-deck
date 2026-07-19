@@ -3,11 +3,13 @@ import React from "react";
 export default function Slide1() {
   return (
     <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-10 md:py-14 overflow-hidden">
-      {/* Pill tag */}
-      <div className="flex">
-        <span className="inline-flex items-center rounded-full bg-white border border-[#E0E0E0] px-5 py-2 text-sm text-[#333333] font-medium tracking-wide shadow-sm">
-          שותף פוטנציאלי
-        </span>
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img
+          src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f01a26580_.png"
+          alt="BoomBuy"
+          className="h-10 md:h-12 w-auto object-contain"
+        />
       </div>
 
       {/* Main: text (right) + logo image (left) */}
