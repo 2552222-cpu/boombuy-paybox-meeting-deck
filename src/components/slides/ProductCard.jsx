@@ -5,7 +5,7 @@ export default function ProductCard({ p }) {
   const imgPositionClass = p.imagePosition === "center" ? "object-center" : "object-top";
   return (
     <div className="relative rounded-2xl border border-[#E5E7EB] bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full">
-      <div className="relative h-[54%] shrink-0 bg-[#F9FAFB]">
+      <div className="relative h-[68%] shrink-0 bg-[#F9FAFB]">
         <img
           src={p.image}
           alt={p.title}
@@ -17,7 +17,7 @@ export default function ProductCard({ p }) {
           <span className="text-[11px] font-black text-[#10162A]">{p.coins}</span>
         </div>
       </div>
-      <div className="flex-1 min-h-0 p-2.5 flex flex-col justify-between text-right">
+      <div className="flex-1 min-h-0 p-2 flex flex-col justify-center gap-1 text-right">
         <h4 className="text-sm md:text-base font-bold text-[#10162A] leading-snug line-clamp-2">
           {p.title}
         </h4>
