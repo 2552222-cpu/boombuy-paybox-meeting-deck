@@ -71,5 +71,6 @@ export const SLIDE_META = [
   { id: 4, theme: "light", label: "0% סבסוד" },
   { id: 5, theme: "dark", label: "PayBox Coins" },
   { id: 6, theme: "light", label: "חוויית משתמש" },
-  { id: 7, theme: "light", label: "הדמו" }
+  { id: 7, theme: "light", label: "הדמו" },
+  { id: 8, theme: "light", label: "PayGift" }
 ];
