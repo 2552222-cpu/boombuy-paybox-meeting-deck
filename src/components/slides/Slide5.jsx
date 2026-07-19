@@ -20,7 +20,7 @@ export default function Slide5() {
 
       <div className="flex-1 flex flex-col justify-center gap-9 mt-8">
         {/* Steps: RTL so 01 on right, 03 on left */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-5 items-stretch">
           {STEPS.map((s, i) => (
             <React.Fragment key={i}>
               <div className="rounded-2xl bg-white/5 border border-white/10 p-7 flex flex-col gap-3.5 min-h-[160px]">
@@ -38,7 +38,7 @@ export default function Slide5() {
         </div>
 
         {/* Yellow pill */}
-        <div className="rounded-full bg-[#FFCC4D] flex items-center justify-between px-9 py-5 shadow-lg">
+        <div className="rounded-full bg-[#FFCC4D] flex items-center justify-center gap-6 px-9 py-5 shadow-lg mx-auto">
           <span className="text-base md:text-lg font-black text-black tracking-wide">בלי שפייבוקס תסבסד שקל</span>
           <span className="text-4xl md:text-5xl font-black text-black">50%</span>
           <span className="text-base md:text-lg font-black text-black tracking-wide">התוצאה: הנחה של עד</span>
