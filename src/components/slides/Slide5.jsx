@@ -3,8 +3,8 @@ import { ArrowLeft } from "lucide-react";
 
 const STEPS = [
   { num: "01", title: "הלקוח פעיל ב-PayBox", desc: "מעביר כסף, שומר יתרה, משתמש בכרטיס האשראי" },
-  { num: "02", title: "משתמש לרכישת מוצרים בעד 50% הנחה", desc: "ב-PayBox Market" },
-  { num: "03", title: "ממשש במרקטפלייס BoomBuy", desc: "רוכש את המוצרים המבוקשים ביותר בשוק" }
+  { num: "02", title: "צובר PayBox Coins", desc: "נקודות נאמנות על כל פעולה רצויה ל-PayBox" },
+  { num: "03", title: "משתמש לרכישת מוצרים בעד 50% הנחה", desc: "ב-PayBox Market" }
 ];
 
 export default function Slide5() {
