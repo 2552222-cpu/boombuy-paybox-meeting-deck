@@ -10,7 +10,7 @@ export default function RedeemPhoneMockup() {
   const price = FULL_PRICE - coins;
 
   return (
-    <div className="w-[260px] h-[540px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
+    <div className="w-[300px] h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
       <div className="w-full h-full rounded-[2rem] bg-white overflow-hidden flex flex-col">
         {/* notch */}
         <div className="relative h-6 bg-white">
@@ -19,11 +19,11 @@ export default function RedeemPhoneMockup() {
 
         <div className="flex-1 px-4 py-3 overflow-hidden flex flex-col">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-bold text-[#0a1638]">מרקטפלייס BoomBuy</span>
+            <span className="text-sm font-bold text-[#0a1638]">PayBox Market</span>
             <ChevronRight className="w-4 h-4 text-[#0a1638]" />
           </div>
 
-          <div className="mt-3 rounded-xl overflow-hidden h-[130px] bg-[#F9FAFB] shrink-0">
+          <div className="mt-3 rounded-xl overflow-hidden h-[160px] bg-[#F9FAFB] shrink-0">
             <img
               src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/0e73b93dc_.jpg"
               alt="מארז זוג חולצות REPLAY"
@@ -59,7 +59,7 @@ export default function RedeemPhoneMockup() {
             </div>
           </div>
 
-          <div className="mt-3 flex items-baseline justify-end gap-1.5">
+          <div className="mt-3 flex items-baseline justify-start gap-1.5">
             <span className="text-2xl font-black text-[#0055FF]">{price} ₪</span>
             <span className="text-xs font-bold text-[#D4AF37]">{coins} נק' +</span>
           </div>
