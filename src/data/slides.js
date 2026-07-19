@@ -41,9 +41,9 @@ export const PRODUCTS = [
   },
   {
     title: "סט 3 מזוודות קשיחות",
-    fullPrice: "79 ₪",
-    coins: "40",
-    cash: "39",
+    fullPrice: "400 ₪",
+    coins: "200",
+    cash: "200",
     image: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/11dd7c6df_generated_image.png",
     imagePosition: "center"
   },
