@@ -1,5 +1,14 @@
 import React from "react";
 
+const COMPETITOR_LOGOS = [
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/2c822ca85_.webp", alt: "ריף" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/5c894ed18_.jpg", alt: "Cal" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/6d4493294_.png", alt: "לאומי בונוס" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/afc57cdf0_.png", alt: "מועדון ישיר" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/5bbcfed8d_.png", alt: "Poalim Wonder" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/ff7fbf2f5_.png", alt: "מפעל הפיס" }
+];
+
 export default function Slide2() {
   return (
     <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-12 md:py-16 overflow-hidden">
@@ -15,10 +24,23 @@ export default function Slide2() {
           תחת מכבש יוקר המחיה, הביקוש למועדוני הטבות שובר שיאים. הגופים הגדולים במשק
           מבינים שמי שלא מייצר ערך צרכני אמיתי ויומיומי — מאבד את הלקוח.
         </p>
-        <div className="mt-11 inline-flex self-start md:self-auto">
-          <span className="rounded-full bg-[#F3F4F6] border border-[#E5E7EB] px-5 py-2.5 text-sm font-semibold text-[#374151] tracking-wide">
-            שחקנים מובילים בזירה
-          </span>
+        <span className="mt-11 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] px-5 py-2.5 text-sm font-semibold text-[#374151] tracking-wide self-end">
+          שחקנים מובילים בזירה
+        </span>
+        <div className="mt-6 grid grid-cols-3 md:grid-cols-6 gap-3">
+          {COMPETITOR_LOGOS.map((logo, i) => (
+            <div
+              key={i}
+              className="rounded-xl bg-white border border-[#E5E7EB] shadow-sm h-20 md:h-24 flex items-center justify-center p-3"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className="max-w-full max-h-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
