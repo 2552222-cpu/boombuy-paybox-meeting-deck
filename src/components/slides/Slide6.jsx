@@ -1,10 +1,11 @@
 import React from "react";
 import { ArrowUpRight, Gift, Repeat, Wallet, Banknote } from "lucide-react";
+import RedeemPhoneMockup from "@/components/slides/RedeemPhoneMockup";
 
 export default function Slide6() {
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-10 overflow-hidden">
-      <div className="flex-1 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-14 py-10 overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row items-center gap-8 md:gap-10">
         {/* Mobile mockup */}
         <div className="shrink-0">
           <div className="w-[260px] h-[540px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
@@ -80,8 +81,13 @@ export default function Slide6() {
           </div>
         </div>
 
+        {/* Second mobile mockup: benefit redemption */}
+        <div className="shrink-0">
+          <RedeemPhoneMockup />
+        </div>
+
         {/* Text block */}
-        <div className="flex-1 text-right max-w-md">
+        <div className="flex-1 text-right max-w-sm">
           <span className="text-sm font-bold text-[#2D7FF9] tracking-[0.15em]">חוויית המשתמש באפליקציה</span>
           <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-5 mb-1 mr-0 ml-auto" />
           <h1 className="mt-4 text-3xl md:text-4xl font-black leading-[1.25] text-[#0a1638] tracking-tight">
