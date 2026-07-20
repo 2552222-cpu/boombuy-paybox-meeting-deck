@@ -10,7 +10,7 @@ export default function RedeemPhoneMockup() {
   const price = FULL_PRICE - coins;
 
   return (
-    <div className="w-[300px] h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
+    <div className="w-[240px] h-[500px] md:w-[300px] md:h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
       <div className="w-full h-full rounded-[2rem] bg-white overflow-hidden flex flex-col">
         {/* notch */}
         <div className="relative h-6 bg-white">
