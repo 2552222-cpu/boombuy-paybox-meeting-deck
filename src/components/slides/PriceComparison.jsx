@@ -3,7 +3,8 @@ import { ExternalLink, BadgeCheck } from "lucide-react";
 
 const STORES = [
   { name: "ריפליי - אתר רשמי", price: "350 ₪", url: "https://replayjeans.co.il/products/2226681088?" },
-  { name: "הייטקזון", price: "229 ₪", url: "https://www.htzone.co.il/item/156288/%D7%9E%D7%90%D7%A8%D7%96-2-%D7%97%D7%95%D7%9C%D7%A6%D7%95%D7%AA-%D7%9E%D7%91%D7%99%D7%AA-Replay-%D7%9C%D7%95%D7%92%D7%95/" }
+  { name: "הייטקזון", price: "229 ₪", url: "https://www.htzone.co.il/item/156288/%D7%9E%D7%90%D7%A8%D7%96-2-%D7%97%D7%95%D7%9C%D7%A6%D7%95%D7%AA-%D7%9E%D7%91%D7%99%D7%AA-Replay-%D7%9C%D7%95%D7%92%D7%95/" },
+  { name: "פיס פלוס (מסובסד)", price: "110 ₪", url: "https://paisplus.co.il/product/2011" }
 ];
 
 export default function PriceComparison() {
