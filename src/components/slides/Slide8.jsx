@@ -7,7 +7,7 @@ export default function Slide8() {
   const [showOffer, setShowOffer] = useState(false);
 
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-10 overflow-hidden">
+    <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-16 py-10 overflow-visible">
       <div className="text-right shrink-0">
         <span className="text-sm font-bold text-[#7C3AED] tracking-[0.15em]">הדמו: PayGift</span>
         <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
@@ -16,10 +16,10 @@ export default function Slide8() {
         </h1>
       </div>
 
-      <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-12 mt-6">
+      <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 mt-6 py-4">
         {/* Phone mockup */}
         <div className="shrink-0 relative">
-          <div className="w-[300px] h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
+          <div className="w-[240px] h-[500px] md:w-[300px] md:h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
             <div className="w-full h-full rounded-[2rem] overflow-hidden relative bg-white">
               <img
                 src={SCREENSHOT_URL}

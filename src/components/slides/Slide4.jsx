@@ -33,7 +33,7 @@ const PILLS = [
 
 export default function Slide4() {
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-12 overflow-hidden">
+    <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-16 py-12 overflow-visible">
       <div className="text-right">
         <span className="text-sm font-bold text-[#4285F4] tracking-[0.15em]">המהפכה הכלכלית של BoomBuy</span>
         <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />

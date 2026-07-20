@@ -8,7 +8,7 @@ const ITEMS = [
 
 export default function Slide3() {
   return (
-    <div className="relative h-full w-full bg-gradient-to-br from-[#0B1930] to-[#0a101d] flex flex-col px-10 md:px-16 py-12 overflow-hidden text-white">
+    <div className="relative min-h-full w-full bg-gradient-to-br from-[#0B1930] to-[#0a101d] flex flex-col px-6 md:px-16 py-12 overflow-visible text-white">
       <div className="flex flex-col items-center text-center">
         <span className="text-base font-bold text-[#3B82F6] tracking-[0.15em]">המצב היום</span>
         <div className="w-16 h-1 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#F5D883] mt-5" />

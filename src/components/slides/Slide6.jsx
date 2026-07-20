@@ -5,11 +5,11 @@ import PriceComparison from "@/components/slides/PriceComparison";
 
 export default function Slide6() {
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-14 py-10 overflow-hidden">
-      <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-12">
+    <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-14 py-10 overflow-visible">
+      <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 py-6">
         {/* Mobile mockup */}
         <div className="shrink-0">
-          <div className="w-[300px] h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
+          <div className="w-[240px] h-[500px] md:w-[300px] md:h-[620px] rounded-[2.5rem] bg-black p-2.5 shadow-2xl">
             <div className="w-full h-full rounded-[2rem] bg-white overflow-hidden flex flex-col">
               {/* notch */}
               <div className="relative h-6 bg-white">
@@ -96,7 +96,7 @@ export default function Slide6() {
         </div>
 
         {/* Second mobile mockup: benefit redemption + price comparison */}
-        <div className="shrink-0 flex flex-row items-center gap-4">
+        <div className="shrink-0 flex flex-col sm:flex-row items-center gap-4">
           <RedeemPhoneMockup />
           <PriceComparison />
         </div>

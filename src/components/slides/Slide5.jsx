@@ -9,7 +9,7 @@ const STEPS = [
 
 export default function Slide5() {
   return (
-    <div className="relative h-full w-full bg-gradient-to-br from-[#1a2a40] to-[#0a101d] flex flex-col px-10 md:px-14 py-10 overflow-hidden text-white">
+    <div className="relative min-h-full w-full bg-gradient-to-br from-[#1a2a40] to-[#0a101d] flex flex-col px-6 md:px-14 py-10 overflow-visible text-white">
       <div className="text-center">
         <span className="text-sm font-bold text-[#FFCC4D] tracking-[0.15em]">ההצעה ל-PayBox</span>
         <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mx-auto" />

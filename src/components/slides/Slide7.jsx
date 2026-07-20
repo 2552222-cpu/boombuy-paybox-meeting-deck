@@ -18,7 +18,7 @@ export default function Slide7() {
   );
 
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-8 md:px-12 py-7 overflow-hidden">
+    <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-12 py-7 overflow-visible">
       <div className="flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
           <button className="w-7 h-7 rounded-full border border-[#E5E7EB] flex items-center justify-center text-[#10162A] hover:bg-[#F9FAFB]">
@@ -39,7 +39,7 @@ export default function Slide7() {
         </h1>
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-4 grid-rows-2 gap-3 md:gap-4 mt-5">
+      <div className="flex-1 min-h-0 grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:gap-4 mt-5 auto-rows-[140px] md:auto-rows-auto">
         {cards.slice(0, 3).map((p, i) => (
           <ProductCard key={i} p={p} />
         ))}

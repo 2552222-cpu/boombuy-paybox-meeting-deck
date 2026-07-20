@@ -17,7 +17,7 @@ export default function Home() {
       {SLIDES.map((Slide, i) => (
         <motion.section
           key={i}
-          className="h-screen w-full snap-start snap-always"
+          className="min-h-screen w-full snap-start"
           initial={{ opacity: 0, y: 40, scale: 0.98 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ amount: 0.4, once: false }}

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Slide1() {
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-10 md:py-14 overflow-hidden">
+    <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-16 py-10 md:py-14 overflow-visible">
       {/* Logo */}
       <div className="flex justify-center">
         <img

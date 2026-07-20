@@ -11,7 +11,7 @@ const COMPETITOR_LOGOS = [
 
 export default function Slide2() {
   return (
-    <div className="relative h-full w-full bg-white flex flex-col px-10 md:px-16 py-12 md:py-16 overflow-hidden">
+    <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-16 py-12 md:py-16 overflow-visible">
       <div className="flex-1 flex flex-col justify-center max-w-3xl ml-auto text-right">
         <span className="text-sm md:text-base font-bold text-[#2D7FF9] tracking-[0.15em]">
           המצב בשוק
