@@ -37,7 +37,7 @@ export default function Slide6() {
                 {/* Coins card */}
                 <div className="mt-3 rounded-2xl bg-[#FFCC4D] p-4 text-black">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold">PayBox Coins</span>
+                    <span className="text-xs font-bold">PayCoins</span>
                     <span className="text-[10px] font-bold bg-black/10 px-1.5 py-0.5 rounded">חדש</span>
                   </div>
                   <div className="mt-1 flex items-center gap-1.5">
