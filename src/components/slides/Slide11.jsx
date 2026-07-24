@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { EASE, fadeUp } from "@/components/slides/deckAnim";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const QA = [
@@ -48,7 +50,7 @@ export default function Slide11() {
       }}
     >
       {/* Header */}
-      <div className="text-right shrink-0">
+      <motion.div {...fadeUp(0)} className="text-right shrink-0">
         <span className="text-sm font-bold text-[#FBBF24] tracking-[0.15em]">
           שאלות ותשובות
         </span>
@@ -57,7 +59,7 @@ export default function Slide11() {
           כל ההתנגדויות.{" "}
           <span className="text-[#34D399]">כל התשובות.</span>
         </h1>
-      </div>
+      </motion.div>
 
       <div className="flex-1 flex flex-col md:flex-row gap-6 mt-8">
         {/* Questions sidebar */}
@@ -89,31 +91,38 @@ export default function Slide11() {
 
         {/* Answer */}
         <div className="md:w-3/5">
-          <div
-            className="rounded-3xl p-8 h-full flex flex-col justify-between border"
-            style={{
-              background: `${QA[active].color}0f`,
-              borderColor: `${QA[active].color}30`,
-              minHeight: 280,
-            }}
-          >
-            <div>
-              <div
-                className="text-4xl font-black mb-4"
-                style={{ color: QA[active].color }}
-              >
-                A{active + 1}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              className="rounded-3xl p-8 h-full flex flex-col justify-between border"
+              style={{
+                background: `${QA[active].color}0f`,
+                borderColor: `${QA[active].color}30`,
+                minHeight: 280,
+              }}
+            >
+              <div>
+                <div
+                  className="text-4xl font-black mb-4"
+                  style={{ color: QA[active].color }}
+                >
+                  A{active + 1}
+                </div>
+                <p className="text-white text-lg md:text-xl leading-[1.8] text-right font-medium">
+                  {QA[active].a}
+                </p>
               </div>
-              <p className="text-white text-lg md:text-xl leading-[1.8] text-right font-medium">
-                {QA[active].a}
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-white/10 text-right">
-              <p className="text-gray-500 text-xs">
-                {active + 1} / {QA.length} — לחצו על שאלה לפתיחה
-              </p>
-            </div>
-          </div>
+              <div className="mt-6 pt-4 border-t border-white/10 text-right">
+                <p className="text-gray-500 text-xs">
+                  {active + 1} / {QA.length} — לחצו על שאלה לפתיחה
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Cpu, Store, Sparkles, Boxes } from "lucide-react";
 import { Image } from "@/components/ui/image";
+import { EASE } from "@/components/slides/deckAnim";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const CATS = [
@@ -34,8 +35,8 @@ const EAAS = [
   { icon: Boxes,    label: "אופרציה" },
 ];
 
-const item = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
+const item = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } };
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
 
 export default function Slide3() {
   return (
@@ -43,7 +44,7 @@ export default function Slide3() {
       style={{ background: "linear-gradient(160deg,#5BA4CF 0%,#6FB3E0 50%,#4A8EC7 100%)" }}>
 
       {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+      <motion.div initial={{ opacity: 0, y: -12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.7, ease: EASE }}
         className="relative text-right shrink-0 flex items-start gap-5 justify-end">
         <div>
           <span className="text-sm font-bold text-white/60 tracking-[0.18em] uppercase">הפתרון</span>

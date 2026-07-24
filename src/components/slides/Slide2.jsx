@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowDownToLine, CreditCard, Wallet } from "lucide-react";
+import { EASE } from "@/components/slides/deckAnim";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const STATS = [
@@ -17,7 +18,7 @@ const SCRIPT = `"540 מיליון שקל סליקה חודשית. 4 מיליון
 
 הסיבה? אין סבסוד. ובלי סבסוד — אין מועדון. זאת הבעיה שאנחנו פותרים."`;
 
-const item = { hidden:{opacity:0,y:20}, show:{opacity:1,y:0,transition:{duration:0.6}} };
+const item = { hidden:{opacity:0,y:22}, show:{opacity:1,y:0,transition:{duration:0.7,ease:EASE}} };
 const container = { hidden:{}, show:{ transition:{staggerChildren:0.12} } };
 
 export default function Slide2() {

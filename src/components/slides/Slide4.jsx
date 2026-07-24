@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { TrendingUp, ShoppingBag, MapPin, ArrowRight } from "lucide-react";
+import { EASE } from "@/components/slides/deckAnim";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const OFFSETS = [
@@ -17,7 +18,7 @@ const SCRIPT = `"אתם משלמים לנו ריטיינר של 300 אלף שק�
 
 בחודש 6 — הריטיינר מתאפס. בחודש 12 — אתם בפלוס."`;
 
-const item = { hidden:{opacity:0,y:20}, show:{opacity:1,y:0,transition:{duration:0.55}} };
+const item = { hidden:{opacity:0,y:22}, show:{opacity:1,y:0,transition:{duration:0.7,ease:EASE}} };
 const container = { hidden:{}, show:{transition:{staggerChildren:0.1}} };
 
 export default function Slide4() {

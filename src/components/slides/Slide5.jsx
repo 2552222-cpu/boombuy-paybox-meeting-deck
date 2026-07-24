@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { EASE } from "@/components/slides/deckAnim";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 // ─── ZUZ COIN SVG ────────────────────────────────────────────────────────────
@@ -107,7 +108,7 @@ ZUZ מממשים ב-The Box: מתנות, על האש, טיולים, אוכל.
 
 למה זה גאוני? כי ה-ZUZ לא יוצא לחוץ. הוא קיים רק בתוך מערכת פייבוקס. כל ZUZ שנוצר = לחץ נוסף לקנות דרך The Box = GMV גבוה יותר = עמלה גבוהה יותר לפייבוקס."`;
 
-const item = { hidden:{opacity:0,y:16}, show:{opacity:1,y:0} };
+const item = { hidden:{opacity:0,y:22}, show:{opacity:1,y:0,transition:{duration:0.7,ease:EASE}} };
 const container = { hidden:{}, show:{transition:{staggerChildren:0.09}} };
 
 export default function Slide5() {
@@ -120,7 +121,7 @@ export default function Slide5() {
         style={{ background:"radial-gradient(ellipse 60% 40% at 50% 105%, rgba(91,164,207,0.12) 0%, transparent 70%)" }}/>
 
       {/* Header */}
-      <motion.div initial={{opacity:0,y:-10}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.5}}
+      <motion.div initial={{opacity:0,y:-12}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:0.3}} transition={{duration:0.7,ease:EASE}}
         className="text-center shrink-0">
         <span className="text-sm font-bold text-[#D4AF37] tracking-[0.18em] uppercase">מנוע הנאמנות</span>
         <div className="flex justify-center mt-3 mb-1">
