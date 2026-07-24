@@ -10,35 +10,38 @@ import Slide6 from "@/components/slides/Slide6";
 import Slide7 from "@/components/slides/Slide7";
 import Slide8 from "@/components/slides/Slide8";
 import Slide9 from "@/components/slides/Slide9";
+import SlideValueModel from "@/components/slides/SlideValueModel";
 import SlideFlow from "@/components/slides/SlideFlow";
 import Slide10 from "@/components/slides/Slide10";
-import Slide11 from "@/components/slides/Slide11";
-import Slide12 from "@/components/slides/Slide12";
 import SlideAd1 from "@/components/slides/SlideAd1";
 import SlideAd2 from "@/components/slides/SlideAd2";
+import Slide11 from "@/components/slides/Slide11";
+import Slide12 from "@/components/slides/Slide12";
 
 const SLIDES = [
-  IntroSlide, // 00 — Launch Animation
-  Slide1,     // 01 — Hero
-  Slide2,     // 02 — הבעיה
-  Slide3,     // 03 — הפתרון
-  Slide4,     // 04 — המודל
-  Slide5,     // 05 — ZUZ
-  Slide6,     // 06 — UX
-  Slide7,     // 07 — דמו
-  Slide8,     // 08 — PayGift
-  Slide9,     // 09 — ROI
-  SlideFlow,  // 10 — פלואו
-  Slide10,    // 11 — רודמאפ
-  SlideAd1,   // 12 — קמפיין Young A
-  SlideAd2,   // 13 — קמפיין Young B
-  Slide11,    // 13 — Q&A
-  Slide12,    // 14 — Term Sheet
+  IntroSlide,      // 00 — Launch Animation
+  Slide1,          // 01 — Hero
+  Slide2,          // 02 — הבעיה
+  Slide3,          // 03 — הפתרון
+  Slide4,          // 04 — המודל
+  Slide5,          // 05 — ZUZ
+  Slide6,          // 06 — UX
+  Slide7,          // 07 — דמו
+  Slide8,          // 08 — PayGift
+  Slide9,          // 09 — ריטנר + שתי שכבות
+  SlideValueModel, // 10 — מודל ערך מלא (היום + תרחישים)
+  SlideFlow,       // 11 — סימולטור Commerce בלבד
+  Slide10,         // 12 — רודמאפ
+  SlideAd1,        // 13 — קמפיין Young A
+  SlideAd2,        // 14 — קמפיין Young B
+  Slide11,         // 15 — Q&A
+  Slide12,         // 16 — Term Sheet
 ];
 
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "מודל",
-  "ZUZ", "UX", "דמו", "Gift", "ROI", "פלואו", "רודמאפ", "📢", "📢", "Q&A", "Term",
+  "ZUZ", "UX", "דמו", "Gift",
+  "ריטנר", "ערך", "סימולטור", "רודמאפ", "📢", "📢", "Q&A", "Term",
 ];
 
 export default function Home() {
