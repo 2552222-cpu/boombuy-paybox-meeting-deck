@@ -1,45 +1,49 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Gift, CreditCard, UtensilsCrossed, Wine, Shirt, Plane, Theater, Dumbbell, Sun, GraduationCap, Settings, ShoppingBag, Layers } from "lucide-react";
-import { TheBoxLogo } from "@/components/slides/Logos";
+import { Cpu, Store, Sparkles, Boxes } from "lucide-react";
+import { Image } from "@/components/ui/image";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const CATS = [
-  { icon: Gift,            name: "Box Gifts",         he: "מתנות כלליות" },
-  { icon: CreditCard,      name: "Box Gift Cards",    he: "כרטיסי מתנה" },
-  { icon: GraduationCap,   name: "Box Teacher",       he: "למורות וגננות" },
-  { icon: Shirt,           name: "Box Fashion",       he: "אופנה והנעלה" },
-  { icon: Plane,           name: "Box Holidays",      he: "חופשות וטיולים" },
-  { icon: Theater,         name: "Box Culture",       he: "תרבות ופנאי" },
-  { icon: Wine,            name: "Box Alcohol",       he: "אלכוהול ויין" },
-  { icon: UtensilsCrossed, name: "Box Barbecue",      he: "על האש" },
-  { icon: Sun,             name: "Box Eilat",         he: "כרטיס אילת" },
-  { icon: Dumbbell,        name: "Box Wellness",      he: "ספא ועיסויים" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/e2af722d7_generated_image.png", name: "Box Gifts",      he: "מתנות כלליות" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/12139db8e_generated_image.png", name: "Box Gift Cards", he: "כרטיסי מתנה" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/fd8275af5_generated_image.png", name: "Box Teacher",     he: "למורות וגננות" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/accd19591_generated_image.png", name: "Box Fashion",     he: "אופנה והנעלה" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/c6f062222_generated_image.png", name: "Box Holidays",    he: "חופשות וטיולים" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/38812a91a_generated_image.png", name: "Box Culture",     he: "תרבות ופנאי" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/7ab7c449a_generated_image.png", name: "Box Alcohol",     he: "אלכוהול ויין" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/2a0045fac_generated_image.png", name: "Box Barbecue",     he: "על האש" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/4da64371c_generated_image.png", name: "Box Eilat",        he: "כרטיס אילת" },
+  { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f336c2d59_generated_image.png", name: "Box Wellness",     he: "ספא ועיסויים" },
 ];
 
 const SCRIPT = `"The Box — מתחם ההטבות הבלעדי של משתמשי PayBox.
 
 10 קטגוריות. כל אחת מחוברת ישירות להתנהגויות שהלקוחות שלכם כבר עושים היום.
 
-פותחים קבוצה לאיסוף כסף למתנה? יש Box Gifts. אוספים לעל האש? Box Barbecue. רוצים לחלק כרטיסים לאילת? Box Eilat.
+פותחים קבוצה לאיסוף כסף למתנה? יש Box Gifts. אוספים לעל האש? Box Barbecue.
 
-לא ממציאים התנהגויות חדשות — עוצרים את הכסף מלברוח החוצה.
+לא ממציאים התנהגויות חדשות — עוצרים את הכסף מלברוח החוצה, והופכים כל פעולה למנוע כלכלי שעובד בשבילכם.
 
-ובכל קטגוריה — המחיר הטוב ביותר בישראל. כי אנחנו עובדים ישירות עם יבואנים."`;
+ובכל קטגוריה — המחיר הטוב ביותר בישראל, כי אנחנו עובדים ישירות עם יבואנים."`;
 
-const item = { hidden:{opacity:0,y:16}, show:{opacity:1,y:0} };
-const container = { hidden:{}, show:{transition:{staggerChildren:0.06}} };
+const EAAS = [
+  { icon: Cpu,      label: "טכנולוגיה" },
+  { icon: Store,    label: "מסחר" },
+  { icon: Sparkles, label: "סבסוד" },
+  { icon: Boxes,    label: "אופרציה" },
+];
+
+const item = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
 
 export default function Slide3() {
   return (
     <div className="relative min-h-screen w-full flex flex-col px-8 md:px-20 py-10 overflow-hidden"
-      style={{ background:"linear-gradient(160deg,#5BA4CF 0%,#6FB3E0 50%,#4A8EC7 100%)" }}>
-
-      <div className="absolute inset-0 opacity-[0.06]"
-        style={{ backgroundImage:"linear-gradient(white 1px,transparent 1px),linear-gradient(90deg,white 1px,transparent 1px)", backgroundSize:"48px 48px" }} />
+      style={{ background: "linear-gradient(160deg,#5BA4CF 0%,#6FB3E0 50%,#4A8EC7 100%)" }}>
 
       {/* Header */}
-      <motion.div initial={{opacity:0,y:-10}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.5}}
+      <motion.div initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
         className="relative text-right shrink-0 flex items-start gap-5 justify-end">
         <div>
           <span className="text-sm font-bold text-white/60 tracking-[0.18em] uppercase">הפתרון</span>
@@ -50,38 +54,49 @@ export default function Slide3() {
         <div className="h-16 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent shrink-0 mt-1" />
       </motion.div>
 
-      {/* Category grid */}
-      <motion.div variants={container} initial="hidden" whileInView="show" viewport={{once:true,amount:0.2}}
+      {/* Category grid with images */}
+      <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }}
         className="relative flex-1 grid grid-cols-2 md:grid-cols-5 gap-3 my-8">
-        {CATS.map((cat,i)=>(
+        {CATS.map((cat, i) => (
           <motion.div key={i} variants={item}
-            className="rounded-2xl px-4 py-5 flex flex-col items-center text-center gap-3 transition-all hover:scale-[1.03]"
-            style={{ background:"rgba(255,255,255,0.18)", backdropFilter:"blur(10px)", border:"1px solid rgba(255,255,255,0.35)" }}>
-            <cat.icon className="w-6 h-6 text-white" strokeWidth={1.5} />
-            <div>
-              <p className="text-white font-black text-[11px] leading-tight">{cat.name}</p>
-              <p className="text-white/60 text-[10px] mt-0.5">{cat.he}</p>
+            className="group rounded-2xl overflow-hidden text-right flex flex-col transition-transform hover:scale-[1.03]"
+            style={{ background: "rgba(255,255,255,0.16)", border: "1px solid rgba(255,255,255,0.35)" }}>
+            <div className="relative h-28 w-full overflow-hidden">
+              <Image src={cat.img} alt={cat.name} className="w-full h-full" fittingType="fill" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+            </div>
+            <div className="p-2.5">
+              <p className="text-white font-black text-[12px] leading-tight">{cat.name}</p>
+              <p className="text-white/65 text-[10px] mt-0.5">{cat.he}</p>
             </div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* EaaS footer bar */}
-      <motion.div initial={{opacity:0,y:10}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.5,delay:0.3}}
-        className="relative rounded-2xl px-7 py-5 flex flex-col md:flex-row items-center justify-between gap-4"
-        style={{ background:"rgba(0,0,0,0.2)", border:"1px solid rgba(255,255,255,0.2)" }}>
+      {/* EaaS — emphasized economic engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 14, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="relative rounded-3xl px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden shrink-0"
+        style={{ background: "linear-gradient(135deg,#0B1930 0%,#10254a 100%)", border: "1.5px solid #D4AF37", boxShadow: "0 20px 50px -20px rgba(0,0,0,0.5)" }}>
+        <div className="absolute left-0 top-0 h-full w-1" style={{ background: "linear-gradient(#D4AF37,#F5D883)" }} />
         <div className="text-right">
-          <p className="text-white font-black text-lg">Experience as a Service</p>
-          <p className="text-white/60 text-sm mt-0.5">לא SaaS · לא קטלוג · לא קופונים — מנוע חוויה מלא מקצה לקצה</p>
+          <span className="text-[#D4AF37] text-xs font-black tracking-[0.22em] uppercase">Experience as a Service</span>
+          <p className="text-white font-black text-2xl md:text-3xl mt-1.5 leading-tight">
+            לא קטלוג. <span className="text-[#D4AF37]">מנוע כלכלי</span> שעובד בשבילכם.
+          </p>
+          <p className="text-white/65 text-sm mt-1">Expression-as-a-Service — מקצה לקצה, מקצועי, מחובר ליבואנים.</p>
         </div>
-        <div className="flex gap-6 shrink-0">
-          {[["⚙️ טכנולוגיה", Settings],["🛍️ סחר", ShoppingBag],["💰 סבסוד", Gift],["🔧 אופרציה", Layers]].map(([label, Icon],i)=>(
-            <div key={i} className="flex flex-col items-center gap-1.5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{background:"rgba(255,255,255,0.18)"}}>
-                <Icon className="w-4 h-4 text-white" strokeWidth={1.5} />
+        <div className="flex gap-7 shrink-0">
+          {EAAS.map((e, i) => (
+            <div key={i} className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                style={{ background: "rgba(212,175,55,0.14)", border: "1px solid rgba(212,175,55,0.4)" }}>
+                <e.icon className="w-5 h-5 text-[#D4AF37]" strokeWidth={1.6} />
               </div>
-              <span className="text-white/70 text-[9px] font-bold">{label.split(" ")[1]}</span>
+              <span className="text-white/75 text-[10px] font-bold">{e.label}</span>
             </div>
           ))}
         </div>
