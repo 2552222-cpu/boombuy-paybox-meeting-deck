@@ -8,20 +8,56 @@ import Slide5 from "@/components/slides/Slide5";
 import Slide6 from "@/components/slides/Slide6";
 import Slide7 from "@/components/slides/Slide7";
 import Slide8 from "@/components/slides/Slide8";
+import Slide9 from "@/components/slides/Slide9";
+import Slide10 from "@/components/slides/Slide10";
+import Slide11 from "@/components/slides/Slide11";
+import Slide12 from "@/components/slides/Slide12";
 
-const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8];
+const SLIDES = [
+  Slide1,   // Hero — The Box × PayBox
+  Slide2,   // The Problem (diagnostic data)
+  Slide3,   // The Solution — 10 categories
+  Slide4,   // Economic Model — Retainer + Offset
+  Slide5,   // Loyalty Engine — PayBox Coins
+  Slide6,   // App UX mockup
+  Slide7,   // Product catalog demo
+  Slide8,   // PayGift demo
+  Slide9,   // ROI Financial Table ★
+  Slide10,  // Roadmap
+  Slide11,  // Q&A — Objection handling
+  Slide12,  // Term Sheet + Action Items
+];
+
+const LABELS = [
+  "The Box", "הבעיה", "הפתרון", "המודל", "מנוע הנאמנות",
+  "UX", "הדמו", "PayGift", "ROI", "מפת דרכים", "Q&A", "Term Sheet",
+];
 
 export default function Home() {
   return (
-    <div className="w-full bg-black snap-y snap-mandatory overflow-y-auto h-screen scroll-smooth no-scrollbar">
+    <div className="relative w-full bg-black">
+      {/* Slide counter pill */}
+      <div className="fixed top-4 right-4 z-40 flex gap-1.5 flex-wrap max-w-[calc(100vw-2rem)] justify-end">
+        {LABELS.map((label, i) => (
+          <a
+            key={i}
+            href={`#slide-${i + 1}`}
+            className="text-[9px] font-bold px-2 py-1 rounded-full bg-black/50 text-white/50 hover:bg-white/10 hover:text-white transition-all"
+          >
+            {i + 1}
+          </a>
+        ))}
+      </div>
+
       {SLIDES.map((Slide, i) => (
         <motion.section
           key={i}
-          className="min-h-screen w-full snap-start"
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ amount: 0.2, once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          id={`slide-${i + 1}`}
+          className="min-h-screen w-full"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ amount: 0.15, once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <Slide />
         </motion.section>
