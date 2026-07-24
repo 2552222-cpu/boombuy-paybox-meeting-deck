@@ -1,8 +1,10 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { Gift, Plane, Wine, Shirt, Theater, Dumbbell, UtensilsCrossed, CreditCard, Sun, ShoppingBag } from "lucide-react";
-import { TheBoxLogo, PayBoxLogo } from "@/components/slides/Logos";
+import { motion, AnimatePresence } from "framer-motion";
+import { PayBoxLogo } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
+
+const THE_BOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/96ca92369_60.png";
+const BOOMBUY_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f01a26580_.png";
 
 const CATS = [
   { e: "🎁", t: "Box Gifts",            l: "מתנות כלליות" },
@@ -21,8 +23,27 @@ const SCRIPT = `"תסתכלו לרגע על הלוגו שלכם. PayBox — אר
 
 הכירו את The Box — ובשעה הקרובה נראה לכם בדיוק מה זה אומר לתחתית השורה שלכם."`;
 
-const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.07 } } };
+// Entrance animation variants
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } }
+};
+const item = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 380, damping: 28 } }
+};
+const itemLeft = {
+  hidden: { opacity: 0, x: -30 },
+  show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 320, damping: 26 } }
+};
+const itemRight = {
+  hidden: { opacity: 0, x: 40, scale: 0.96 },
+  show: { opacity: 1, x: 0, scale: 1, transition: { type: "spring", stiffness: 280, damping: 26, delay: 0.3 } }
+};
+const heroText = {
+  hidden: { opacity: 0, y: 36, skewY: 2 },
+  show: { opacity: 1, y: 0, skewY: 0, transition: { type: "spring", stiffness: 260, damping: 24, delay: 0.25 } }
+};
 
 export default function Slide1() {
   return (
@@ -34,30 +55,45 @@ export default function Slide1() {
       <div className="absolute inset-0 opacity-[0.06]"
         style={{ backgroundImage: "linear-gradient(white 1px,transparent 1px),linear-gradient(90deg,white 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
 
+      {/* Intro flash overlay */}
+      <motion.div
+        className="absolute inset-0 z-50 pointer-events-none"
+        style={{ background: "white" }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+      />
+
       {/* Top bar */}
-      <div className="relative flex items-center justify-between shrink-0">
-        <img src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f01a26580_.png"
+      <motion.div
+        className="relative flex items-center justify-between shrink-0"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+      >
+        <img src={BOOMBUY_LOGO}
           alt="BoomBuy" className="h-8 w-auto object-contain brightness-0 invert opacity-80" />
         <PayBoxLogo size={32} textColor="white" />
-      </div>
+      </motion.div>
 
       {/* Main */}
       <motion.div variants={container} initial="hidden" animate="show"
         className="relative flex-1 flex flex-col md:flex-row items-center justify-center gap-14 py-8">
 
         {/* Left — text */}
-        <motion.div variants={item} className="flex-1 text-white text-right max-w-lg">
-          <div className="flex justify-end mb-6">
-            <TheBoxLogo size={52} textColor="white" />
-          </div>
+        <div className="flex-1 text-white text-right max-w-lg">
+          <motion.div variants={itemLeft} className="flex justify-end mb-6">
+            <img src={THE_BOX_LOGO} alt="The Box" className="h-14 w-auto object-contain brightness-0 invert" />
+          </motion.div>
 
-          <h1 className="text-5xl md:text-[4.5rem] font-black leading-[1.04] tracking-[-0.03em]">
+          <motion.h1 variants={heroText}
+            className="text-5xl md:text-[4.5rem] font-black leading-[1.04] tracking-[-0.03em]">
             Out of<br/>the box.
-          </h1>
-          <p className="mt-5 text-xl md:text-2xl text-white/85 font-medium leading-relaxed">
+          </motion.h1>
+          <motion.p variants={item} className="mt-5 text-xl md:text-2xl text-white/85 font-medium leading-relaxed">
             הופכים את ארנק ההעברות הגדול בישראל<br/>
             <span className="text-white font-black">למועדון הצרכנות הגדול בישראל</span>
-          </p>
+          </motion.p>
 
           {/* Stats row */}
           <motion.div variants={item} className="mt-10 flex gap-8 justify-end">
@@ -71,10 +107,10 @@ export default function Slide1() {
               </React.Fragment>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Right — app card (The Box mockup) */}
-        <motion.div variants={item} className="shrink-0">
+        <motion.div variants={itemRight} className="shrink-0">
           <div className="rounded-[2.5rem] overflow-hidden shadow-2xl"
             style={{ width: 290, background: "#A1C2E8" }}>
             {/* Header */}
