@@ -1,8 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Users, Layers, DollarSign, PieChart, Database, LogOut, CheckCircle2, Calendar } from "lucide-react";
-import { BrandLockup } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
+
+const BOOMBUY_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f01a26580_.png";
+const PAYBOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/9452db55b_61.png";
+const THEBOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/96ca92369_60.png";
 
 const TERMS = [
   { icon: Users,      section:"א. שותפות", title:"Experience as a Service",  content:"BoomBuy מספקת תשתית, ניהול 2 מועדונים, סחר וסבסוד. PayBox מספקת תשתית API ובסיס הלקוחות.", color:"#5BA4CF" },
@@ -92,8 +95,12 @@ export default function Slide12() {
           {/* Soft CTA */}
           <motion.div variants={item}
             className="rounded-2xl bg-[#0B1930] p-6 text-white text-center mt-1">
-            <div className="flex items-center justify-center mb-4">
-              <BrandLockup size={28} />
+            <div className="flex items-center justify-center gap-4 mb-5">
+              <img src={BOOMBUY_LOGO} alt="BoomBuy" className="h-7 w-auto brightness-0 invert opacity-90" />
+              <span className="text-white/25 text-xl font-light">×</span>
+              <img src={THEBOX_LOGO} alt="The Box" className="h-9 w-auto" />
+              <span className="text-white/25 text-xl font-light">×</span>
+              <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-auto rounded-md" />
             </div>
             <p className="font-bold text-base text-white/80 leading-relaxed">
               כשיהיה נוח לכם להתקדם —<br/>
