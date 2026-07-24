@@ -147,10 +147,10 @@ export default function Slide10() {
           style={{ background: "linear-gradient(135deg,#0B1930 0%,#10254a 100%)", border: "1.5px solid #D4AF37" }}>
           <span className="text-[#D4AF37] text-xs font-black tracking-[0.22em]">חזון 5 שנים</span>
           <p className="font-black text-2xl md:text-3xl mt-2 leading-tight">
-            PayBox = <span className="text-[#D4AF37]">מועדון הצרכנות הגדול בישראל</span>
+            PayBox = <span className="text-[#D4AF37]">הוולט של ישראל</span>
           </p>
           <p className="text-white/65 text-sm mt-2">
-            ארנק אשראי · מועדון עסקים · משלוחים · PayBox לעסקים ועוד
+            Gaming · Food · Auto · Young · Travel · Business — הכל תחת קורת גג אחת
           </p>
         </div>
       </div>
