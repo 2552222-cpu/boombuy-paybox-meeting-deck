@@ -1,38 +1,37 @@
 import React, { useState } from "react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
+// Retainer: 350K NIS/month (= 350 NIS × 1,000 = 1 NIS per card × 350K cards)
+// Eilat card commission removed — discussed separately
 const PHASES = [
   {
-    phase: "חודש 1-3",
+    phase: "חודש 1–3",
     label: "השקעה",
     color: "#EF4444",
-    retainer: -300,
-    commerce: 60,
-    interchange: 40,
-    eilat: 10,
-    total: -190,
+    retainer: -350,
+    commerce: 80,
+    interchange: 65,
+    total: -205,
     note: "שלב עלייה לאוויר",
   },
   {
-    phase: "חודש 4-6",
+    phase: "חודש 4–6",
     label: "איזון",
     color: "#F59E0B",
-    retainer: -300,
-    commerce: 150,
-    interchange: 120,
-    eilat: 30,
-    total: 0,
+    retainer: -350,
+    commerce: 195,
+    interchange: 160,
+    total: 5,
     note: "ריטיינר מתאפס",
   },
   {
-    phase: "חודש 7-12",
+    phase: "חודש 7–12",
     label: "רווח",
     color: "#34D399",
-    retainer: -300,
-    commerce: 350,
-    interchange: 250,
-    eilat: 80,
-    total: 380,
+    retainer: -350,
+    commerce: 380,
+    interchange: 325,
+    total: 355,
     note: "PayBox ברווח נקי",
   },
   {
@@ -40,33 +39,42 @@ const PHASES = [
     label: "סקייל",
     color: "#60A5FA",
     retainer: -200,
-    commerce: 600,
-    interchange: 450,
-    eilat: 150,
-    total: 1000,
+    commerce: 700,
+    interchange: 560,
+    total: 1060,
     note: "ריטיינר יורד · רווח עולה",
   },
 ];
 
 const SCRIPT = `"בואו נדבר מספרים — שמרניים לחלוטין.
 
-חודשים 1-3: אנחנו עולים לאוויר, מקימים הכל. פייבוקס מוציאה ~190 אלף נטו בחודש אחרי הכנסות.
+חודשים 1-3: אנחנו עולים לאוויר, מקימים הכל. פייבוקס מוציאה ~205 אלף נטו בחודש אחרי הכנסות — זה שלב ההקמה.
 
-חודשים 4-6: הסחר מתחיל לזרום. הגדלנו First in Wallet. הריטיינר מתאפס.
+חודשים 4-6: הסחר מתחיל לזרום. הגדלנו First in Wallet. הריטיינר מתאפס לחלוטין — נקודת האיזון.
 
-מחודש 7: פייבוקס עוברת לרווח נקי חדש — 380 אלף שקל בחודש שלא היו קיימים לפני.
+מחודש 7: פייבוקס עוברת לרווח נקי חדש — 355 אלף שקל בחודש שלא היו קיימים לפני.
 
-שנה 2: הריטיינר יורד ל-200 אלף (כי ההכנסות כבר מכסות). הרווח עולה למיליון שקל בחודש.
+שנה 2: הריטיינר יורד ל-200 אלף כי ההכנסות כבר מכסות ברווח. נכנסים ל-1M+ נטו בחודש.
 
-סך השקעה בשנה 1: פחות מ-2 מיליון שקל נטו.
-ההחזר: מעל 5 מיליון שקל הכנסות חדשות.
-ROI שנה 1: 250%+."`;
+2 מנועי הכנסה:
+• סחר The Box — BoomBuy גובה מהספקים, מחזיר rev-share לפייבוקס
+• עמלת Interchange — כל עסקה שפייבוקס הופכת לארנק ראשי מייצרת עמלת סליקה נוספת
+
+סך ריטיינר שנה 1: 4.2M ₪.
+סך הכנסות חדשות שנה 1: 5.6M ₪.
+רווח נטו שנה 1: 1.4M ₪ שלא היה קיים.
+Break-even: חודש 6."`;
 
 export default function Slide9() {
   const [active, setActive] = useState(null);
 
-  const year1Investment = 190 * 3 + 0 * 3; // ~570K net
-  const year1Return = (60 + 40 + 10) * 3 + (150 + 120 + 30) * 3 + (350 + 250 + 80) * 6; // estimate
+  // Year 1 totals (no Eilat)
+  const totalRetainer = 350 * 12;          // 4,200K
+  const totalRevenue =
+    (80 + 65) * 3 +
+    (195 + 160) * 3 +
+    (380 + 325) * 6;                        // ≈ 5,625K
+  const netYear1 = totalRevenue - totalRetainer; // ≈ 1,425K
 
   return (
     <div
@@ -75,9 +83,7 @@ export default function Slide9() {
     >
       {/* Header */}
       <div className="text-right shrink-0">
-        <span className="text-sm font-bold text-[#34D399] tracking-[0.15em]">
-          טבלת ROI
-        </span>
+        <span className="text-sm font-bold text-[#34D399] tracking-[0.15em]">טבלת ROI</span>
         <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
         <h1 className="mt-3 text-3xl md:text-5xl font-black leading-[1.1] tracking-tight">
           מספרים שמרנים. תוצאות מדהימות.
@@ -128,11 +134,7 @@ export default function Slide9() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#60A5FA]">+{p.interchange}K ₪</span>
-                    <span className="text-gray-400">עמלה צולבת</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#FBBF24]">+{p.eilat}K ₪</span>
-                    <span className="text-gray-400">אילת + אחר</span>
+                    <span className="text-gray-400">Interchange (FIW)</span>
                   </div>
                 </div>
               )}
@@ -150,10 +152,10 @@ export default function Slide9() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             {[
-              { val: "300K", label: "כרטיסי אשראי", sub: "× 1,800 ₪/חודש" },
+              { val: "350K", label: "ריטיינר חודשי", sub: "1 ₪ × 350K כרטיסים" },
               { val: "30%", label: "כסף קבוצות שנלכד", sub: "מ-100% בריחה כיום" },
               { val: "10%→25%", label: "First in Wallet", sub: "גידול מדורג" },
-              { val: "6 חודש", label: "Break-Even", sub: "ריטיינר מתאפס" },
+              { val: "חודש 6", label: "Break-Even", sub: "ריטיינר מתאפס" },
             ].map((item, i) => (
               <div key={i}>
                 <p className="text-white font-black text-xl">{item.val}</p>
@@ -164,47 +166,39 @@ export default function Slide9() {
           </div>
         </div>
 
-        {/* Big year 1 summary */}
+        {/* Year 1 summary */}
         <div className="rounded-2xl bg-gradient-to-r from-[#34D399]/15 to-[#60A5FA]/15 border border-[#34D399]/30 px-8 py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-right">
             <div>
-              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">
-                השקעה נטו שנה 1
-              </p>
-              <p className="text-[#EF4444] font-black text-3xl">~ 1.5M ₪</p>
+              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">ריטיינר שנה 1</p>
+              <p className="text-[#EF4444] font-black text-3xl">4.2M ₪</p>
             </div>
             <div className="text-2xl text-gray-600 hidden md:block">→</div>
             <div>
-              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">
-                הכנסות חדשות שנה 1
-              </p>
-              <p className="text-[#34D399] font-black text-3xl">~ 5.2M ₪</p>
+              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">הכנסות חדשות שנה 1</p>
+              <p className="text-[#34D399] font-black text-3xl">5.6M ₪</p>
             </div>
             <div className="text-2xl text-gray-600 hidden md:block">→</div>
             <div>
-              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">
-                ROI שנה 1
-              </p>
-              <p className="text-white font-black text-4xl">250%</p>
+              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">רווח נטו שנה 1</p>
+              <p className="text-white font-black text-4xl">+1.4M ₪</p>
             </div>
             <div className="text-2xl text-gray-600 hidden md:block">→</div>
             <div>
-              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">
-                Break-Even
-              </p>
+              <p className="text-gray-400 text-xs font-bold tracking-widest mb-1">Break-Even</p>
               <p className="text-[#FBBF24] font-black text-3xl">חודש 6</p>
             </div>
           </div>
         </div>
 
         <p className="text-center text-gray-600 text-[10px]">
-          * לחצו על כל תקופה לפירוט המלא · כל המספרים שמרניים ומבוססים על נתוני PayBox
+          * לחצו על כל תקופה לפירוט המלא · כל המספרים שמרניים ומבוססים על נתוני PayBox · עמלת כרטיס אילת תידון בנפרד
         </p>
       </div>
 
       <div className="mt-4 flex items-center justify-between text-gray-600 text-xs shrink-0">
         <span className="font-bold tracking-widest">BoomBuy × PayBox</span>
-        <span>09</span>
+        <span>09 / 12</span>
       </div>
 
       <SpeakerNotes notes={SCRIPT} />
