@@ -1,24 +1,20 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Gift, CreditCard, GraduationCap, Footprints,
-  Plane, Drama, Wine, Beef
-} from "lucide-react";
+import { PayBoxLogo } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
-const THE_BOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/96ca92369_60.png";
-const BOOMBUY_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f01a26580_.png";
-const PAYBOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/9452db55b_61.png";
+const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
+const THE_BOX_LOGO = BASE + "96ca92369_60.png";
+const BOOMBUY_LOGO = BASE + "f01a26580_.png";
 
-const CATS = [
-  { icon: Gift,        t: "Box Gifts",             l: "מתנות כלליות" },
-  { icon: CreditCard, t: "Box Gift Cards",        l: "כרטיסי מתנה" },
-  { icon: GraduationCap, t: "Box Teacher Gifts",   l: "למורות וגננות" },
-  { icon: Footprints, t: "Box Fashion & Footwear", l: "אופנה והנעלה" },
-  { icon: Plane,      t: "Box Holidays & Travel",  l: "חופשות וטיולים" },
-  { icon: Drama,      t: "Box Culture",            l: "תרבות ופנאי" },
-  { icon: Wine,       t: "Box Alcohol & Wine",     l: "אלכוהול ויין" },
-  { icon: Beef,       t: "Box Barbecue",           l: "על האש" },
+// Product images from the marketplace — used in the phone mockup
+const TILES = [
+  { img: BASE + "d1ad484b4_.jpg",              label: "Box Gifts" },
+  { img: BASE + "0e73b93dc_.jpg",              label: "Box Fashion" },
+  { img: BASE + "92021a586_.jpg",              label: "Box Home" },
+  { img: BASE + "9bd28df25_.jpg",              label: "Box Culture" },
+  { img: BASE + "d31f8cf43_generated_image.png", label: "Box Travel" },
+  { img: BASE + "11dd7c6df_generated_image.png", label: "Box Luggage" },
 ];
 
 const SCRIPT = `"תסתכלו לרגע על הלוגו שלכם. PayBox — ארנק ההעברות הגדול בישראל.
@@ -27,7 +23,12 @@ const SCRIPT = `"תסתכלו לרגע על הלוגו שלכם. PayBox — אר
 
 הכירו את The Box — ובשעה הקרובה נראה לכם בדיוק מה זה אומר לתחתית השורה שלכם."`;
 
-const ease = [0.22, 1, 0.36, 1];
+// Shorthand animation helper — each element gets animate (not whileInView) so it plays on load
+const a = (delay = 0, yFrom = 20, xFrom = 0) => ({
+  initial: { opacity: 0, y: yFrom, x: xFrom },
+  animate: { opacity: 1, y: 0, x: 0 },
+  transition: { delay, duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+});
 
 export default function Slide1() {
   return (
@@ -35,64 +36,73 @@ export default function Slide1() {
       className="relative min-h-screen w-full flex flex-col px-8 md:px-20 py-10 overflow-hidden"
       style={{ background: "linear-gradient(160deg,#5BA4CF 0%,#6FB3E0 50%,#4A8EC7 100%)" }}
     >
+      {/* Subtle grid */}
+      <div
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(white 1px,transparent 1px),linear-gradient(90deg,white 1px,transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
       {/* Top bar */}
-      <motion.div
-        className="relative flex items-center justify-between shrink-0"
-        initial={{ opacity: 0, y: -12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: 0.6, ease }}
-      >
-        <img src={BOOMBUY_LOGO} alt="BoomBuy"
-          className="h-8 w-auto object-contain brightness-0 invert opacity-90" />
-        <img src={PAYBOX_LOGO} alt="PayBox"
-          className="h-10 w-auto object-contain rounded-lg" />
+      <motion.div {...a(0.1)} className="relative flex items-center justify-between shrink-0">
+        <img
+          src={BOOMBUY_LOGO}
+          alt="BoomBuy"
+          className="h-7 w-auto object-contain brightness-0 invert opacity-80"
+        />
+        <PayBoxLogo size={28} textColor="white" />
       </motion.div>
 
-      {/* Main */}
-      <div className="relative flex-1 flex flex-col md:flex-row items-center justify-center gap-14 py-8">
-        {/* Left — text */}
+      {/* ── Main layout ── */}
+      <div className="relative flex-1 flex flex-col md:flex-row items-center justify-center gap-12 py-6">
+
+        {/* LEFT — intro + logo + copy */}
         <div className="flex-1 text-white text-right max-w-lg">
+
+          {/* "Meet..." tag — appears first */}
+          <motion.p {...a(0.2)} className="text-white/60 text-[11px] font-black tracking-[0.28em] uppercase mb-6">
+            BoomBuy × PayBox מציגים ›
+          </motion.p>
+
+          {/* The Box logo — HERO RISE */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.7, ease }}
-            className="flex justify-end mb-6"
+            initial={{ opacity: 0, y: 48, scale: 0.82 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.5, type: "spring", stiffness: 190, damping: 20 }}
+            className="flex justify-end mb-8"
           >
-            <img src={THE_BOX_LOGO} alt="The Box"
-              className="h-16 w-auto object-contain" />
+            <img
+              src={THE_BOX_LOGO}
+              alt="The Box"
+              className="h-28 md:h-32 w-auto object-contain brightness-0 invert drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
+            />
           </motion.div>
 
+          {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.8, ease, delay: 0.1 }}
+            initial={{ opacity: 0, y: 32, skewY: 1.5 }}
+            animate={{ opacity: 1, y: 0, skewY: 0 }}
+            transition={{ delay: 1.0, type: "spring", stiffness: 240, damping: 26 }}
             className="text-5xl md:text-[4.5rem] font-black leading-[1.04] tracking-[-0.03em]"
           >
             Out of<br />the box.
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.7, ease, delay: 0.25 }}
-            className="mt-5 text-xl md:text-2xl text-white/85 font-medium leading-relaxed"
-          >
+          <motion.p {...a(1.3)} className="mt-5 text-xl text-white/85 font-medium leading-relaxed">
             הופכים את ארנק ההעברות הגדול בישראל<br />
             <span className="text-white font-black">למועדון הצרכנות הגדול בישראל</span>
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.7, ease, delay: 0.4 }}
-            className="mt-10 flex gap-8 justify-end"
-          >
-            {[["4M", "משתמשים"], ["300K", "כרטיסי אשראי"], ["2M", "טרנזקציות/חודש"]].map(([v, l], i) => (
+          {/* Stats */}
+          <motion.div {...a(1.6)} className="mt-10 flex gap-8 justify-end">
+            {[
+              ["4M", "משתמשים"],
+              ["300K", "כרטיסי אשראי"],
+              ["2M", "טרנזקציות/חודש"],
+            ].map(([v, l], i) => (
               <React.Fragment key={i}>
                 {i > 0 && <div className="w-px bg-white/25 self-stretch" />}
                 <div className="text-right">
@@ -104,72 +114,100 @@ export default function Slide1() {
           </motion.div>
         </div>
 
-        {/* Right — phone mockup */}
+        {/* RIGHT — phone mockup */}
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.9, ease, delay: 0.2 }}
+          initial={{ opacity: 0, x: 60, scale: 0.92 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ delay: 1.05, type: "spring", stiffness: 210, damping: 26 }}
           className="shrink-0"
         >
-          <div className="rounded-[3rem] bg-black p-2.5 shadow-2xl"
-            style={{ width: 300 }}>
-            <div className="rounded-[2.4rem] overflow-hidden flex flex-col"
-              style={{ background: "#A1C2E8" }}>
-              {/* Notch */}
-              <div className="relative h-7 bg-white">
-                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-20 h-4 rounded-full bg-black" />
-              </div>
+          <div
+            className="relative overflow-hidden"
+            style={{
+              width: 270,
+              borderRadius: "2.8rem",
+              background: "#fff",
+              border: "7px solid rgba(255,255,255,0.55)",
+              boxShadow:
+                "0 40px 90px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,255,255,0.25), inset 0 1px 0 rgba(255,255,255,0.6)",
+            }}
+          >
+            {/* Status bar */}
+            <div style={{ background: "#5BA4CF" }} className="px-5 pt-3 pb-1.5 flex items-center justify-between">
+              <span className="text-white/60 text-[9px] font-bold">9:41</span>
+              <div className="w-14 h-3 rounded-full bg-black/15" />
+              <span className="text-white/60 text-[9px] font-bold">⬡⬡⬡</span>
+            </div>
 
-              {/* Header */}
-              <div className="px-5 pt-5 pb-4 flex flex-col items-center text-center">
-                <img src={THE_BOX_LOGO} alt="The Box"
-                  className="w-16 h-16 object-contain mb-2" />
-                <h3 className="text-white font-black text-2xl tracking-tight">The Box</h3>
-                <p className="mt-2 text-[#1D2644] text-[13px] font-bold leading-snug">
-                  מתחם ההטבות והמתנות של PayBox
-                  <br />
-                  ממשו את הנקודות שצברתם
-                  <br />
-                  וקנו מוצרים בעד חצי מחיר
-                </p>
+            {/* App header */}
+            <div style={{ background: "#5BA4CF" }} className="px-4 pb-4 pt-1 flex items-center gap-2.5">
+              <img
+                src={THE_BOX_LOGO}
+                alt="The Box"
+                className="w-8 h-8 object-contain brightness-0 invert"
+              />
+              <div>
+                <p className="text-white font-black text-[13px] leading-none">The Box</p>
+                <p className="text-white/70 text-[9px] mt-0.5">מתחם ההטבות של PayBox</p>
               </div>
+              <div className="mr-auto text-right">
+                <p className="text-[#FFE97A] font-black text-[11px] leading-none">150 ZUZ</p>
+                <p className="text-white/50 text-[8px]">הטוקן שלך</p>
+              </div>
+            </div>
 
-              {/* Categories grid */}
-              <div className="px-4 pb-4 grid grid-cols-2 gap-2.5">
-                {CATS.map((cat, i) => (
-                  <motion.div
+            {/* Product grid */}
+            <div className="bg-[#F4F7FB] px-3 pt-3 pb-2">
+              <p className="text-[#1D2644] text-[10px] font-black mb-2 text-right">קטגוריות מובילות</p>
+              <div className="grid grid-cols-3 gap-1.5">
+                {TILES.map((tile, i) => (
+                  <div
                     key={i}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.4, ease, delay: 0.3 + i * 0.05 }}
-                    className="rounded-2xl bg-white flex flex-col items-center justify-center gap-1.5 px-2 py-3.5 text-center shadow-sm"
+                    className="relative rounded-xl overflow-hidden"
+                    style={{ aspectRatio: "1" }}
                   >
-                    <cat.icon className="w-6 h-6 text-[#1D2644]" strokeWidth={1.6} />
-                    <span className="text-[#1D2644] text-[11px] font-black leading-tight">{cat.t}</span>
-                    <span className="text-[#5a6b8c] text-[10px] leading-tight">{cat.l}</span>
-                  </motion.div>
+                    <img
+                      src={tile.img}
+                      alt={tile.label}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                    <p className="absolute bottom-1 inset-x-0 text-center text-white text-[7.5px] font-bold px-0.5 leading-tight drop-shadow">
+                      {tile.label}
+                    </p>
+                  </div>
                 ))}
               </div>
 
               {/* CTA */}
-              <div className="px-5 pb-6">
-                <button className="w-full py-3.5 rounded-full bg-white font-black text-base shadow-md"
-                  style={{ color: "#1D2644" }}>
-                  Box it!
-                </button>
-              </div>
+              <button
+                className="w-full mt-2.5 py-2.5 rounded-full font-black text-[13px] text-white shadow-lg"
+                style={{ background: "linear-gradient(90deg,#5BA4CF,#4A8EC7)" }}
+              >
+                Box it! 🎉
+              </button>
+            </div>
+
+            {/* Footer balance strip */}
+            <div
+              className="px-4 py-2.5 flex items-center justify-between"
+              style={{ background: "#FFF9E3", borderTop: "1px solid #F0D878" }}
+            >
+              <span className="text-[#D4AF37] font-black text-[12px]">150 ZUZ</span>
+              <span className="text-[#8B6914] text-[9px] font-bold">ממש עכשיו בחנות ›</span>
             </div>
           </div>
         </motion.div>
       </div>
 
       {/* Footer */}
-      <div className="relative flex items-center justify-between text-white/35 text-[11px] shrink-0">
+      <motion.div
+        {...a(0.1)}
+        className="relative flex items-center justify-between text-white/35 text-[11px] shrink-0"
+      >
         <span className="font-bold tracking-widest">BOOMBUY × PAYBOX</span>
         <span>01 / 12</span>
-      </div>
+      </motion.div>
 
       <SpeakerNotes notes={SCRIPT} />
     </div>
