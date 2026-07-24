@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import IntroAnimation from "@/components/slides/IntroAnimation";
 import Slide1 from "@/components/slides/Slide1";
 import Slide2 from "@/components/slides/Slide2";
 import Slide3 from "@/components/slides/Slide3";
@@ -34,8 +35,11 @@ const LABELS = [
 ];
 
 export default function Home() {
+  const [introComplete, setIntroComplete] = useState(false);
+
   return (
     <div className="relative w-full bg-black">
+      {!introComplete && <IntroAnimation onComplete={() => setIntroComplete(true)} />}
       {/* Slide counter pill */}
       <div className="fixed top-4 right-4 z-40 flex gap-1.5 flex-wrap max-w-[calc(100vw-2rem)] justify-end">
         {LABELS.map((label, i) => (
