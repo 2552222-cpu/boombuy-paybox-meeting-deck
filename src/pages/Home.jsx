@@ -14,7 +14,8 @@ import SlideFlow from "@/components/slides/SlideFlow";
 import Slide10 from "@/components/slides/Slide10";
 import Slide11 from "@/components/slides/Slide11";
 import Slide12 from "@/components/slides/Slide12";
-import SlideAd from "@/components/slides/SlideAd";
+import SlideAd1 from "@/components/slides/SlideAd1";
+import SlideAd2 from "@/components/slides/SlideAd2";
 
 const SLIDES = [
   IntroSlide, // 00 — Launch Animation
@@ -29,14 +30,15 @@ const SLIDES = [
   Slide9,     // 09 — ROI
   SlideFlow,  // 10 — פלואו
   Slide10,    // 11 — רודמאפ
-  SlideAd,    // 12 — קמפיין Young
+  SlideAd1,   // 12 — קמפיין Young A
+  SlideAd2,   // 13 — קמפיין Young B
   Slide11,    // 13 — Q&A
   Slide12,    // 14 — Term Sheet
 ];
 
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "מודל",
-  "ZUZ", "UX", "דמו", "Gift", "ROI", "פלואו", "רודמאפ", "📢", "Q&A", "Term",
+  "ZUZ", "UX", "דמו", "Gift", "ROI", "פלואו", "רודמאפ", "📢", "📢", "Q&A", "Term",
 ];
 
 export default function Home() {
