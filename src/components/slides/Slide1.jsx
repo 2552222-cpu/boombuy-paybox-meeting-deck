@@ -5,16 +5,14 @@ import { TheBoxLogo, PayBoxLogo } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const CATS = [
-  { icon: Gift,           label: "Gifts" },
-  { icon: CreditCard,     label: "Gift Cards" },
-  { icon: UtensilsCrossed,label: "Barbecue" },
-  { icon: Wine,           label: "Alcohol" },
-  { icon: Shirt,          label: "Fashion" },
-  { icon: Plane,          label: "Travel" },
-  { icon: Theater,        label: "Culture" },
-  { icon: Dumbbell,       label: "Wellness" },
-  { icon: Sun,            label: "Eilat" },
-  { icon: ShoppingBag,    label: "Teacher" },
+  { e: "🎁", t: "Box Gifts",            l: "מתנות כלליות" },
+  { e: "💳", t: "Box Gift Cards",       l: "כרטיסי מתנה" },
+  { e: "📚", t: "Box Teacher Gifts",    l: "למורות וגננות" },
+  { e: "👟", t: "Box Fashion & Footwear",l: "אופנה והנעלה" },
+  { e: "✈️", t: "Box Holidays & Travel", l: "חופשות וטיולים" },
+  { e: "🎭", t: "Box Culture",           l: "תרבות ופנאי" },
+  { e: "🍷", t: "Box Alcohol & Wine",    l: "אלכוהול ויין" },
+  { e: "🥩", t: "Box Barbecue",          l: "על האש" },
 ];
 
 const SCRIPT = `"תסתכלו לרגע על הלוגו שלכם. PayBox — ארנק ההעברות הגדול בישראל.
@@ -75,36 +73,43 @@ export default function Slide1() {
           </motion.div>
         </motion.div>
 
-        {/* Right — app card */}
+        {/* Right — app card (The Box mockup) */}
         <motion.div variants={item} className="shrink-0">
-          <div className="rounded-[2rem] overflow-hidden shadow-2xl"
-            style={{ width: 270, background:"rgba(255,255,255,0.15)", backdropFilter:"blur(20px)", border:"1px solid rgba(255,255,255,0.3)" }}>
+          <div className="rounded-[2.5rem] overflow-hidden shadow-2xl"
+            style={{ width: 290, background: "#A1C2E8" }}>
             {/* Header */}
-            <div className="px-5 pt-5 pb-3 border-b border-white/15">
-              <div className="flex items-center justify-between">
-                <PayBoxLogo size={20} textColor="white" />
-                <TheBoxLogo size={20} textColor="white" />
-              </div>
-              <p className="text-white/60 text-[10px] mt-2 text-right">מתחם ההטבות והמתנות</p>
+            <div className="px-5 pt-6 pb-4 flex flex-col items-center text-center">
+              <img
+                src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/96ca92369_60.png"
+                alt="The Box"
+                className="w-20 h-20 object-contain mb-2"
+              />
+              <h3 className="text-white font-black text-2xl tracking-tight">The Box</h3>
+              <p className="mt-2 text-[#1D2644] text-[13px] font-bold leading-snug">
+                מתחם ההטבות והמתנות של PayBox<br/>
+                ממשו את הנקודות שצברתם<br/>
+                וקנו מוצרים בעד חצי מחיר
+              </p>
             </div>
 
             {/* Categories grid */}
-            <div className="p-4 grid grid-cols-2 gap-2">
+            <div className="px-4 pb-4 grid grid-cols-2 gap-2.5">
               {CATS.map((cat, i) => (
                 <motion.div key={i} variants={item}
-                  className="rounded-xl flex items-center gap-2 px-3 py-2.5"
-                  style={{ background:"rgba(255,255,255,0.18)" }}>
-                  <cat.icon className="w-4 h-4 text-white shrink-0" strokeWidth={1.5} />
-                  <span className="text-white text-[10px] font-bold">Box {cat.label}</span>
+                  className="rounded-2xl bg-white flex flex-col items-center justify-center gap-1 px-2 py-3 text-center shadow-sm">
+                  <span className="text-2xl leading-none">{cat.e}</span>
+                  <span className="text-[#1D2644] text-[11px] font-black leading-tight">{cat.t}</span>
+                  <span className="text-[#5a6b8c] text-[10px] leading-tight">{cat.l}</span>
                 </motion.div>
               ))}
             </div>
 
             {/* CTA */}
-            <div className="px-4 pb-5">
-              <button className="w-full py-3 rounded-full bg-white font-black text-sm shadow-lg"
-                style={{ color:"#5BA4CF" }}>
+            <div className="px-5 pb-6">
+              <button className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-white font-black text-base shadow-lg"
+                style={{ color: "#1D2644" }}>
                 Box it!
+                <span className="text-sm">🎉</span>
               </button>
             </div>
           </div>
