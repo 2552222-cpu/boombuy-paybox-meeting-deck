@@ -2,303 +2,243 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
-// ─── DATA ───────────────────────────────────────────────
-const YEARS = [
-  {
-    year: "שנה 1",
-    sub: "1B ₪/חודש נוסף",
-    fiwTarget: "25%",
-    gmv: "350M ₪",
-    color: "#F59E0B",
-    streams: [
-      { name: "Commerce Rev-Share", val: 12, color: "#D4AF37", pct: 18 },
-      { name: "Interchange Growth", val: 36, color: "#5BA4CF", pct: 55 },
-      { name: "Float Interest",     val: 6,  color: "#34D399", pct: 9  },
-      { name: "כרטיסים חדשים",      val: 12, color: "#A78BFA", pct: 18 },
-    ],
-    retainer: 4.2,
-    net: 61.8,
-  },
-  {
-    year: "שנה 2",
-    sub: "2.5B ₪/חודש נוסף",
-    fiwTarget: "40%",
-    gmv: "700M ₪",
-    color: "#34D399",
-    streams: [
-      { name: "Commerce Rev-Share", val: 24,  color: "#D4AF37", pct: 16 },
-      { name: "Interchange Growth", val: 90,  color: "#5BA4CF", pct: 61 },
-      { name: "Float Interest",     val: 10,  color: "#34D399", pct: 7  },
-      { name: "כרטיסים חדשים",      val: 23,  color: "#A78BFA", pct: 16 },
-    ],
-    retainer: 3,
-    net: 144,
-  },
-  {
-    year: "שנה 3",
-    sub: "4B ₪/חודש נוסף",
-    fiwTarget: "50%+",
-    gmv: "1.2B ₪",
-    color: "#5BA4CF",
-    streams: [
-      { name: "Commerce Rev-Share", val: 42,  color: "#D4AF37", pct: 17 },
-      { name: "Interchange Growth", val: 144, color: "#5BA4CF", pct: 60 },
-      { name: "Float Interest",     val: 16,  color: "#34D399", pct: 7  },
-      { name: "כרטיסים חדשים",      val: 39,  color: "#A78BFA", pct: 16 },
-    ],
-    retainer: 1.8,
-    net: 239.2,
-  },
+// ─── CONSTANTS ───────────────────────────────────────────
+const RETAINERS = [4.2, 3.0, 1.8, 1.8, 1.8]; // M NIS per year
+const INTERCHANGE = [36, 90, 144, 165, 180];   // M NIS per year
+const COLORS = ["#F59E0B","#34D399","#5BA4CF","#A78BFA","#D4AF37"];
+
+const COMMISSION_EXAMPLES = [
+  { rate: 0.5, label: "0.5%", desc: "מינימום" },
+  { rate: 1.0, label: "1%",   desc: "בסיס" },
+  { rate: 1.5, label: "1.5%", desc: "ממוצע שוק" },
+  { rate: 2.0, label: "2%",   desc: "אפסייד" },
 ];
 
-const SCRIPT = `"שאלה טובה — בואו נעשה סדר בכסף.
-
-PayBox מרוויחה היום 1B ₪ בחודש בסליקה, 10% מאנשים שזה הכרטיס הראשי שלהם.
-
-The Box הופך אותה למקום שאנשים קונים ממנו. זה מייצר 4 מנועי הכנסה שלא היו קיימים:
-
-1. כל קניית מוצר ב-The Box — 3.5% חוזר ל-PayBox מה-GMV. ללא מלאי, ללא סיכון.
-2. כל שקל שנוסף לסליקה — PayBox מרוויחה 0.3% אינטרצ'יינג'. עלינו לה מ-1B ל-5B זה +4B × 0.3% = +12M ₪ בחודש.
-3. כסף שנשאר בארנק כי יש במה להשתמש — ריבית על הפלואט. עכשיו 100% יוצא. אחרי The Box — יתרה ממוצעת של 200M ₪+.
-4. The Box הופך לסיבה לפתוח כרטיס PayBox. 15-30K כרטיסים חדשים בשנה.
-
-שנה 1: הכנסה חדשה של 66M ₪ מול ריטיינר 4.2M ₪.
-שנה 3: PayBox מרוויחה 241M ₪ שלא היו קיימים — ב-1.8M ₪ ריטיינר בלבד."`;
-
-// ─── BAR COMPONENT ───────────────────────────────────────
-function StreamBar({ stream, animate, delay }) {
-  return (
-    <motion.div
-      className="mb-2"
-      initial={{ opacity: 0, x: 20 }}
-      animate={animate ? { opacity: 1, x: 0 } : {}}
-      transition={{ delay: delay + 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-[10px] font-bold text-white/50">{stream.name}</span>
-        <span className="text-[11px] font-black" style={{ color: stream.color }}>
-          {stream.val}M ₪
-        </span>
-      </div>
-      <div className="h-2 rounded-full bg-white/5 overflow-hidden">
-        <motion.div
-          className="h-full rounded-full"
-          style={{ background: stream.color }}
-          initial={{ width: 0 }}
-          animate={animate ? { width: `${stream.pct}%` } : { width: 0 }}
-          transition={{ delay: delay + 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </div>
-    </motion.div>
-  );
+function fmtM(val, digits = 1) {
+  return (val >= 0 ? "+" : "") + val.toFixed(digits) + "M";
+}
+function fmtGMV(b) {
+  return b >= 1 ? b.toFixed(1) + "B ₪" : (b * 1000).toFixed(0) + "M ₪";
 }
 
-// ─── YEAR CARD ────────────────────────────────────────────
-function YearCard({ data, isActive, onClick, index }) {
-  const total = data.streams.reduce((s, x) => s + x.val, 0);
-  return (
-    <div
-      className="rounded-2xl border cursor-pointer transition-all duration-300 overflow-hidden"
-      style={{
-        borderColor: isActive ? data.color : "rgba(255,255,255,0.1)",
-        background: isActive ? `${data.color}10` : "rgba(255,255,255,0.03)",
-      }}
-      onClick={onClick}
-    >
-      {/* Card header */}
-      <div className="px-5 pt-5 pb-4">
-        <div className="flex items-start justify-between mb-1">
-          <span
-            className="text-[10px] font-black tracking-widest px-2 py-0.5 rounded-full"
-            style={{ background: `${data.color}25`, color: data.color }}
-          >
-            {data.year}
-          </span>
-          <span className="text-[9.5px] text-white/35 font-bold">{data.sub}</span>
-        </div>
-        <div className="mt-3 text-center">
-          <p className="text-[9px] text-white/40 font-bold tracking-widest mb-1">הכנסה חדשה ל-PayBox</p>
-          <p className="text-4xl font-black" style={{ color: isActive ? data.color : "#fff" }}>
-            {total}M ₪
-          </p>
-          <p className="text-[9px] text-white/30 mt-0.5">לפני ניכוי ריטיינר</p>
-        </div>
-        <div className="mt-3 grid grid-cols-2 gap-2 text-center">
-          <div className="rounded-xl bg-white/5 px-2 py-2">
-            <p className="text-[8.5px] text-red-400/70 font-bold">ריטיינר</p>
-            <p className="text-sm font-black text-red-400">-{data.retainer}M</p>
-          </div>
-          <div className="rounded-xl bg-white/5 px-2 py-2">
-            <p className="text-[8.5px] text-emerald-400/70 font-bold">נטו חדש</p>
-            <p className="text-sm font-black text-emerald-400">+{data.net}M</p>
-          </div>
-        </div>
-      </div>
+const SCRIPT = `"שאלה חשובה — במקום לקבע עמלה, בואו נראה יחד מה הגיוני לכם.
 
-      {/* Breakdown bars — show when active */}
-      {isActive && (
-        <div className="px-5 pb-5 pt-1 border-t border-white/5">
-          <p className="text-[9px] text-white/30 font-bold tracking-widest mb-3">פירוט מנועים</p>
-          {data.streams.map((s, i) => (
-            <StreamBar key={i} stream={s} animate={isActive} delay={i * 0.07} />
-          ))}
-          <div className="mt-3 pt-3 border-t border-white/5 text-[9.5px] text-white/35 flex justify-between">
-            <span>FIW יעד: <strong className="text-white/60">{data.fiwTarget}</strong></span>
-            <span>GMV The Box: <strong className="text-white/60">{data.gmv}</strong></span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+המנגנון פשוט: לכל שקל שעובר ב-The Box, פייבוקס מקבלת X אחוז.
+אנחנו לא כופים מספר — אתם בוחרים מה נוח לכם.
+
+גם ב-0.5% בלבד: שנה 1 מגיע 5M ₪, שמכסה יותר מהריטיינר.
+ב-1%: 10M ₪ — פי 2.4 מהריטיינר.
+
+וזה רק Commerce. הInterchange, הפלואט, והכרטיסים החדשים — אלו רווחים נוספים שלא תלויים בעמלה הזו בכלל.
+
+בשנה 5: GMV של 2B+ ₪, גידול 15% בשנה. אפילו ב-0.5% — 10M ₪ לפייבוקס.
+
+מה שמעניין: ככל שאתם דוחפים את המועדון — יותר GMV — יותר עמלה לכם. האינטרסים מיושרים לחלוטין."`;
 
 // ─── MAIN ─────────────────────────────────────────────────
 export default function SlideFlow() {
-  const [activeYear, setActiveYear] = useState(0);
+  const [selectedComm, setSelectedComm] = useState(1);
+  const [gmvBase, setGmvBase] = useState(1.0); // B NIS
+
+  // Compute 5-year table
+  const rows = [];
+  let gmv = gmvBase * 1000; // to M NIS
+  let cumulative = 0;
+  for (let y = 0; y < 5; y++) {
+    const commIncome = gmv * selectedComm / 100;
+    const retainer   = RETAINERS[y];
+    const interchange= INTERCHANGE[y];
+    const netComm    = commIncome - retainer;
+    const totalNet   = netComm + interchange;
+    cumulative      += totalNet;
+    rows.push({ year: y + 1, gmv, commIncome, retainer, interchange, netComm, totalNet, cumulative });
+    gmv *= 1.15;
+  }
+
+  const totalComm5 = rows.reduce((s, r) => s + r.commIncome, 0);
+  const totalRet5  = rows.reduce((s, r) => s + r.retainer, 0);
+  const maxComm    = Math.max(...rows.map(r => r.commIncome));
 
   return (
     <div
-      className="relative min-h-full w-full flex flex-col px-6 md:px-16 py-10 text-white"
+      className="relative min-h-full w-full flex flex-col px-6 md:px-14 py-10 text-white"
       style={{ background: "linear-gradient(145deg, #060F1E 0%, #0B1930 60%, #0D1F3C 100%)" }}
     >
-      {/* Decorative glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(91,164,207,0.07) 0%, transparent 70%)",
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(212,175,55,0.05) 0%, transparent 70%)" }} />
 
       {/* Header */}
-      <div className="text-right shrink-0 relative">
-        <span className="text-sm font-bold text-[#5BA4CF] tracking-[0.15em]">מנגנון הצמיחה</span>
-        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
-        <h1 className="mt-3 text-3xl md:text-4xl font-black leading-[1.1] tracking-tight">
-          כל שקל שמייצרים — PayBox מרוויחה
+      <div className="text-right shrink-0">
+        <span className="text-sm font-bold text-[#D4AF37] tracking-[.15em]">מנגנון הכסף</span>
+        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-3 mb-1 mr-0 ml-auto" />
+        <h1 className="mt-2 text-3xl md:text-4xl font-black leading-[1.1] tracking-tight">
+          אתם בוחרים את העמלה — ותראו כמה יוצא
         </h1>
-        <p className="mt-2 text-white/45 text-sm">לחצו על שנה לפירוט מלא</p>
+        <p className="mt-1.5 text-white/40 text-sm">בכל GMV שגדל ב-15% בשנה · 5 שנות הרצה</p>
       </div>
 
-      {/* Current state → Engine row */}
-      <div className="relative mt-7 flex items-center gap-0 shrink-0">
-        {/* Current PayBox */}
-        <div className="rounded-2xl border border-white/10 bg-white/3 px-5 py-4 text-center min-w-[140px]">
-          <p className="text-[9px] text-white/35 font-bold tracking-widest mb-1">פייבוקס היום</p>
-          <p className="text-2xl font-black text-white/60">1B ₪</p>
-          <p className="text-[9px] text-white/25 mt-0.5">/חודש סליקה</p>
-          <div className="mt-2 text-[9px] text-red-400/80 font-bold">FIW 10% · 100% cash-out</div>
-        </div>
-
-        {/* Arrow */}
-        <div className="flex-1 flex flex-col items-center gap-1 px-2">
-          <div className="flex items-center w-full">
-            <div className="flex-1 h-0.5 bg-gradient-to-r from-white/10 to-[#D4AF37]/60" />
-            <div className="text-[#D4AF37] text-lg px-1">+</div>
-            <div className="flex-1 h-0.5 bg-gradient-to-l from-white/10 to-[#D4AF37]/60" />
+      {/* Top controls row */}
+      <div className="mt-5 flex gap-3 items-center shrink-0 flex-wrap">
+        {/* Commission selector */}
+        <div className="flex-1 min-w-[240px]">
+          <p className="text-[9.5px] text-white/35 font-bold tracking-widest mb-2">% עמלת Commerce לפייבוקס</p>
+          <div className="grid grid-cols-4 gap-2">
+            {COMMISSION_EXAMPLES.map((c) => (
+              <button
+                key={c.rate}
+                onClick={() => setSelectedComm(c.rate)}
+                className="rounded-xl py-3 text-center border transition-all"
+                style={{
+                  borderColor: selectedComm === c.rate ? "#D4AF37" : "rgba(255,255,255,0.1)",
+                  background: selectedComm === c.rate ? "rgba(212,175,55,0.12)" : "rgba(255,255,255,0.03)",
+                }}
+              >
+                <p className="text-lg font-black" style={{ color: selectedComm === c.rate ? "#D4AF37" : "#fff" }}>{c.label}</p>
+                <p className="text-[9px] text-white/35 font-bold mt-0.5">{c.desc}</p>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* The Box Engine */}
-        <div
-          className="rounded-2xl border px-5 py-4 text-center min-w-[150px]"
-          style={{ borderColor: "rgba(212,175,55,0.5)", background: "rgba(212,175,55,0.07)" }}
-        >
-          <p className="text-[9px] text-[#D4AF37]/70 font-bold tracking-widest mb-1">The Box</p>
-          <p className="text-2xl font-black text-[#D4AF37]">EaaS</p>
-          <p className="text-[9px] text-white/30 mt-0.5">מנוע ההטבות</p>
-          <div className="mt-2 text-[9px] text-[#D4AF37]/70 font-bold">BoomBuy מפעילה · ₪ חוזר</div>
-        </div>
-
-        {/* Arrow */}
-        <div className="flex-1 flex flex-col items-center gap-1 px-2">
-          <div className="flex items-center w-full">
-            <div className="flex-1 h-0.5 bg-gradient-to-r from-white/10 to-emerald-400/60" />
-            <div className="text-emerald-400 text-lg px-1">→</div>
-            <div className="flex-1 h-0.5 bg-gradient-to-l from-white/10 to-emerald-400/60" />
+        {/* GMV selector */}
+        <div className="flex-1 min-w-[200px]">
+          <p className="text-[9.5px] text-white/35 font-bold tracking-widest mb-2">GMV שנה 1</p>
+          <div className="grid grid-cols-3 gap-2">
+            {[0.5, 1.0, 1.5].map((g) => (
+              <button
+                key={g}
+                onClick={() => setGmvBase(g)}
+                className="rounded-xl py-3 text-center border transition-all"
+                style={{
+                  borderColor: gmvBase === g ? "#5BA4CF" : "rgba(255,255,255,0.1)",
+                  background: gmvBase === g ? "rgba(91,164,207,0.1)" : "rgba(255,255,255,0.03)",
+                }}
+              >
+                <p className="text-base font-black" style={{ color: gmvBase === g ? "#5BA4CF" : "#fff" }}>{fmtGMV(g)}</p>
+                <p className="text-[9px] text-white/35 font-bold mt-0.5">
+                  {g === 0.5 ? "שמרני" : g === 1.0 ? "יעד שנה 1" : "אופטימי"}
+                </p>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Target */}
-        <div
-          className="rounded-2xl border border-emerald-400/30 px-5 py-4 text-center min-w-[140px]"
-          style={{ background: "rgba(52,211,153,0.07)" }}
-        >
-          <p className="text-[9px] text-emerald-400/70 font-bold tracking-widest mb-1">יעד שנה 3</p>
-          <p className="text-2xl font-black text-emerald-400">5B ₪</p>
-          <p className="text-[9px] text-white/25 mt-0.5">/חודש סליקה</p>
-          <div className="mt-2 text-[9px] text-emerald-400/70 font-bold">FIW 50%+ · כסף נשאר</div>
-        </div>
-      </div>
-
-      {/* 4 Engines strip */}
-      <div className="mt-5 grid grid-cols-4 gap-3 shrink-0">
-        {[
-          { icon: "🛍️", label: "Commerce Rev-Share", sub: "3.5% מ-GMV", color: "#D4AF37" },
-          { icon: "💳", label: "Interchange Growth", sub: "0.3% × סליקה נוספת", color: "#5BA4CF" },
-          { icon: "🏦", label: "Float Interest", sub: "4% על יתרת ארנק", color: "#34D399" },
-          { icon: "📱", label: "כרטיסים חדשים", sub: "LTV 65 ₪/חודש/כרטיס", color: "#A78BFA" },
-        ].map((e, i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-white/8 bg-white/3 px-3 py-3 flex items-center gap-3"
-          >
-            <span className="text-xl">{e.icon}</span>
-            <div>
-              <p className="text-[10px] font-bold" style={{ color: e.color }}>{e.label}</p>
-              <p className="text-[9px] text-white/35">{e.sub}</p>
-            </div>
+        {/* Summary cards */}
+        <div className="flex gap-3">
+          <div className="rounded-2xl border border-[#D4AF37]/30 bg-[#D4AF37]/05 px-4 py-3 text-center min-w-[100px]">
+            <p className="text-[9px] text-white/35 font-bold tracking-widest">Commerce 5Y</p>
+            <p className="text-xl font-black text-[#D4AF37] mt-1">{totalComm5.toFixed(0)}M ₪</p>
           </div>
-        ))}
-      </div>
-
-      {/* Year cards */}
-      <div className="mt-5 grid grid-cols-3 gap-4 flex-1">
-        {YEARS.map((y, i) => (
-          <YearCard
-            key={i}
-            data={y}
-            index={i}
-            isActive={activeYear === i}
-            onClick={() => setActiveYear(i)}
-          />
-        ))}
-      </div>
-
-      {/* Bottom summary bar */}
-      <div
-        className="mt-4 rounded-2xl border border-[#34D399]/25 bg-[#34D399]/5 px-6 py-4 shrink-0"
-      >
-        <div className="flex items-center justify-between">
-          <div className="text-center">
-            <p className="text-[9px] text-white/35 font-bold tracking-widest">ריטיינר שנה 1 → שנה 3</p>
-            <p className="text-lg font-black text-red-400">4.2M → 1.8M ₪</p>
-          </div>
-          <div className="h-8 w-px bg-white/10" />
-          <div className="text-center">
-            <p className="text-[9px] text-white/35 font-bold tracking-widest">הכנסה חדשה שנה 1</p>
-            <p className="text-lg font-black text-[#D4AF37]">66M ₪</p>
-          </div>
-          <div className="h-8 w-px bg-white/10" />
-          <div className="text-center">
-            <p className="text-[9px] text-white/35 font-bold tracking-widest">הכנסה חדשה שנה 3</p>
-            <p className="text-lg font-black text-[#34D399]">241M ₪</p>
-          </div>
-          <div className="h-8 w-px bg-white/10" />
-          <div className="text-center">
-            <p className="text-[9px] text-white/35 font-bold tracking-widest">Break-Even</p>
-            <p className="text-lg font-black text-[#F59E0B]">חודש 6</p>
-          </div>
-          <div className="h-8 w-px bg-white/10" />
-          <div className="text-center">
-            <p className="text-[9px] text-white/35 font-bold tracking-widest">ROI שנה 3 (על ריטיינר)</p>
-            <p className="text-lg font-black text-white">133×</p>
+          <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/05 px-4 py-3 text-center min-w-[100px]">
+            <p className="text-[9px] text-white/35 font-bold tracking-widest">ROI על ריטיינר</p>
+            <p className="text-xl font-black text-emerald-400 mt-1">{(totalComm5/totalRet5*100).toFixed(0)}%</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between text-gray-600 text-xs shrink-0">
+      {/* Table */}
+      <div className="mt-4 rounded-2xl border border-white/8 overflow-hidden shrink-0">
+        <div className="overflow-x-auto">
+          <table className="w-full" style={{ borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ background: "rgba(255,255,255,0.03)" }}>
+                {["שנה","GMV The Box","עמלת Commerce","ריטיינר","נטו מ-Commerce","+ Interchange","סה\"כ נטו חדש","מצטבר"].map((h,i) => (
+                  <th key={i} className="text-right px-3 py-2.5"
+                    style={{ fontSize: "8.5px", fontWeight: 800, letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(255,255,255,.3)" }}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, i) => {
+                const isBreakeven = r.netComm >= 0 && (i === 0 || rows[i-1]?.netComm < 0);
+                return (
+                  <tr key={i}
+                    style={{
+                      borderTop: "1px solid rgba(255,255,255,0.05)",
+                      background: isBreakeven ? "rgba(52,211,153,0.05)" : "transparent",
+                    }}
+                  >
+                    <td className="px-3 py-2.5">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full"
+                        style={{ background: `${COLORS[i]}25`, color: COLORS[i] }}>
+                        שנה {r.year}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2.5 text-sm font-bold text-white/80">{fmtGMV(r.gmv/1000)}</td>
+                    <td className="px-3 py-2.5 text-sm font-black" style={{ color: "#D4AF37" }}>{r.commIncome.toFixed(1)}M ₪</td>
+                    <td className="px-3 py-2.5 text-sm font-bold" style={{ color: "#EF4444" }}>-{r.retainer}M ₪</td>
+                    <td className="px-3 py-2.5 text-sm font-black"
+                      style={{ color: r.netComm >= 0 ? "#34D399" : "#EF4444" }}>
+                      {fmtM(r.netComm)}M ₪
+                    </td>
+                    <td className="px-3 py-2.5 text-sm font-bold" style={{ color: "#5BA4CF" }}>+{r.interchange}M ₪</td>
+                    <td className="px-3 py-2.5 text-base font-black"
+                      style={{ color: r.totalNet >= 0 ? "#34D399" : "#F59E0B" }}>
+                      {fmtM(r.totalNet)}M ₪
+                    </td>
+                    <td className="px-3 py-2.5 text-sm font-black text-white">
+                      {fmtM(r.cumulative)}M ₪
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Bar chart */}
+      <div className="mt-4 shrink-0">
+        <p className="text-[9px] text-white/25 font-bold tracking-widest mb-2">Commerce שנתי ← vs → ריטיינר</p>
+        <div className="space-y-2">
+          {rows.map((r, i) => {
+            const pct = maxComm > 0 ? (r.commIncome / maxComm * 85) : 0;
+            const retPct = maxComm > 0 ? (r.retainer / maxComm * 85) : 0;
+            return (
+              <div key={i} className="flex items-center gap-3">
+                <span className="text-[9.5px] font-bold text-white/35 w-10 shrink-0">שנה {r.year}</span>
+                <div className="flex-1 h-7 rounded-lg overflow-hidden relative" style={{ background: "rgba(255,255,255,0.05)" }}>
+                  <motion.div
+                    className="h-full rounded-lg flex items-center justify-end px-3"
+                    style={{ background: `linear-gradient(90deg,${COLORS[i]}70,${COLORS[i]})`, width: `${pct}%` }}
+                    key={`${selectedComm}-${gmvBase}-${i}`}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${pct}%` }}
+                    transition={{ delay: i * 0.06, duration: 0.5, ease: [0.22,1,.36,1] }}
+                  >
+                    <span className="text-[10px] font-black text-white">{r.commIncome.toFixed(1)}M ₪</span>
+                  </motion.div>
+                  {/* Retainer marker */}
+                  <div className="absolute top-0 bottom-0 flex items-center"
+                    style={{ right: `calc(100% - ${retPct}%)`, borderRight: "2px dashed rgba(239,68,68,0.5)" }}>
+                    <span className="text-[8px] font-black text-red-400/70 mr-1 whitespace-nowrap">{r.retainer}M</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-black w-16 shrink-0"
+                  style={{ color: r.netComm >= 0 ? "#34D399" : "#EF4444" }}>
+                  {fmtM(r.netComm)}M
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Bottom insight */}
+      <div className="mt-4 rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/04 px-5 py-3 shrink-0">
+        <p className="text-[10px] text-[#D4AF37]/70 font-bold tracking-widest mb-1">💡 האינטרס המשותף</p>
+        <p className="text-sm text-white/70 leading-relaxed">
+          כל שקל GMV שפייבוקס מביאה — חוזר אליה כעמלה.
+          <span className="text-white font-bold"> ככל שהם דוחפים את המועדון → יותר GMV → יותר עמלה → ריטיינר מתקזז מוקדם יותר.</span>
+          {" "}זה גם לפני Interchange (+{INTERCHANGE[0]}-{INTERCHANGE[4]}M ₪/שנה), Float, וכרטיסים חדשים.
+        </p>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between text-gray-600 text-xs shrink-0">
         <span className="font-bold tracking-widest">BoomBuy × PayBox</span>
-        <span className="text-[9px] text-white/20">* הנחות שמרניות · 0.3% Interchange · GMV נלכד 20%→60%</span>
+        <span className="text-[9px] text-white/20">גידול 15%/שנה · Commerce בלבד מוצג · שאר המנועים בנוסף</span>
       </div>
 
       <SpeakerNotes notes={SCRIPT} />
