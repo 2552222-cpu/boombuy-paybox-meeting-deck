@@ -1,215 +1,230 @@
 import React, { useState } from "react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
-// ─── BASE DATA ────────────────────────────────────────────────────────────────
-// Source: PayBox CFO meeting + Discovery Report
-// 2M transactions/year × 2% Year1 → 10% Year3 → 20%+ Year5 conversion
-// BoomBuy margin NOT disclosed. PayBox sees 2-3% of GMV only.
+// ─── SIMPLE VALUE TABLE ───────────────────────────────────────────────────────
+// Based on PayBox CFO meeting data
+// Baseline: 400K cards × 1,800 ₪/month ≈ 1B ₪/month credit volume
+// Commission: 1% on first 400M GMV → returns retainer. Above 400M → discuss together.
 
-const PHASES = [
+const RETAINER_BREAKDOWN = [
+  { icon: "👥", label: "5 אנשי מקצוע בכירים", sub: "סחר, שירות, תפעול, טכנולוגיה, ניהול", val: 200000 },
+  { icon: "⚙️", label: "טכנולוגיה ופלטפורמה", sub: "ZUZ Engine, API, אינטגרציות PayBox", val: 60000 },
+  { icon: "📦", label: "לוגיסטיקה וספקים", sub: "ניהול מלאי, אספקה ל-4M לקוחות", val: 50000 },
+  { icon: "🎧", label: "מוקד שירות לקוחות", sub: "תמיכה רציפה לרוכשי The Box", val: 25000 },
+  { icon: "🏢", label: "תפעול שוטף", sub: "ניהול מועדון, שיווק, בקרה", val: 15000 },
+];
+
+const VALUE_TABLE = [
   {
-    phase: "שנה 1",
-    label: "עלייה לאוויר",
-    color: "#F59E0B",
-    note: "2% מ-2M טרנזקציות → 40K קבוצות",
-    gmv: 45,
-    retainer: -4.2,
-    commerce: 1.1,    // 2.5% of 45M GMV
-    interchange: 36,
-    float: 6,
-    newCards: 12,
-    get total() { return this.commerce + this.interchange + this.float + this.newCards + this.retainer; },
+    col: "היום",
+    sub: "בלי The Box",
+    color: "rgba(255,255,255,0.3)",
+    bg: "rgba(255,255,255,0.03)",
+    border: "rgba(255,255,255,0.08)",
+    items: [
+      { label: "מחזור סליקה חודשי", val: "~1B ₪", note: "400K × 1,800 ₪ ≈ 1B" },
+      { label: "Interchange שנתי", val: "36M ₪", note: "1B × 0.3% × 12" },
+      { label: "Float Interest", val: "~8M ₪", note: "כסף יושב בחשבונות" },
+      { label: "כרטיסים חדשים", val: "—", note: "" },
+      { label: "עמלת Commerce", val: "—", note: "" },
+      { label: "ריטנר", val: "—", note: "" },
+      { label: "נטו שנתי לפייבוקס", val: "~44M ₪", note: "Interchange + Float", bold: true, accent: "rgba(255,255,255,0.5)" },
+    ]
   },
   {
-    phase: "שנה 2",
-    label: "שוברים שיא",
+    col: "שנה 1",
+    sub: "The Box מתחיל",
+    color: "#D4AF37",
+    bg: "rgba(212,175,55,0.06)",
+    border: "rgba(212,175,55,0.25)",
+    items: [
+      { label: "מחזור סליקה חודשי", val: "~1.3B ₪", note: "+30% עם ZUZ" },
+      { label: "Interchange שנתי", val: "47M ₪", note: "1.3B × 0.3% × 12" },
+      { label: "Float Interest", val: "~10M ₪", note: "יותר כסף בחשבונות" },
+      { label: "כרטיסים חדשים", val: "+12M ₪", note: "FIW גדל" },
+      { label: "עמלת Commerce", val: "+4M ₪", note: "1% × 400M GMV" },
+      { label: "ריטנר (הוצאה)", val: "-4.2M ₪", note: "350K/חודש" },
+      { label: "נטו שנתי לפייבוקס", val: "+69M ₪", note: "+25M מעל היום", bold: true, accent: "#D4AF37" },
+    ]
+  },
+  {
+    col: "שנה 3",
+    sub: "מנוע בשל",
     color: "#34D399",
-    note: "5% מ-2M טרנזקציות → 100K קבוצות",
-    gmv: 112,
-    retainer: -3.0,
-    commerce: 2.8,    // 2.5% of 112M
-    interchange: 63,
-    float: 10,
-    newCards: 18,
-    get total() { return this.commerce + this.interchange + this.float + this.newCards + this.retainer; },
-  },
-  {
-    phase: "שנה 3",
-    label: "מנוע מלא",
-    color: "#5BA4CF",
-    note: "10% מ-2M → 200K קבוצות + פיתוח עסקי",
-    gmv: 226,
-    retainer: -1.8,
-    commerce: 5.7,    // 2.5% of 226M
-    interchange: 90,
-    float: 15,
-    newCards: 20,
-    get total() { return this.commerce + this.interchange + this.float + this.newCards + this.retainer; },
-  },
-  {
-    phase: "שנה 5",
-    label: "מועדון מוביל",
-    color: "#A78BFA",
-    note: "20%+ המרה + גידול ביז. דב. → 1B GMV",
-    gmv: 515,
-    retainer: 0,
-    commerce: 12.9,   // 2.5% of 515M
-    interchange: 144,
-    float: 22,
-    newCards: 30,
-    get total() { return this.commerce + this.interchange + this.float + this.newCards + this.retainer; },
+    bg: "rgba(52,211,153,0.06)",
+    border: "rgba(52,211,153,0.25)",
+    items: [
+      { label: "מחזור סליקה חודשי", val: "~2.5B ₪", note: "FIW עולה ל-30%+" },
+      { label: "Interchange שנתי", val: "90M ₪", note: "2.5B × 0.3% × 12" },
+      { label: "Float Interest", val: "~18M ₪", note: "מחזור גדל משמעותית" },
+      { label: "כרטיסים חדשים", val: "+25M ₪", note: "שוק לא מנוצל נכנס" },
+      { label: "עמלת Commerce", val: "+6M ₪+", note: "1% + % על מעל 400M" },
+      { label: "ריטנר (הוצאה)", val: "-1.8M ₪", note: "מוזל שנה 3" },
+      { label: "נטו שנתי לפייבוקס", val: "+138M ₪", note: "+94M מעל היום", bold: true, accent: "#34D399" },
+    ]
   },
 ];
 
-const SCRIPT = `"בואו נדבר מספרים — שמרניים לחלוטין, בנויים מהנתונים שסיפרתם לנו.
+const SCRIPT = `"הריטנר שלנו הוא 350 אלף שקל לחודש. בואו נדבר על מה אתם קונים.
 
-יש לכם 2 מיליון טרנזקציות בשנה. שנה 1 — אנחנו מניחים ש-2 אחוז מהן יממשו דרך The Box. זה 40 אלף קבוצות. לא הרבה.
+אתם קונים 5 אנשים בכירים ברמה הכי גבוהה שיודעים לנהל סחר ושירות ל-4 מיליון צרכנים. רק כוח אדם — 200 אלף שקל. ועוד טכנולוגיה, לוגיסטיקה, שירות לקוחות.
 
-400 מיליון שח בשוק המתנות שלכם — אנחנו לוקחים 45 מיליון שנה 1. שמרני.
+זה לא ריטנר — זו שותפות.
 
-אבל זה לא הסיפור הגדול. הסיפור הגדול הוא האינטרצ'יינג.
-כשאנחנו הופכים את PayBox לכרטיס הראשי — מ-1 מיליארד לחודש ל-5 מיליארד לחודש בסליקה — 4 מיליארד כפול 0.3% זה 12 מיליון שח לחודש לפייבוקס. 144 מיליון שח לשנה.
+ועכשיו תגיד לי — אם המועדון יגיע ל-400 מיליון שח מכירות, ואנחנו נותנים לכם 1% — זה 4 מיליון שח. הריטנר חוזר אליכם. כל שקל מעל 400 מיליון — נבנה ביחד את מה שמגיע לכם.
 
-שנה 1 לפני הריטיינר: 55 מיליון שח חדש. שנה 3: 131 מיליון. שנה 5: 209 מיליון.
-
-הריטיינר של 350K בחודש? מתאפס לחלוטין שנה 3. שנה 5 אנחנו כבר עובדים בלעדיו."`;
+ואת זה עוד לפני שדיברנו על האינטרצ'יינג. ראו מה קורה לאינטרצ'יינג שלכם כשאנחנו הופכים את PayBox לכרטיס הראשי. מ-36 מיליון שנה ל-90 מיליון שנה. זה כסף שהוא שלכם — בלי קשר לעמלה שנסכים עליה."`;
 
 export default function Slide9() {
-  const [active, setActive] = useState(null);
+  const [view, setView] = useState("table"); // "retainer" | "table"
 
   return (
     <div
-      className="relative min-h-full w-full flex flex-col px-6 md:px-16 py-10 overflow-visible text-white"
+      className="relative min-h-full w-full flex flex-col px-6 md:px-14 py-10 text-white"
       style={{ background: "linear-gradient(145deg, #0D1F3C 0%, #0B1930 60%, #07101e 100%)" }}
     >
       {/* Header */}
       <div className="text-right shrink-0">
-        <span className="text-sm font-bold text-[#34D399] tracking-[0.15em]">תחזית רווחיות</span>
+        <span className="text-sm font-bold text-[#D4AF37] tracking-[0.15em]">ערך השותפות</span>
         <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
-        <h1 className="mt-3 text-3xl md:text-5xl font-black leading-[1.1] tracking-tight">
-          מ-2M טרנזקציות — 4 מנועי הכנסה חדשים
+        <h1 className="mt-3 text-3xl md:text-4xl font-black leading-tight">
+          ריטנר = שותפות · 1% מ-400M מחזיר אתכם לאפס
         </h1>
-        <p className="mt-2 text-white/40 text-sm">2% המרה שנה 1 → 20%+ שנה 5 · מבוסס נתוני CFO</p>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center gap-5 mt-6">
+      {/* Tab toggle */}
+      <div className="flex gap-3 justify-end mt-5 shrink-0">
+        {[
+          { id: "retainer", label: "📋 מה כולל הריטנר" },
+          { id: "table", label: "📊 טבלת ערך" },
+        ].map(t => (
+          <button
+            key={t.id}
+            onClick={() => setView(t.id)}
+            className="px-5 py-2 rounded-xl text-sm font-bold transition-all"
+            style={{
+              background: view === t.id ? "#D4AF37" : "rgba(255,255,255,0.06)",
+              color: view === t.id ? "#0B1930" : "rgba(255,255,255,0.5)",
+              border: `1px solid ${view === t.id ? "#D4AF37" : "rgba(255,255,255,0.1)"}`,
+            }}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
 
-        {/* GMV context strip */}
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            { label: "שוק מתנות זמין", val: "400M ₪", sub: "CFO אמר — כולו ממתין", color: "#D4AF37" },
-            { label: "שוק על האש", val: "~1B ₪", sub: "25% × 2M × 2,100 ₪", color: "#F97316" },
-            { label: "פוקר/בידור", val: "~100M ₪", sub: "10% × 2M × 500 ₪", color: "#A78BFA" },
-            { label: "שוק כולל", val: "~2.26B ₪", sub: "סך מחזור קבוצות PayBox", color: "#5BA4CF" },
-          ].map((c, i) => (
-            <div key={i} className="rounded-xl border border-white/8 bg-white/3 px-4 py-3 text-center">
-              <p className="text-xl font-black" style={{ color: c.color }}>{c.val}</p>
-              <p className="text-[10px] font-bold text-white/60 mt-0.5">{c.label}</p>
-              <p className="text-[9px] text-white/30 mt-0.5">{c.sub}</p>
+      <div className="flex-1 flex flex-col justify-center gap-5 mt-5">
+
+        {/* ── RETAINER VIEW ── */}
+        {view === "retainer" && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+              {RETAINER_BREAKDOWN.map((item, i) => (
+                <div key={i} className="rounded-2xl border border-white/10 bg-white/3 p-4 text-center">
+                  <div className="text-2xl mb-2">{item.icon}</div>
+                  <p className="font-black text-white text-sm leading-tight">{item.label}</p>
+                  <p className="text-[10px] text-white/35 mt-1 leading-relaxed">{item.sub}</p>
+                  <p className="text-lg font-black text-[#D4AF37] mt-3">{item.val.toLocaleString()} ₪</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Phase cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {PHASES.map((p, i) => (
-            <div
-              key={i}
-              onClick={() => setActive(active === i ? null : i)}
-              className="rounded-2xl p-5 cursor-pointer transition-all border"
-              style={{
-                background: active === i ? `${p.color}18` : "rgba(255,255,255,0.04)",
-                borderColor: active === i ? p.color : "rgba(255,255,255,0.1)",
-              }}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-black tracking-wider rounded-full px-2 py-0.5"
-                  style={{ background: `${p.color}25`, color: p.color }}>{p.label}</span>
-                <span className="text-gray-500 text-[10px]">{p.phase}</span>
+            {/* Total */}
+            <div className="rounded-2xl p-5 border border-[#D4AF37]/30 bg-[#D4AF37]/8 flex items-center justify-between">
+              <div className="text-right">
+                <p className="text-[10px] text-[#D4AF37]/60 font-bold tracking-widest">סה"כ ריטנר</p>
+                <p className="text-4xl font-black text-[#D4AF37]">350,000 ₪/חודש</p>
+                <p className="text-white/35 text-xs mt-1">= 4.2M ₪ לשנה</p>
               </div>
+              <div className="text-center max-w-xs">
+                <p className="text-white/60 text-sm leading-relaxed">
+                  זה לא עוד ספק — זו שותפות אמיתית.<br/>
+                  כשהמחזור יגיע ל-<strong className="text-[#D4AF37]">400M ₪</strong>,<br/>
+                  עמלה של <strong className="text-[#D4AF37]">1%</strong> = <strong className="text-[#34D399]">4M ₪</strong>.<br/>
+                  הריטנר חזר. כל שקל מעל — שלכם.
+                </p>
+              </div>
+            </div>
 
-              {/* Net total */}
-              <p className="text-3xl md:text-4xl font-black text-[#34D399]">
-                +{p.total.toFixed(1)}M
-              </p>
-              <p className="text-xs text-gray-400 mt-0.5">₪ נטו חדש לפייבוקס</p>
-              <p className="text-[10px] text-gray-600 mt-2 italic leading-snug">{p.note}</p>
-              <p className="text-[10px] text-[#D4AF37]/70 mt-1 font-bold">GMV The Box: {p.gmv}M ₪</p>
+            {/* Commission teaser */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              {[
+                { gmv: "100M ₪", comm: "1M ₪", note: "שנה 1 (Q2-Q3)", color: "#F59E0B" },
+                { gmv: "400M ₪", comm: "4M ₪", note: "Break-Even מלא", color: "#D4AF37" },
+                { gmv: "500M ₪+", comm: "4M ₪ + X%", note: "נבנה ביחד", color: "#34D399" },
+              ].map((c, i) => (
+                <div key={i} className="rounded-xl border border-white/8 bg-white/3 py-4">
+                  <p className="text-xs text-white/40 font-bold">GMV The Box</p>
+                  <p className="text-xl font-black mt-1" style={{ color: c.color }}>{c.gmv}</p>
+                  <p className="text-sm text-white/70 mt-1 font-bold">עמלה: {c.comm}</p>
+                  <p className="text-[10px] text-white/30 mt-1">{c.note}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
-              {active === i && (
-                <div className="mt-4 pt-3 border-t border-white/10 space-y-1.5 text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-[#EF4444]">{p.retainer}M ₪</span>
-                    <span className="text-gray-400">ריטיינר</span>
+        {/* ── VALUE TABLE VIEW ── */}
+        {view === "table" && (
+          <>
+            <div className="grid grid-cols-3 gap-4">
+              {VALUE_TABLE.map((col, ci) => (
+                <div key={ci}
+                  className="rounded-2xl border p-5 flex flex-col"
+                  style={{ background: col.bg, borderColor: col.border }}
+                >
+                  {/* Col header */}
+                  <div className="text-center mb-4 pb-3 border-b border-white/10">
+                    <p className="text-xl font-black" style={{ color: col.color }}>{col.col}</p>
+                    <p className="text-[10px] text-white/35 mt-0.5">{col.sub}</p>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#D4AF37]">+{p.commerce.toFixed(1)}M ₪</span>
-                    <span className="text-gray-400">עמלת Commerce</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#60A5FA]">+{p.interchange}M ₪</span>
-                    <span className="text-gray-400">Interchange</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#34D399]">+{p.float}M ₪</span>
-                    <span className="text-gray-400">Float Interest</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#A78BFA]">+{p.newCards}M ₪</span>
-                    <span className="text-gray-400">כרטיסים חדשים</span>
+                  {/* Rows */}
+                  <div className="flex flex-col gap-2.5 flex-1">
+                    {col.items.map((item, i) => (
+                      <div key={i} className={`flex justify-between items-start gap-2 ${item.bold ? 'pt-2.5 border-t border-white/10 mt-1' : ''}`}>
+                        <span className={`text-xs ${item.bold ? 'font-black' : 'font-medium'} text-white/50 text-right leading-tight`}>
+                          {item.label}
+                          {item.note && <span className="block text-[9px] text-white/25 font-normal">{item.note}</span>}
+                        </span>
+                        <span
+                          className={`text-sm font-black whitespace-nowrap ${item.bold ? 'text-base' : ''}`}
+                          style={{ color: item.accent || col.color }}
+                        >
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Interchange highlight */}
-        <div className="rounded-2xl bg-gradient-to-r from-[#5BA4CF]/12 to-[#34D399]/12 border border-[#5BA4CF]/25 px-6 py-4">
-          <p className="text-[10px] text-white/35 font-bold tracking-widest mb-2">💳 מנוע מס׳ 2 — הגדול ביותר</p>
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="text-center">
-              <p className="text-white/40 text-xs">סליקה נוכחית</p>
-              <p className="text-2xl font-black text-white/60">1B ₪/חודש</p>
-            </div>
-            <div className="text-2xl text-[#D4AF37]">→</div>
-            <div className="text-center">
-              <p className="text-white/40 text-xs">יעד שנה 5</p>
-              <p className="text-2xl font-black text-[#34D399]">5B ₪/חודש</p>
-            </div>
-            <div className="text-2xl text-[#D4AF37]">→</div>
-            <div className="text-center">
-              <p className="text-white/40 text-xs">4B × 0.3% × 12</p>
-              <p className="text-2xl font-black text-[#D4AF37]">144M ₪/שנה</p>
-            </div>
-            <div className="text-center">
-              <p className="text-[10px] text-white/30 max-w-xs leading-relaxed">Interchange טהור — ככל שהמחזור גדל, ההכנסה גדלה. ZUZ הוא מה שמגדיל את FIW מ-10% ל-50%+</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Assumptions */}
-        <div className="rounded-2xl p-5 border border-white/8" style={{ background: "rgba(255,255,255,0.03)" }}>
-          <p className="text-gray-400 text-xs font-bold tracking-widest mb-3 text-right">הנחות יסוד — שמרניות</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {[
-              { val: "2%", label: "המרה שנה 1", sub: "מ-2M טרנזקציות" },
-              { val: "2-3%", label: "עמלת Commerce", sub: "מהGMV — ברור ופשוט" },
-              { val: "0.3%", label: "Interchange", sub: "על כל שקל סליקה" },
-              { val: "חודש 12", label: "Break-Even", sub: "ריטיינר מתאפס שנה 3" },
-            ].map((item, i) => (
-              <div key={i}>
-                <p className="text-white font-black text-xl">{item.val}</p>
-                <p className="text-gray-300 text-xs font-bold mt-1">{item.label}</p>
-                <p className="text-gray-500 text-[10px] mt-0.5">{item.sub}</p>
+            {/* Key insight */}
+            <div className="rounded-2xl p-4 border border-[#60A5FA]/20 bg-[#60A5FA]/5 flex items-center gap-6 flex-wrap justify-end">
+              <p className="text-[10px] text-white/30 max-w-xs text-right leading-relaxed">
+                ה-Interchange גדל ישירות עם FIW. ZUZ הופך את PayBox לכרטיס הראשי. לא תלוי בעמלת Commerce שלנו.
+              </p>
+              <div className="text-center">
+                <p className="text-[10px] text-white/35">Interchange היום</p>
+                <p className="text-2xl font-black text-white/50">36M ₪/שנה</p>
               </div>
-            ))}
-          </div>
-        </div>
+              <div className="text-2xl text-[#D4AF37]">→</div>
+              <div className="text-center">
+                <p className="text-[10px] text-white/35">Interchange שנה 3</p>
+                <p className="text-2xl font-black text-[#60A5FA]">90M ₪/שנה</p>
+              </div>
+              <div className="text-2xl text-[#D4AF37]">→</div>
+              <div className="text-center">
+                <p className="text-[10px] text-white/35">Interchange שנה 5</p>
+                <p className="text-2xl font-black text-[#34D399]">180M ₪/שנה</p>
+              </div>
+            </div>
 
-        <p className="text-center text-gray-600 text-[10px]">
-          * לחצו על כל שנה לפירוט · עמלת Commerce = מה שפייבוקס רואה · מחושב לפי 2M טרנזקציות × שיעור המרה
-        </p>
+            <p className="text-center text-white/20 text-[10px]">
+              בסיס: 400K כרטיסים × 1,800 ₪/חודש ≈ 1B ₪ מחזור · Interchange 0.3% · FIW עולה עם ZUZ
+            </p>
+          </>
+        )}
       </div>
 
       <div className="mt-4 flex items-center justify-between text-gray-600 text-xs shrink-0">
