@@ -78,9 +78,9 @@ export default function Slide8() {
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-between text-[#9CA3AF] text-xs shrink-0">
-        <span className="font-bold tracking-widest">BoomBuy</span>
-        <span>08</span>
+      <div className="mt-6 flex items-center justify-between text-[#9CA3AF] text-[11px] shrink-0">
+        <span className="font-bold tracking-widest">BOOMBUY × PAYBOX</span>
+        <span>08 / 12</span>
       </div>
     </div>
   );
