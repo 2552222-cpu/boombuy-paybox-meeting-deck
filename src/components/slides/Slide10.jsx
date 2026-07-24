@@ -1,5 +1,5 @@
 import React from "react";
-import { Rocket, LineChart, TrendingUp, Building2 } from "lucide-react";
+import { Rocket, LineChart, TrendingUp, Building2, Flame } from "lucide-react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const MILESTONES = [
@@ -49,6 +49,18 @@ const MILESTONES = [
       "השקת PayBox לעסקים",
       "גידול סליקה בסופרמרקטים",
       "25% מהלקוחות עם פייבוקס כארנק ראשי",
+    ],
+  },
+  {
+    period: "שנה 2 →",
+    title: "קטגוריות גדילה אגרסיבית",
+    icon: Flame,
+    color: "#F97316",
+    items: [
+      "🃏 Box Gaming — שולחנות פוקר, בילארד, קלפים (מועדוני בידור)",
+      "🍔 Box Food — שת"פ 2–3 רשתות מזון מהיר (הנחות ישירות)",
+      "🚗 Box Auto — רכישת כלי רכב ורישיון פרטי דרך ZUZ",
+      "📱 PayBox Young — מועדון נפרד לדור הצעיר (18–35)",
     ],
   },
 ];
