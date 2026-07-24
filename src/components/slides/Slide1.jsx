@@ -1,11 +1,25 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { PayBoxLogo } from "@/components/slides/Logos";
+import {
+  Gift, CreditCard, GraduationCap, Footprints,
+  Plane, Drama, Wine, Beef
+} from "lucide-react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const THE_BOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/96ca92369_60.png";
 const BOOMBUY_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/f01a26580_.png";
-const MOCKUP = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/1c7d67b76_62.png";
+const PAYBOX_LOGO = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/9452db55b_61.png";
+
+const CATS = [
+  { icon: Gift,        t: "Box Gifts",             l: "מתנות כלליות" },
+  { icon: CreditCard, t: "Box Gift Cards",        l: "כרטיסי מתנה" },
+  { icon: GraduationCap, t: "Box Teacher Gifts",   l: "למורות וגננות" },
+  { icon: Footprints, t: "Box Fashion & Footwear", l: "אופנה והנעלה" },
+  { icon: Plane,      t: "Box Holidays & Travel",  l: "חופשות וטיולים" },
+  { icon: Drama,      t: "Box Culture",            l: "תרבות ופנאי" },
+  { icon: Wine,       t: "Box Alcohol & Wine",     l: "אלכוהול ויין" },
+  { icon: Beef,       t: "Box Barbecue",           l: "על האש" },
+];
 
 const SCRIPT = `"תסתכלו לרגע על הלוגו שלכם. PayBox — ארנק ההעברות הגדול בישראל.
 
@@ -30,8 +44,9 @@ export default function Slide1() {
         transition={{ duration: 0.6, ease }}
       >
         <img src={BOOMBUY_LOGO} alt="BoomBuy"
-          className="h-8 w-auto object-contain brightness-0 invert opacity-80" />
-        <PayBoxLogo size={32} textColor="white" />
+          className="h-8 w-auto object-contain brightness-0 invert opacity-90" />
+        <img src={PAYBOX_LOGO} alt="PayBox"
+          className="h-10 w-auto object-contain rounded-lg" />
       </motion.div>
 
       {/* Main */}
@@ -46,7 +61,7 @@ export default function Slide1() {
             className="flex justify-end mb-6"
           >
             <img src={THE_BOX_LOGO} alt="The Box"
-              className="h-16 w-auto object-contain brightness-0 invert" />
+              className="h-16 w-auto object-contain" />
           </motion.div>
 
           <motion.h1
@@ -70,7 +85,6 @@ export default function Slide1() {
             <span className="text-white font-black">למועדון הצרכנות הגדול בישראל</span>
           </motion.p>
 
-          {/* Stats row */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -90,7 +104,7 @@ export default function Slide1() {
           </motion.div>
         </div>
 
-        {/* Right — real mockup image */}
+        {/* Right — phone mockup */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -98,10 +112,55 @@ export default function Slide1() {
           transition={{ duration: 0.9, ease, delay: 0.2 }}
           className="shrink-0"
         >
-          <div className="rounded-[2.5rem] overflow-hidden shadow-2xl bg-white/10"
+          <div className="rounded-[3rem] bg-black p-2.5 shadow-2xl"
             style={{ width: 300 }}>
-            <img src={MOCKUP} alt="The Box app mockup"
-              className="w-full h-auto object-contain block" />
+            <div className="rounded-[2.4rem] overflow-hidden flex flex-col"
+              style={{ background: "#A1C2E8" }}>
+              {/* Notch */}
+              <div className="relative h-7 bg-white">
+                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-20 h-4 rounded-full bg-black" />
+              </div>
+
+              {/* Header */}
+              <div className="px-5 pt-5 pb-4 flex flex-col items-center text-center">
+                <img src={THE_BOX_LOGO} alt="The Box"
+                  className="w-16 h-16 object-contain mb-2" />
+                <h3 className="text-white font-black text-2xl tracking-tight">The Box</h3>
+                <p className="mt-2 text-[#1D2644] text-[13px] font-bold leading-snug">
+                  מתחם ההטבות והמתנות של PayBox
+                  <br />
+                  ממשו את הנקודות שצברתם
+                  <br />
+                  וקנו מוצרים בעד חצי מחיר
+                </p>
+              </div>
+
+              {/* Categories grid */}
+              <div className="px-4 pb-4 grid grid-cols-2 gap-2.5">
+                {CATS.map((cat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.4, ease, delay: 0.3 + i * 0.05 }}
+                    className="rounded-2xl bg-white flex flex-col items-center justify-center gap-1.5 px-2 py-3.5 text-center shadow-sm"
+                  >
+                    <cat.icon className="w-6 h-6 text-[#1D2644]" strokeWidth={1.6} />
+                    <span className="text-[#1D2644] text-[11px] font-black leading-tight">{cat.t}</span>
+                    <span className="text-[#5a6b8c] text-[10px] leading-tight">{cat.l}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className="px-5 pb-6">
+                <button className="w-full py-3.5 rounded-full bg-white font-black text-base shadow-md"
+                  style={{ color: "#1D2644" }}>
+                  Box it!
+                </button>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
