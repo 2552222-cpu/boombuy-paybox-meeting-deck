@@ -9,34 +9,36 @@ import Slide6 from "@/components/slides/Slide6";
 import Slide7 from "@/components/slides/Slide7";
 import Slide8 from "@/components/slides/Slide8";
 import Slide9 from "@/components/slides/Slide9";
+import SlideFlow from "@/components/slides/SlideFlow";
 import Slide10 from "@/components/slides/Slide10";
 import Slide11 from "@/components/slides/Slide11";
 import Slide12 from "@/components/slides/Slide12";
 
 const SLIDES = [
-  Slide1,   // Hero — The Box × PayBox
-  Slide2,   // The Problem (diagnostic data)
-  Slide3,   // The Solution — 10 categories
-  Slide4,   // Economic Model — Retainer + Offset
-  Slide5,   // Loyalty Engine — PayBox Coins
-  Slide6,   // App UX mockup
-  Slide7,   // Product catalog demo
-  Slide8,   // PayGift demo
-  Slide9,   // ROI Financial Table ★
-  Slide10,  // Roadmap
-  Slide11,  // Q&A — Objection handling
-  Slide12,  // Term Sheet + Action Items
+  Slide1,     // 01 — Hero — The Box × PayBox
+  Slide2,     // 02 — The Problem (diagnostic data)
+  Slide3,     // 03 — The Solution — 10 categories
+  Slide4,     // 04 — Economic Model — Retainer + Offset
+  Slide5,     // 05 — Loyalty Engine — PayBox Coins
+  Slide6,     // 06 — App UX mockup
+  Slide7,     // 07 — Product catalog demo
+  Slide8,     // 08 — PayGift demo
+  Slide9,     // 09 — ROI Financial Table ★
+  SlideFlow,  // 10 — Full Money Flow — 4 Revenue Streams ★
+  Slide10,    // 11 — Roadmap
+  Slide11,    // 12 — Q&A — Objection handling
+  Slide12,    // 13 — Term Sheet + Action Items
 ];
 
 const LABELS = [
-  "The Box", "הבעיה", "הפתרון", "המודל", "מנוע הנאמנות",
-  "UX", "הדמו", "PayGift", "ROI", "מפת דרכים", "Q&A", "Term Sheet",
+  "The Box", "הבעיה", "הפתרון", "המודל", "נאמנות",
+  "UX", "דמו", "PayGift", "ROI", "פלואו", "רודמאפ", "Q&A", "Term",
 ];
 
 export default function Home() {
   return (
     <div className="relative w-full bg-black">
-      {/* Slide counter pill */}
+      {/* Slide counter pills */}
       <div className="fixed top-4 right-4 z-40 flex gap-1.5 flex-wrap max-w-[calc(100vw-2rem)] justify-end">
         {LABELS.map((label, i) => (
           <a
