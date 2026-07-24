@@ -141,13 +141,15 @@ export default function Slide5() {
 
           {/* ZUZ Coin */}
           <motion.div variants={item} className="flex flex-col items-center gap-3">
-            <motion.div
+            <motion.img
+              src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/a1b988afc_generated_image.png"
+              alt="ZUZ Token"
+              width={210}
+              height={210}
               animate={{ rotateY:[0,8,-8,0], y:[0,-6,0] }}
               transition={{ duration:4, repeat:Infinity, ease:"easeInOut" }}
               style={{ filter:"drop-shadow(0 20px 40px rgba(91,164,207,0.3))" }}
-            >
-              <ZuzCoin size={200}/>
-            </motion.div>
+            />
             <div className="text-center">
               <p className="text-[10px] font-bold tracking-widest text-white/30 uppercase">Issued by PayBox</p>
               <p className="text-lg font-black text-white mt-1">1 ZUZ ≈ 1 ₪ ערך הטבה</p>
