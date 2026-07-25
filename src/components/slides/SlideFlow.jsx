@@ -160,8 +160,14 @@ export default function SlideFlow() {
           </div>
 
           <Section title="Interchange — שימוש בכרטיס ראשי" icon="💳" color="#60A5FA" gain={R.intGain}>
-            <div className="text-[9px] text-white/25 mb-2">
-              בסיס: 560M ₪/חודש · {R.intBase}M ₪/שנה היום
+            <div className="rounded-lg bg-white/5 border border-white/8 px-2.5 py-2 mb-2 text-right">
+              <p className="text-[9px] text-[#60A5FA]/70 font-bold mb-0.5">איך מחושב:</p>
+              <p className="text-[9px] text-white/35 leading-relaxed">
+                בסיס: 560M ₪/חודש (300K×1,800₪ + 100K×200₪) = {R.intBase}M ₪/שנה היום.<br/>
+                כל 1% שיפור ב-FIW = ~3.5% גידול במחזור (כרטיס ראשי = הוצאה פי 4).<br/>
+                מחזור חדש × Interchange% × 12 = הכנסה נוספת.<br/>
+                <span className="text-[#60A5FA]/50">* FIW = % לקוחות שמשתמשים בכרטיס כראשי</span>
+              </p>
             </div>
             <Slider label="FIW נוכחי — כמה % משתמשים בכרטיס כראשי?" sub="אמרתם 10% — האם נכון?" min={5} max={40} step={1} value={fiwNow} onChange={v => { setFiwNow(v); if (v >= fiwTarget) setFiwTarget(v + 2); }} unit="%" color="#93C5FD" />
             <Slider label="FIW עם The Box — לאן תגיעו?" min={fiwNow + 1} max={60} step={1} value={Math.max(fiwTarget, fiwNow + 1)} onChange={setFiwTarget} unit="%" color="#60A5FA" />
@@ -169,16 +175,28 @@ export default function SlideFlow() {
           </Section>
 
           <Section title="Float — ריבית על כסף שיושב" icon="🏦" color="#34D399" gain={R.floatGain}>
-            <div className="text-[9px] text-white/25 mb-2">
-              938M ₪ יתרה (מאומת) · {R.floatBase}M ₪/שנה היום
+            <div className="rounded-lg bg-white/5 border border-white/8 px-2.5 py-2 mb-2 text-right">
+              <p className="text-[9px] text-[#34D399]/70 font-bold mb-0.5">איך מחושב:</p>
+              <p className="text-[9px] text-white/35 leading-relaxed">
+                938M ₪ יתרת לקוחות (דוחות דיסקונט 2024 ✓) = {R.floatBase}M ₪/שנה היום.<br/>
+                ריבית בנק ישראל ~4.5% פחות מה שמשלמים ללקוחות = פער נטו.<br/>
+                ZUZ מותיר כסף בארנק יותר זמן ← יתרה גדלה ← יותר ריבית לדיסקונט.<br/>
+                <span className="text-[#34D399]/50">* זמן שהייה בארנק: אין נתון מדויק — הנחה</span>
+              </p>
             </div>
             <Slider label="פער ריבית נטו (BoI פחות מה שמשלמים ללקוחות)" min={0.5} max={4} step={0.25} value={floatSpread} onChange={setFloatSpread} unit="%" color="#34D399" decimals={2} />
             <Slider label="גידול יתרה עם ZUZ — כסף יושב יותר זמן" sub="400M ₪ בקבוצות מתנה — Float אמיתי" min={0} max={80} step={5} value={floatGrowth} onChange={setFloatGrowth} unit="%" color="#10B981" />
           </Section>
 
           <Section title="עמלות טרנזקציות — 2M/חודש" icon="⚡" color="#FB923C" gain={R.txnGain}>
-            <div className="text-[9px] text-white/25 mb-2">
-              2M טרנזקציות/חודש (נאמר ✓) · {R.txnBase}M ₪/שנה היום
+            <div className="rounded-lg bg-white/5 border border-white/8 px-2.5 py-2 mb-2 text-right">
+              <p className="text-[9px] text-[#FB923C]/70 font-bold mb-0.5">איך מחושב:</p>
+              <p className="text-[9px] text-white/35 leading-relaxed">
+                2M טרנזקציות/חודש (נאמר בשיחה ✓) = {R.txnBase}M ₪/שנה היום.<br/>
+                The Box מגדיל מספר פעולות (קניות, חלוקת כסף, מתנות).<br/>
+                2M × (1+גידול%) × עמלה ממוצעת × 12 = הכנסה.<br/>
+                <span className="text-[#FB923C]/50">* היום: פייבוקס בהפסד על עמלות — אמרו בשיחה</span>
+              </p>
             </div>
             <Slider label="עמלה ממוצעת לטרנזקציה" sub="כמה ₪ פייבוקס מרוויח על כל פעולה?" min={0.5} max={20} step={0.5} value={txnFee} onChange={setTxnFee} unit="₪" color="#FB923C" decimals={1} />
             <Slider label="גידול מספר טרנזקציות עם The Box" sub={`2M → ${(2*(1+txnGrowth/100)).toFixed(1)}M/חודש`} min={0} max={100} step={5} value={txnGrowth} onChange={setTxnGrowth} unit="%" color="#EA580C" />
@@ -200,28 +218,41 @@ export default function SlideFlow() {
             </span>
           </div>
 
-          <Section title="קבוצות מתנה → The Box" icon="🎁" color="#F472B6" gain={R.giftRev} >
-            <div className="rounded-lg bg-white/5 px-3 py-2 mb-2 text-right">
-              <div className="flex justify-between">
-                <span className="text-[9px] text-white/25">400M ₪ בקבוצות פעילות — דיווחתם ✓</span>
-                <span className="text-[10px] font-black text-[#F472B6]">{R.giftGmv}M ₪ GMV</span>
-              </div>
+          <Section title="קבוצות מתנה → The Box" icon="🎁" color="#F472B6" gain={R.giftRev}>
+            <div className="rounded-lg bg-white/5 border border-white/8 px-2.5 py-2 mb-2 text-right">
+              <p className="text-[9px] text-[#F472B6]/70 font-bold mb-0.5">איך מחושב:</p>
+              <p className="text-[9px] text-white/35 leading-relaxed">
+                400M ₪ יושבים בקבוצות מתנה פעילות (דיווחתם ✓).<br/>
+                לא כולם יעברו ל-The Box — אתם קובעים כמה %.<br/>
+                400M × % המרה = GMV · GMV × Commerce% = הכנסה.<br/>
+                <span className="text-[#F472B6]/50">→ {R.giftGmv}M ₪ GMV ממתנות עם הנחות אלו</span>
+              </p>
             </div>
             <Slider label="כמה % מהקבוצות יקנו דרך The Box?" sub={`5% = 20M GMV   ·   50% = 200M GMV`} min={5} max={50} step={5} value={giftConv} onChange={setGiftConv} unit="%" color="#F472B6" />
             <Slider label="% Commerce לפייבוקס על מתנות" min={0.5} max={3.0} step={0.25} value={giftComm} onChange={setGiftComm} unit="%" color="#EC4899" decimals={2} />
           </Section>
 
           <Section title='"על האש" — דילים מהירים' icon="🔥" color="#F97316" gain={R.ashRev}>
-            <div className="text-[9px] text-white/25 mb-2">
-              ארוחות, בילויים, חוויות — מחזור ישיר
+            <div className="rounded-lg bg-white/5 border border-white/8 px-2.5 py-2 mb-2 text-right">
+              <p className="text-[9px] text-[#F97316]/70 font-bold mb-0.5">איך מחושב:</p>
+              <p className="text-[9px] text-white/35 leading-relaxed">
+                ארוחות, בילויים, חוויות — קנייה ישירה דרך The Box.<br/>
+                GMV × % Commerce = הכנסה לפייבוקס.<br/>
+                <span className="text-[#F97316]/50">* GMV: הניחו מה ריאלי לשנה 1</span>
+              </p>
             </div>
             <Slider label="GMV שנתי — כמה ריאלי?" min={0} max={300} step={10} value={ashGmv} onChange={setAshGmv} unit="M₪" color="#F97316" />
             <Slider label="% Commerce לפייבוקס על האש" min={0.5} max={4.0} step={0.25} value={ashComm} onChange={setAshComm} unit="%" color="#EA580C" decimals={2} />
           </Section>
 
           <Section title="שאר קטגוריות The Box" icon="🛍️" color="#D4AF37" gain={R.otherRev}>
-            <div className="text-[9px] text-white/25 mb-2">
-              מוצרים, חופשות, כרטיסים, ביטוח
+            <div className="rounded-lg bg-white/5 border border-white/8 px-2.5 py-2 mb-2 text-right">
+              <p className="text-[9px] text-[#D4AF37]/70 font-bold mb-0.5">איך מחושב:</p>
+              <p className="text-[9px] text-white/35 leading-relaxed">
+                מוצרים, חופשות, כרטיסים לאירועים, ביטוח — כל קנייה ב-The Box.<br/>
+                GMV × % Commerce = הכנסה לפייבוקס.<br/>
+                <span className="text-[#D4AF37]/50">* הניחו GMV ריאלי — זה מעבר לקבוצות המתנה</span>
+              </p>
             </div>
             <Slider label="GMV שנתי — קטגוריות אחרות" min={0} max={500} step={25} value={otherGmv} onChange={setOtherGmv} unit="M₪" color="#D4AF37" />
             <Slider label="% Commerce לפייבוקס" min={0.5} max={2.0} step={0.1} value={otherComm} onChange={setOtherComm} unit="%" color="#B45309" decimals={1} />
