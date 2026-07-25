@@ -5,6 +5,7 @@ import SpeakerNotes from "@/components/slides/SpeakerNotes";
 // Slide A: Revenue sources TODAY (confirmed + assumptions marked)
 // Slide B: 3 scenarios — Conservative / Reasonable / Above Expected
 // Source: Discount Bank annual reports 2024, Calcalist, BizPortal, Ynet Capital
+// Updated post-Discovery 23/07/2026: 100K Young cards @200₪, Interchange = tiered model, Float = assumption
 
 const SCRIPT_A = `"לפני שנדבר על מה אנחנו מביאים לכם — בואו נבין יחד מה יש לכם היום.
 
@@ -31,14 +32,14 @@ const SCRIPT_B = `"שלושה תרחישים. כולם שמרניים.
 הריטנר שלנו? 12% מהרווח הסביר. ומחזיר את עצמו ב-400 מיליון GMV."`;
 
 const ASSUMPTIONS = [
-  { text: "300K כרטיסי CC × 1,800 ₪/חודש = 540M ₪/חודש מחזור", verified: true },
-  { text: "Interchange: 0.3% על כל סליקה — תקן ישראלי", verified: true },
-  { text: "יתרת לקוחות פייבוקס: 938M ₪ (גדל 25.6% ב-2024)", verified: true },
-  { text: "הפסד פייבוקס 2024: 63.7M ₪ (ירד מ-77M ב-2023)", verified: true },
-  { text: "ריבית BoI: ~4.5% · ריבית ללקוחות: 2.5% · פער: 2%*", verified: false },
-  { text: "עמלת העברה ממוצעת: ~20 ₪/משתמש/שנה (10% מ-4.5M)*", verified: false },
+  { text: "300K CC רגיל × 1,800 ₪ + 100K יאנג × 200 ₪ = 560M ₪/חודש ✓", verified: true },
+  { text: "Interchange: מודל מדורג (לא 0.3% תקני) — לא אומת*", verified: false },
+  { text: "יתרת לקוחות פייבוקס: 938M ₪ (גדל 25.6% ב-2024) ✓", verified: true },
+  { text: "הפסד פייבוקס 2024: 63.7M ₪ (ירד מ-77M ב-2023) ✓", verified: true },
+  { text: "FIW נוכחי: ~10% (כרטיס משני בלבד) — אמרו ✓", verified: true },
+  { text: "Float: 938M × 2% — אין נתון זמן שהייה בארנק. הנחה*", verified: false },
+  { text: "משיכה לחשבון בנק: 100% — אמרו. מחליש הנחת Float*", verified: false },
   { text: "עלויות תפעול: ~120M ₪ (backwards מהפסד)*", verified: false },
-  { text: "FIW נוכחי: ~10% · גדל +5/12/20% לפי תרחיש*", verified: false },
 ];
 
 export default function SlideValueModel() {
@@ -126,14 +127,14 @@ export default function SlideValueModel() {
               <p className="text-[10px] text-white/35 font-bold tracking-widest mb-3">הכנסות קבוצת דיסקונט מפייבוקס</p>
 
               {[
-                { icon: "💳", label: "Interchange — אשראי CC", val: "19.4M ₪", note: "300K × 1,800 ₪ × 12 × 0.3%", verified: true, pct: 35, color: "#1D9E75" },
-                { icon: "🏦", label: "Float → דיסקונט", val: "~19M ₪", note: "938M × פער 2% (4.5% − 2.5%)*", verified: true, pct: 35, color: "#0F6E56" },
+                { icon: "💳", label: "Interchange — מודל מדורג*", val: "~19M ₪", note: "560M ₪/חודש × מדורג × 12 · לא אומת*", verified: false, pct: 35, color: "#1D9E75" },
+                { icon: "🏦", label: "Float → דיסקונט*", val: "~19M ₪", note: "938M × פער 2% · 100% משיכה · זמן לא ידוע*", verified: false, pct: 35, color: "#0F6E56" },
                 { icon: "💸", label: "עמלות העברה (2025)*", val: "~9M ₪", note: "450K משתמשים × ~20 ₪/שנה*", verified: false, pct: 16, color: "#BA7517" },
                 { icon: "📦", label: "Plus / עסקים / אחר*", val: "~8M ₪", note: "הנחה — לא נבדק*", verified: false, pct: 14, color: "#854F0B" },
               ].map((row, i) => (
                 <div key={i} className="mb-3">
                   <div className="flex justify-between items-baseline mb-1">
-                    <span className="text-sm text-white/80">{row.icon} {row.label}</span>
+                    <span className="text-sm text-white/80 text-right" dir="rtl">{row.icon} {row.label}</span>
                     <span className={`text-sm font-black ${row.verified ? "text-[#4ade80]" : "text-[#D4AF37]"}`}>{row.val}</span>
                   </div>
                   <div className="rounded h-5 overflow-hidden" style={{ background: "rgba(255,255,255,0.07)" }}>
