@@ -22,7 +22,7 @@ const MILESTONES = [
     color: "#F59E0B",
     items: [
       "הרחבה ל-100K משתמשים",
-      "הוספת Box Eilat + Box Wellness",
+      "הוספת Box Wellness + Box Culture",
       "מדידת אחוזי מימוש — יעד 15%+",
       "אופטימיזציה של מסלולי קאשבק",
     ],
