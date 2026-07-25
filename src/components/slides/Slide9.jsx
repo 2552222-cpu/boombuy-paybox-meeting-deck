@@ -2,52 +2,55 @@ import React, { useState } from "react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 // ─── TWO-LAYER MODEL ──────────────────────────────────────────────────────────
-// Layer 1: PayBox's OWN business grows → they earn more from their own metrics
-//   - Interchange: volume × 0.3% (if volume grows 30%, interchange grows 30%)
-//   - Float: more money sitting in accounts → more interest
-//   - New cards: +15% cards/year → more volume → more interchange
-// Layer 2: Commerce BONUS → % of The Box GMV (we agree on the number together)
-//   First 400M at 1% = 4M NIS → returns retainer. Everything above = bonus.
+// Numbers aligned with SlideValueModel (Discount Bank reports 2024):
+// Interchange: 300K × 1,800 ₪ × 12 × 0.3% = 19.4M NIS/year (confirmed)
+// Float: 938M NIS balance × 2% spread = ~19M NIS/year (goes to Discount Bank group)
+// Cards: 300K active → ZUZ attracts 60K new cards/year → more interchange
+//
+// Layer 1 gains = "reasonable" scenario from SlideValueModel (FIW +12%):
+//   Interchange +15M, Float +10M, Cards +12M  → total +37M year 1
+// Layer 2: Commerce bonus = % of GMV agreed with PayBox (0.5–1%)
+// Break-even: 420M GMV × 1% = 4.2M = retainer
 
 const ORGANIC = [
   {
     icon: "💳",
     title: "Interchange",
-    today: "36M ₪/שנה",
-    todayNote: "1B ₪/חודש × 0.3%",
-    engine: "The Box מגדיל מחזור ב-30%",
-    engineNote: "1B → 1.3B ₪/חודש",
-    gain: "+11M ₪/שנה",
-    yr3: "+54M ₪",
-    yr3note: "1B → 2.5B × 0.3% = 90M",
+    today: "19.4M ₪/שנה",
+    todayNote: "300K × 1,800 ₪ × 12 × 0.3%",
+    engine: "The Box מגדיל First in Wallet",
+    engineNote: "10% → 22% שימוש ככרטיס ראשי",
+    gain: "+15M ₪/שנה",
+    yr3: "+25M ₪",
+    yr3note: "FIW 30%+ = 25M Interchange נוסף",
     color: "#60A5FA",
-    calc: "300M נוספים × 0.3% × 12 = +10.8M ₪",
+    calc: "540M → 810M ₪/חודש מחזור × 0.3% × 12",
   },
   {
     icon: "🏦",
     title: "Float Interest",
-    today: "~8M ₪/שנה",
-    todayNote: "כסף יושב ממוצע 4 ימים",
-    engine: "יותר כסף, יושב יותר זמן",
-    engineNote: "ZUZ מושך כסף להישאר בPayBox",
-    gain: "+4M ₪/שנה",
-    yr3: "+12M ₪",
-    yr3note: "מחזור × 2× × ימי float",
+    today: "~19M ₪/שנה",
+    todayNote: "938M ₪ יתרה × פער 2% → דיסקונט",
+    engine: "ZUZ משאיר כסף בפייבוקס יותר זמן",
+    engineNote: "יתרה גדלה + ימי float ארוכים יותר",
+    gain: "+10M ₪/שנה",
+    yr3: "+18M ₪",
+    yr3note: "יתרה מוכפלת × פער ריבית",
     color: "#34D399",
-    calc: "פי 2 כסף × פי 1.5 זמן × ריבית",
+    calc: "יתרה 1.2B × 2% = 24M (+5M מהיום)",
   },
   {
     icon: "🆕",
     title: "כרטיסים חדשים",
-    today: "400K כרטיסים",
-    todayNote: "1,800 ₪/חודש ממוצע",
-    engine: "ZUZ מושך +15% כרטיסים/שנה",
-    engineNote: "60K כרטיסים חדשים שנה 1",
+    today: "300K כרטיסים",
+    todayNote: "1,800 ₪/חודש ממוצע לכרטיס",
+    engine: "ZUZ מושך +60K כרטיסים/שנה",
+    engineNote: "כל כרטיס = 1,800 ₪ × 12 × 0.3%",
     gain: "+12M ₪/שנה",
     yr3: "+30M ₪",
     yr3note: "+30% מחזור מכרטיסים חדשים",
     color: "#A78BFA",
-    calc: "60K × 1,800 ₪ × 12 × 0.3% + עמלות",
+    calc: "60K × 1,800 ₪ × 12 × 0.3% × 12 חודשים",
   },
 ];
 
@@ -61,23 +64,25 @@ const RETAINER_BREAKDOWN = [
 
 const SCRIPT = `"אני רוצה להסביר לכם למה הריטנר הוא ההשקעה הכי טובה שתעשו.
 
-פייבוקס היום מרוויח מ-Interchange — כל שקל שעובר דרך הכרטיס, 0.3% נכנס לכם. אם אנחנו מגדילים את המחזור שלכם ב-30% — זה 300 מיליון שח נוספים בחודש — כפול 0.3% כפול 12 — זה 11 מיליון שח נוספים לשנה, רק מה שכבר שלכם.
+פייבוקס היום מרוויח מ-Interchange — 300 אלף כרטיסים, 1,800 שח בחודש לכרטיס, 0.3% — זה 19 מיליון שקל לשנה.
 
-כסף שיושב בחשבונות — כמה זמן הוא יושב? כמה אתם מרוויחים עליו? ZUZ גורם לכסף להישאר אצלכם יותר — כי אנשים מחכים לרכוש דרך The Box.
+The Box הופך יותר ויותר משתמשים לשימוש בכרטיס כראשי — First in Wallet עולה מ-10% ל-22%. כל השקלים האלה עוברים דרככם. זה עוד 15 מיליון שקל לשנה — רק מ-Interchange.
 
-כרטיסים חדשים — 15% יותר כרטיסים לשנה — כל כרטיס שווה 1,800 שח לחודש. חשבו מה זה שווה לכם.
+938 מיליון שקל יושבים בחשבונות. ZUZ גורם לכסף לשבת יותר זמן — כי אנשים מחכים לרכוש דרך The Box. זה עוד 10 מיליון שקל.
 
-זה Layer 1 — הגידול שלכם. The Box פשוט מגדיל את המכונה שלכם.
+כרטיסים חדשים — 60 אלף כרטיסים בשנה 1. כל כרטיס שווה 1,800 שח לחודש לסליקה. חשבו מה זה שווה לכם לאורך זמן.
 
-Layer 2 — הבונוס. מהמחזור של המועדון — מתנות, על האש, פוקר, מוצרים — אתם מקבלים אחוז שנסכים עליו. על ה-400 מיליון הראשונים — 1% — זה 4 מיליון. בדיוק כמו הריטנר. הריטנר חזר.
+זה Layer 1 — 37 מיליון שקל בשנה הראשונה, ורק הולך וגדל. The Box פשוט מגדיל את המכונה שלכם.
 
-מה שמעבר ל-400 מיליון — בואו נדבר ביחד."`;
+Layer 2 — הבונוס. מהמחזור של המועדון — מתנות, על האש, פוקר, מוצרים — אתם מקבלים אחוז שנסכים עליו. על ה-420 מיליון הראשונים — 1% — זה 4.2 מיליון. בדיוק כמו הריטנר. הריטנר חזר.
+
+מה שמעבר ל-420 מיליון — בואו נדבר ביחד."`;
 
 export default function Slide9() {
   const [view, setView] = useState("layers");
 
-  const totalOrganicYr1 = 11 + 4 + 12;
-  const totalOrganicYr3 = 54 + 12 + 30;
+  const totalOrganicYr1 = 15 + 10 + 12; // = 37M
+  const totalOrganicYr3 = 25 + 18 + 30; // = 73M
 
   return (
     <div
@@ -138,8 +143,8 @@ export default function Slide9() {
 
                   {/* Today */}
                   <div className="mb-3 pb-3 border-b border-white/8">
-                    <p className="text-[10px] text-white/35 font-bold">היום</p>
-                    <p className="text-lg font-black text-white/50">{item.today}</p>
+                    <p className="text-[10px] text-white/35 font-bold">היום ✓</p>
+                    <p className="text-lg font-black text-white/70">{item.today}</p>
                     <p className="text-[10px] text-white/25">{item.todayNote}</p>
                   </div>
 
@@ -174,7 +179,7 @@ export default function Slide9() {
                 <p className="text-[10px] text-white/25">שנה 3: +{totalOrganicYr3}M ₪/שנה</p>
               </div>
               <div className="text-[10px] text-white/30 text-right max-w-xs leading-relaxed">
-                זה הכסף שלכם — The Box פשוט מגדיל את המנועים שכבר עובדים.<br/>
+                זה הכסף שלכם — The Box פשוט מגדיל את המנועים שכבר עובדים.<br />
                 Interchange + Float + כרטיסים = ה-DNA של פייבוקס.
               </div>
             </div>
@@ -189,9 +194,9 @@ export default function Slide9() {
             {/* Layer 2 commerce */}
             <div className="grid grid-cols-3 gap-3">
               {[
-                { gmv: "עד 400M ₪", comm: "1%", val: "→ 4M ₪", sub: "מחזיר את הריטנר", color: "#D4AF37" },
-                { gmv: "מעל 400M ₪", comm: "% X", val: "נגדיר יחד", sub: "כל שקל מעל = רווח", color: "#34D399" },
-                { gmv: "מתנות + אש + פוקר", comm: "—", val: "Volume grows", sub: "כולם עוברים דרך פייבוקס", color: "#A78BFA" },
+                { gmv: "עד 420M ₪", comm: "1%", val: "→ 4.2M ₪", sub: "מחזיר את הריטנר המלא", color: "#D4AF37" },
+                { gmv: "מעל 420M ₪", comm: "% X", val: "נגדיר יחד", sub: "כל שקל מעל = רווח נטו", color: "#34D399" },
+                { gmv: "מתנות + אש + פוקר", comm: "—", val: "Volume גדל", sub: "כולם עוברים דרך פייבוקס", color: "#A78BFA" },
               ].map((c, i) => (
                 <div key={i} className="rounded-xl border p-4 text-center"
                   style={{ background: `${c.color}08`, borderColor: `${c.color}25` }}>
@@ -227,10 +232,10 @@ export default function Slide9() {
               </div>
               <div className="text-right max-w-sm">
                 <p className="text-white/60 text-sm leading-relaxed">
-                  5 אנשים בכירים שמנהלים סחר ושירות<br/>
-                  ל-<strong className="text-[#D4AF37]">4 מיליון לקוחות פוטנציאליים</strong>.<br/><br/>
-                  כשה-GMV יגיע ל-<strong className="text-[#D4AF37]">400M ₪</strong> —<br/>
-                  1% עמלה = <strong className="text-[#34D399]">4M ₪</strong>.<br/>
+                  5 אנשים בכירים שמנהלים סחר ושירות<br />
+                  ל-<strong className="text-[#D4AF37]">4 מיליון לקוחות פוטנציאליים</strong>.<br /><br />
+                  כשה-GMV יגיע ל-<strong className="text-[#D4AF37]">420M ₪</strong> —<br />
+                  1% עמלה = <strong className="text-[#34D399]">4.2M ₪</strong>.<br />
                   הריטנר חזר. <strong className="text-white">כל שקל מעל — שלכם.</strong>
                 </p>
               </div>
@@ -239,8 +244,8 @@ export default function Slide9() {
             <div className="grid grid-cols-3 gap-3 text-center">
               {[
                 { label: "ריטנר שנתי", val: "4.2M ₪", color: "#EF4444", icon: "📤" },
-                { label: "Commerce 1% × 400M", val: "4M ₪", color: "#D4AF37", icon: "📥" },
-                { label: "נטו שנה 1", val: "≈ 0", color: "#34D399", icon: "⚖️", note: "+ Layer 1 מעל" },
+                { label: "Commerce 1% × 420M", val: "4.2M ₪", color: "#D4AF37", icon: "📥" },
+                { label: "נטו Commerce", val: "≈ 0", color: "#34D399", icon: "⚖️", note: "+ Layer 1 מעל" },
               ].map((c, i) => (
                 <div key={i} className="rounded-xl border border-white/8 bg-white/3 py-5">
                   <div className="text-2xl mb-1">{c.icon}</div>
