@@ -1,71 +1,109 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Users, Layers, DollarSign, PieChart, Database, LogOut, CheckCircle2, Calendar } from "lucide-react";
+import { Users, ShieldCheck, DollarSign, Database, BarChart2, LogOut } from "lucide-react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 import { EASE, fadeUp, deckItem, deckContainer, GoldBar } from "@/components/slides/deckAnim";
 
 const LOGO_BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
 const BOOMBUY_LOGO = LOGO_BASE + "f01a26580_.png";
-const PAYBOX_LOGO = LOGO_BASE + "9452db55b_61.png";
-const THEBOX_LOGO = LOGO_BASE + "96ca92369_60.png";
+const PAYBOX_LOGO  = LOGO_BASE + "9452db55b_61.png";
+const THEBOX_LOGO  = LOGO_BASE + "96ca92369_60.png";
 
 const TERMS = [
-  { icon: Users,      section:"א. שותפות", title:"Experience as a Service",  content:"BoomBuy מספקת תשתית, ניהול 2 מועדונים, סחר וסבסוד. PayBox מספקת תשתית API ובסיס הלקוחות.", color:"#5BA4CF" },
-  { icon: DollarSign, section:"ב. תשלום",  title:"ריטיינר חודשי",            content:"350,000 ₪ לחודש = 4.2M ₪ לשנה. כולל: טכנולוגיה, צוותי סחר ושירות, סבסוד ההטבות. מתכסה מעצמו ב-420M GMV ב-1% Commerce.", color:"#D4AF37" },
-  { icon: PieChart,   section:"ג. הכנסות", title:"חלוקת Rev-Share",          content:"Commerce: % מוסכם מה-GMV של The Box. הריטנר מתכסה ב-420M GMV ב-1% עמלה. כל שקל מעל 420M — רווח נטו לפייבוקס.", color:"#34D399" },
-  { icon: Database,   section:"ד. דאטה",   title:"בעלות מידע",               content:"כל הדאטה שייך ל-PayBox. BoomBuy — גישת Read-Only לצרכי הפלטפורמה בלבד. הסכם NDA מלא.", color:"#A78BFA" },
-  { icon: Layers,     section:"ה. SLA",    title:"זמינות ויעדים",            content:"99.5% uptime. יעד Break-Even: חודש 6. דוחות ביצוע חודשיים שקופים לשני הצדדים.", color:"#F97316" },
-  { icon: LogOut,     section:"ו. יציאה",  title:"Exit Clause",              content:"לאחר 12 חודש — כל צד יכול לצאת עם התראה של 90 יום. הטכנולוגיה נשארת במצב פעיל ל-PayBox.", color:"#EC4899" },
+  {
+    icon: Users,
+    section: "א. שותפות",
+    title: "Experience as a Service",
+    content: "BoomBuy: תשתית, טכנולוגיה, שני מועדונים, סחר וסבסוד. PayBox: מותג, API ובסיס הלקוחות. המוצר נראה ללקוח כמוצר PayBox.",
+    color: "#4F7FE0",
+  },
+  {
+    icon: DollarSign,
+    section: "ב. תשלום",
+    title: "ריטנר חודשי — שותפות, לא ספק",
+    content: "350,000 ₪/חודש = 4.2M ₪/שנה. כולל: טכנולוגיה, סחר, שירות וסבסוד. ריטנר שהופך להשקעה שמחזירה את עצמה ככל שהסחר גדל.",
+    color: "#D4AF37",
+  },
+  {
+    icon: BarChart2,
+    section: "ג. הכנסות",
+    title: "% מה-GMV — ייקבע יחד",
+    content: "PayBox מקבל % מוסכם מהמחזור של The Box. הנוסחה: נקבע ביחד לפי תוצאות הפיילוט. המטרה: ריטנר שמתקזז לחלוטין מהסחר.",
+    color: "#34D399",
+  },
+  {
+    icon: ShieldCheck,
+    section: "ד. אחריות",
+    title: "BoomBuy = המוכר הרשמי",
+    content: "חשבוניות, משלוחים, שירות, ביטולים, החזרות — עלינו. PayBox לא נושא אחריות מסחרית. BoomBuy משפה את PayBox בכל מקרה.",
+    color: "#22d3ee",
+  },
+  {
+    icon: Database,
+    section: "ה. דאטה",
+    title: "הנתונים שייכים ל-PayBox",
+    content: "BoomBuy = מעבד מידע בלבד. מינימום נתונים לצרכי ביצוע הזמנה. NDA מלא. איסור מוחלט על שימוש עצמאי בלקוחות PayBox.",
+    color: "#a78bfa",
+  },
+  {
+    icon: LogOut,
+    section: "ו. פיילוט + יציאה",
+    title: "90 יום עם KPIs ברורים",
+    content: "פיילוט 90 יום: המרה 2%+, אספקה 95%+, תלונות <2%. לאחר 12 חודש: exit עם 90 יום התראה. הנתונים תמיד אצלכם.",
+    color: "#fb923c",
+  },
 ];
 
 const ACTIONS = [
-  { num:"01", action:"אישור עקרוני למסגרת השותפות",   timeline:"פגישה זו", icon: CheckCircle2 },
-  { num:"02", action:"חתימה על NDA + Term Sheet",       timeline:"7 ימים",   icon: CheckCircle2 },
-  { num:"03", action:"ישיבת Kickoff טכנית (API)",       timeline:"שבוע 2",   icon: Calendar },
-  { num:"04", action:"עלייה לאוויר — פיילוט 10K",      timeline:"חודש 1",   icon: Calendar },
+  { num: "01", action: "אישור עקרוני למסגרת", timeline: "פגישה זו" },
+  { num: "02", action: "חתימה על NDA + Term Sheet", timeline: "7 ימים" },
+  { num: "03", action: "Kickoff טכני (API + אינטגרציה)", timeline: "שבוע 2" },
+  { num: "04", action: "פיילוט חי — 10,000 משתמשים", timeline: "חודש 1" },
 ];
 
 const SCRIPT = `"זה המבנה המוצע — שישה סעיפים פשוטים.
 
 אנחנו לא מגיעים לכאן בלחץ. אנחנו מגיעים עם הצעה שמדברת בעד עצמה.
 
-כשתחושו שהמספרים עושים הגיון ושהכיוון נכון — נשמח לפתוח שיחה על פרטי המסגרת.
+נקודה חשובה: ככל שהשותפות גדלה ואנחנו נשתף גם ב-upside של Layer 1 — הריטנר יכול להצטמצם. המטרה שלנו: שותפות אמיתית ב-upside, לא ספק שמקבל תשלום.
 
-הצעד הבא הוא שיחה קצרה על NDA ועל Term Sheet. אנחנו זמינים בכל עיתוי שמתאים לכם."`;
+הצעד הבא: NDA + Term Sheet. אנחנו מוכנים."`;
 
 export default function Slide12() {
   return (
-    <div className="relative min-h-screen w-full flex flex-col px-8 md:px-20 py-12 overflow-hidden bg-white">
+    <div dir="rtl" className="relative min-h-screen w-full flex flex-col px-8 md:px-20 py-12 overflow-hidden bg-white">
+
       {/* Header */}
       <motion.header {...fadeUp(0)} className="text-right shrink-0">
-        <span className="text-sm font-bold text-[#5BA4CF] tracking-[0.2em] uppercase">
+        <span className="text-xs font-black text-[#4F7FE0] tracking-[0.2em] uppercase">
           Term Sheet · מסגרת שותפות
         </span>
         <GoldBar className="mt-4" />
         <h1 className="mt-3 text-3xl md:text-5xl font-black text-[#0B1930] leading-[1.1] tracking-[-0.02em]">
           נוסחה פשוטה.<br />
-          <span className="text-[#0B1930]/55">שותפות לטווח ארוך.</span>
+          <span className="text-[#0B1930]/40">שותפות לטווח ארוך.</span>
         </h1>
       </motion.header>
 
-      <div className="flex-1 flex flex-col md:flex-row gap-8 mt-10">
-        {/* Term sheet grid */}
+      <div className="flex-1 flex flex-col md:flex-row gap-8 mt-8">
+
+        {/* Terms grid */}
         <motion.div
-          variants={deckContainer(0.08)}
+          variants={deckContainer(0.07)}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           className="md:flex-1 grid grid-cols-1 md:grid-cols-2 gap-3 content-start"
         >
           {TERMS.map((t, i) => (
             <motion.div
               key={i}
               variants={deckItem}
-              className="rounded-2xl p-5 text-right border transition-colors"
+              className="rounded-2xl p-5 text-right border"
               style={{ borderColor: "#ECEEF2", background: "#FAFBFC" }}
             >
-              <div className="flex items-center justify-between mb-3">
-                <t.icon className="w-4 h-4 shrink-0" style={{ color: t.color }} strokeWidth={1.6} />
+              <div className="flex items-center justify-between mb-2">
+                <t.icon className="w-4 h-4 shrink-0" style={{ color: t.color }} strokeWidth={1.5} />
                 <div className="text-right">
                   <span className="text-[10px] font-black tracking-wider" style={{ color: t.color }}>
                     {t.section}
@@ -74,14 +112,14 @@ export default function Slide12() {
                 </div>
               </div>
               <p className="text-xs text-[#6B7280] leading-relaxed">{t.content}</p>
-              <div className="mt-3 h-0.5 w-8 rounded-full" style={{ background: t.color }} />
+              <div className="mt-3 h-[2px] w-8 rounded-full" style={{ background: t.color }} />
             </motion.div>
           ))}
         </motion.div>
 
         {/* Side: next steps + CTA */}
-        <div className="md:w-[340px] flex flex-col gap-4">
-          <motion.h3 {...fadeUp(0.1)} className="text-[#0B1930] font-black text-xl text-right">
+        <div className="md:w-[300px] flex flex-col gap-4">
+          <motion.h3 {...fadeUp(0.1)} className="text-[#0B1930] font-black text-lg text-right">
             השלבים הבאים
           </motion.h3>
 
@@ -90,7 +128,7 @@ export default function Slide12() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col gap-3"
+            className="flex flex-col gap-2"
           >
             {ACTIONS.map((a, i) => (
               <motion.li
@@ -98,35 +136,35 @@ export default function Slide12() {
                 variants={deckItem}
                 className="rounded-2xl p-4 border border-[#ECEEF2] bg-[#F9FAFB] flex items-center gap-4"
               >
-                <div className="shrink-0 w-10 h-10 rounded-xl bg-[#0B1930] flex items-center justify-center text-white font-black text-sm">
+                <div className="shrink-0 w-9 h-9 rounded-xl bg-[#0B1930] flex items-center justify-center text-white font-black text-xs">
                   {a.num}
                 </div>
                 <div className="flex-1 text-right">
                   <p className="font-black text-[#0B1930] text-sm">{a.action}</p>
-                  <p className="text-[#6B7280] text-xs mt-0.5 flex items-center gap-1 justify-end">
-                    <a.icon className="w-3 h-3" strokeWidth={1.6} />
-                    {a.timeline}
-                  </p>
+                  <p className="text-[#6B7280] text-xs mt-0.5">{a.timeline}</p>
                 </div>
               </motion.li>
             ))}
           </motion.ul>
 
-          {/* CTA — economic engine ignition */}
+          {/* CTA */}
           <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: EASE }}
+            {...fadeUp(0.3)}
             className="rounded-3xl p-6 text-white text-center mt-1"
             style={{ background: "linear-gradient(160deg,#0B1930 0%,#0D1F3C 100%)", border: "1.5px solid #D4AF37" }}
           >
             <div className="flex items-center justify-center gap-3 mb-5">
               <img src={BOOMBUY_LOGO} alt="BoomBuy" className="h-6 w-auto brightness-0 invert" />
               <span className="text-[#D4AF37] text-lg font-light">×</span>
-              <div className="rounded-xl bg-white p-1 flex items-center h-9">
-                <img src={THEBOX_LOGO} alt="The Box" className="h-7 w-auto" />
-              </div>
+              <div
+                className="rounded-xl overflow-hidden flex items-center"
+                style={{
+                  width: 36, height: 36,
+                  backgroundImage: `url(${THEBOX_LOGO})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
               <span className="text-[#D4AF37] text-lg font-light">=</span>
               <div className="rounded-xl bg-white p-1 flex items-center h-9">
                 <img src={PAYBOX_LOGO} alt="PayBox" className="h-7 w-auto" />
@@ -144,9 +182,9 @@ export default function Slide12() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-[#9CA3AF] text-[11px] shrink-0 mt-6">
-        <span className="font-bold tracking-widest">BOOMBUY × PAYBOX</span>
-        <span>12 / 12</span>
+      <div className="flex items-center justify-between text-[#9CA3AF] text-[11px] shrink-0 mt-5">
+        <span className="font-bold tracking-widest">BoomBuy × PayBox</span>
+        <span>Term Sheet</span>
       </div>
 
       <SpeakerNotes notes={SCRIPT} />
