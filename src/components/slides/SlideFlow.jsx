@@ -60,6 +60,7 @@ function Block({ icon, title, color, baseLabel, gain, tbd, question, children })
 
 export default function SlideFlow() {
   const {
+    iRate, setIRate,
     intGrowth, setIntGrowth,
     floatGrowth, setFloatGrowth,
     txnGrowth, setTxnGrowth,
