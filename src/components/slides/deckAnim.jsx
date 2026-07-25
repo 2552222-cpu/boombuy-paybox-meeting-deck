@@ -24,13 +24,13 @@ export const deckContainer = (stagger = 0.1) => ({
   show: { transition: { staggerChildren: stagger } },
 });
 
-// Consistent gold accent bar for slide headers (RTL-aligned right by default).
+// Consistent gold accent bar for slide headers — vertical line (RTL-aligned right by default).
 export function GoldBar({ className = "", align = "right" }) {
-  const alignClass = align === "center" ? "mx-auto" : align === "left" ? "ml-0 mr-auto" : "mr-0 ml-auto";
+  const alignClass = align === "center" ? "mx-auto" : align === "left" ? "ml-0 mr-auto" : "ml-auto";
   return (
     <div
-      className={`h-1 w-14 rounded-full ${alignClass} ${className}`}
-      style={{ background: "linear-gradient(90deg,#D4AF37,#F5D883)" }}
+      className={`w-0.5 h-12 rounded-full ${alignClass} ${className}`}
+      style={{ background: "linear-gradient(to bottom,#D4AF37,transparent)" }}
     />
   );
 }
