@@ -81,8 +81,8 @@ Layer 2 — הבונוס. מהמחזור של המועדון — מתנות, ע�
 export default function Slide9() {
   const [view, setView] = useState("layers");
 
-  const totalOrganicYr1 = 15 + 10 + 12; // = 37M
-  const totalOrganicYr3 = 25 + 18 + 30; // = 73M
+  const totalOrganicYr1 = 15 + 10 + 4; // = 29M
+  const totalOrganicYr3 = 25 + 18 + 10; // = 53M
 
   return (
     <div
