@@ -143,7 +143,7 @@ export default function SlideFlow() {
           {/* FLOAT */}
           <Card icon="🏦" title="Float — יתרות לקוחות" color="#8b5cf6"
             badge={`בסיס ${FLOAT_BASE_REV}M ₪/שנה`}
-            question="מה שיעור הנסיגה הממוצע מהיתרה שלכם? (נאמר לנו 100% — זה פוגע בהנחת ה-Float)">
+            question="כמה כסף יושב בממוצע בארנקי המשתמשים, וכמה זמן? האם ה-ZUZ יגרום לאנשים להשאיר יותר כסף יותר זמן לפני שהם ממשכים לבנק?">
             <div className="text-xs text-gray-500 mb-2 leading-tight">
               938M ₪ יתרת לקוחות × 2% ריבית נטו = <span style={{color:"#8b5cf6"}} className="font-bold">{FLOAT_BASE_REV}M ₪/שנה</span>
             </div>
