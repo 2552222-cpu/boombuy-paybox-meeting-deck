@@ -85,7 +85,7 @@ export default function Slide6() {
         {/* Text block */}
         <div className="flex-1 text-right max-w-md">
           <span className="text-base font-bold text-[#2D7FF9] tracking-[0.15em]">חוויית המשתמש באפליקציה</span>
-          <div className="w-16 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-5 mb-1 mr-0 ml-auto" />
+          <div className="w-0.5 h-12 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent ml-auto mt-4 mb-1" />
           <h1 className="mt-4 text-4xl md:text-5xl font-black leading-[1.25] text-[#0a1638] tracking-tight">
             משתמשים כרגיל, קונים בחצי מחיר.
           </h1>
