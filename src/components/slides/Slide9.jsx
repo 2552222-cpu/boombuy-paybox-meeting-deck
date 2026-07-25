@@ -92,7 +92,7 @@ export default function Slide9() {
       {/* Header */}
       <div className="text-right shrink-0">
         <span className="text-sm font-bold text-[#D4AF37] tracking-[0.15em]">ערך השותפות</span>
-        <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
+        <div className="w-0.5 h-12 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent ml-auto mt-3 mb-1" />
         <h1 className="mt-3 text-3xl md:text-4xl font-black leading-tight">
           שתי שכבות הכנסה — ה-Layer 1 הוא כסף שלכם
         </h1>
