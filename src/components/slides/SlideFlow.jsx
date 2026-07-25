@@ -2,7 +2,7 @@ import React from "react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 import {
   useSimulator,
-  INT_BASE, FLOAT_BASE_REV, GIFT_BASE,
+  FLOAT_BASE_REV, GIFT_BASE,
   RETAINER, LOSS_TODAY,
 } from "@/contexts/SimulatorContext";
 
@@ -97,7 +97,7 @@ export default function SlideFlow() {
           {/* INTERCHANGE */}
           <Block icon="💳" title="רווח סליקה (Interchange)"
             color="#60A5FA"
-            baseLabel={`היום: ${INT_BASE}M ₪/שנה (560M ₪/חודש × 0.3% × 12)`}
+            baseLabel={`היום: ${R.intBase}M ₪/שנה (560M ₪/חודש × 0.3% × 12)`}
             gain={R.intGain}
             question="בכמה % תגדל הפעילות בכרטיס PayBox כתוצאה מ-ZUZ?">
             <Slider label="גידול % בשימוש בכרטיס עם ZUZ"
@@ -105,7 +105,7 @@ export default function SlideFlow() {
               unit="%" color="#60A5FA" />
             {intGrowth > 0 && (
               <p className="text-[9px] text-white/30 text-right mt-1">
-                {INT_BASE}M → <span className="text-[#60A5FA] font-bold">{R.intTotal}M ₪</span> | רווח נוסף: +{R.intGain}M
+                {R.intBase}M → <span className="text-[#60A5FA] font-bold">{R.intTotal}M ₪</span> | רווח נוסף: +{R.intGain}M
               </p>
             )}
           </Block>
