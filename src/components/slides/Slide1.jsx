@@ -74,13 +74,15 @@ export default function Slide1() {
             transition={{ delay: 0.5, type: "spring", stiffness: 190, damping: 20 }}
             className="flex justify-end mb-8"
           >
-            <div className="rounded-3xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.28)]">
-              <img
-                src={THE_BOX_LOGO}
-                alt="The Box"
-                className="h-20 md:h-24 w-20 md:w-24 object-cover"
-              />
-            </div>
+            <div
+              className="rounded-3xl shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
+              style={{
+                width: 96, height: 96,
+                backgroundImage: `url(${THE_BOX_LOGO})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
           </motion.div>
 
           {/* Headline */}
@@ -143,13 +145,13 @@ export default function Slide1() {
 
             {/* App header */}
             <div style={{ background: "#5BA4CF" }} className="px-4 pb-4 pt-1 flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-white p-1 shrink-0">
-                <img
-                  src={THE_BOX_LOGO}
-                  alt="The Box"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+              <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0"
+                style={{
+                  backgroundImage: `url(${THE_BOX_LOGO})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
               <div>
                 <p className="text-white font-black text-[13px] leading-none">The Box</p>
                 <p className="text-white/70 text-[9px] mt-0.5">מתחם ההטבות של PayBox</p>
