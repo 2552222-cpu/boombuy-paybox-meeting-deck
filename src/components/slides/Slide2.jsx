@@ -59,7 +59,7 @@ export default function Slide2() {
         <motion.div variants={item}
           className="rounded-2xl bg-white/4 border border-white/8 px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#FBBF24] font-bold text-base md:text-lg text-center md:text-right">
-            540M ₪ סליקת אשראי / חודש · 2M טרנזקציות / חודש · 4M משתמשים
+            560M ₪ סליקת אשראי / חודש · 2M טרנזקציות / חודש · 4M משתמשים
           </p>
           <div className="shrink-0 rounded-full bg-[#FBBF24]/10 border border-[#FBBF24]/25 px-5 py-2">
             <span className="text-[#FBBF24] font-black text-sm">הנכס קיים. המנוע חסר.</span>
