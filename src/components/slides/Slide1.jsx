@@ -102,7 +102,7 @@ export default function Slide1() {
           <motion.div {...a(1.6)} className="mt-10 flex gap-8 justify-end">
             {[
               ["4M", "משתמשים"],
-              ["300K", "כרטיסי אשראי"],
+              ["400K", "כרטיסים (CC+Young)"],
               ["2M", "טרנזקציות/חודש"],
             ].map(([v, l], i) => (
               <React.Fragment key={i}>
