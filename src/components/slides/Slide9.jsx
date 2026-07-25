@@ -126,10 +126,9 @@ export default function Slide9() {
         {view === "layers" && (
           <>
             {/* Layer 1 header */}
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-white/10" />
-              <span className="text-xs font-black text-white/50 tracking-widest px-3">LAYER 1 — הגידול שלכם (הכנסות שכבר קיימות, רק גדלות)</span>
-              <div className="h-px flex-1 bg-white/10" />
+            <div className="flex items-center justify-end gap-3">
+              <span className="text-xs font-black text-[#60A5FA]/70 tracking-widest">LAYER 1 — הגידול שלכם (הכנסות שכבר קיימות, רק גדלות)</span>
+              <div className="w-0.5 h-5 rounded-full bg-[#60A5FA]/40" />
             </div>
 
             {/* Organic engines */}
@@ -185,10 +184,9 @@ export default function Slide9() {
             </div>
 
             {/* Layer 2 header */}
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-white/10" />
-              <span className="text-xs font-black text-[#D4AF37]/60 tracking-widest px-3">LAYER 2 — הבונוס (% מהמחזור · נסכים יחד)</span>
-              <div className="h-px flex-1 bg-white/10" />
+            <div className="flex items-center justify-end gap-3">
+              <span className="text-xs font-black text-[#D4AF37]/70 tracking-widest">LAYER 2 — הבונוס (% מהמחזור · נסכים יחד)</span>
+              <div className="w-0.5 h-5 rounded-full bg-[#D4AF37]/40" />
             </div>
 
             {/* Layer 2 commerce */}
