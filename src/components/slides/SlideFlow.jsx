@@ -1,161 +1,162 @@
 import React, { useState, useMemo } from "react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
-// ─── FULL LAYER-BY-LAYER SIMULATOR ───────────────────────────────────────────
-// Each income layer has its OWN assumptions sliders.
-// PayBox sets every number themselves — they own the result.
+// ─── LAYER-BY-LAYER SIMULATOR ─────────────────────────────────────────────────
+// Every assumption = its own slider. PayBox decides the numbers. We calculate.
 
-const RETAINER_ANNUAL = 4.2; // M NIS/year
+const RETAINER_ANNUAL = 4.2;   // M NIS/year (350K × 12)
+const GIFT_BASE_M     = 400;   // M NIS — reported by PayBox in Discovery
+const FLOAT_BASE_M    = 938;   // M NIS — Discount Bank 2024 annual report
 
-const SCRIPT = `"הסימולטור הזה הוא שלכם.
-כל מספר — אתם קובעים.
+const SCRIPT = `"כל מספר פה — אתם קובעים.
+FIW נוכחי? אתם יודעים. שיעור Interchange? רק אתם.
+400 מיליון בקבוצות מתנה — כמה % ריאלי שיעברו לThe Box?
 
-FIW כמה לדעתכם? שיעור Interchange שלכם? כמה כרטיסים חדשים ריאלי?
-גררו — ותראו תוצאה בזמן אמת.
+גררו. ראו תוצאה. כשהמספרים שלכם — התוצאה שלכם."`;
 
-אנחנו לא מניחים בשבילכם — אתם מניחים.
-כשהמספרים שלכם על המסך — התוצאה היא שלכם."`;
+// ── Reusable Components ───────────────────────────────────────────────────────
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-const f1 = n => Number(n.toFixed(1));
-const pct = (n, d = 1) => n.toFixed(d) + "%";
-
-function Slider({ label, sub, min, max, step, value, onChange, unit, color, decimals = 0 }) {
+function Slider({ label, sub, min, max, step, value, onChange, unit = "", color = "#D4AF37", decimals = 0 }) {
   const display = decimals ? value.toFixed(decimals) : value;
   return (
-    <div className="mb-3">
-      <div className="flex justify-between items-baseline mb-0.5">
-        <span className="text-[10px] text-white/40 leading-tight">{label}</span>
-        <span className="text-sm font-black ml-2 shrink-0" style={{ color }}>
+    <div className="mb-2.5">
+      <div className="flex justify-between items-end mb-0.5">
+        <span className="text-[10px] text-white/40 leading-tight pr-1">{label}</span>
+        <span className="text-sm font-black shrink-0 ml-1" style={{ color }}>
           {display}{unit}
         </span>
       </div>
-      {sub && <p className="text-[9px] text-white/20 italic mb-1">{sub}</p>}
+      {sub && <p className="text-[9px] text-white/20 italic mb-0.5">{sub}</p>}
       <input
         type="range" min={min} max={max} step={step} value={value}
         onChange={e => onChange(+e.target.value)}
         className="w-full cursor-pointer"
         style={{ accentColor: color }}
       />
-      <div className="flex justify-between text-[9px] text-white/20">
+      <div className="flex justify-between text-[9px] text-white/15">
         <span>{min}{unit}</span><span>{max}{unit}</span>
       </div>
     </div>
   );
 }
 
-function LayerCard({ title, icon, color, children, gain, today, note }) {
-  const gainColor = gain > 0 ? color : "rgba(255,255,255,0.3)";
+function Card({ title, icon, color, children, gainLabel = "גידול שנה 1", gain, today, note, todayLabel = "היום" }) {
   return (
-    <div className="rounded-2xl border bg-white/3 p-4 flex flex-col gap-2"
+    <div className="rounded-2xl border bg-white/3 p-3 flex flex-col"
       style={{ borderColor: `${color}35` }}>
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-1">
-        <span className="text-lg">{icon}</span>
-        <span className="font-black text-white text-sm">{title}</span>
+      <div className="flex items-center gap-1.5 mb-2">
+        <span className="text-base">{icon}</span>
+        <span className="font-black text-white text-xs">{title}</span>
       </div>
-      {/* Sliders */}
       <div className="flex-1">{children}</div>
-      {/* Result */}
-      <div className="rounded-xl p-3 border mt-1" style={{ background: `${color}10`, borderColor: `${color}30` }}>
-        <div className="flex justify-between items-baseline">
+      <div className="rounded-lg p-2.5 border mt-2 flex justify-between items-center"
+        style={{ background: `${color}10`, borderColor: `${color}30` }}>
+        {today !== undefined && (
           <div>
-            <p className="text-[9px] text-white/30">היום</p>
-            <p className="text-xs font-bold text-white/50">{today} M₪</p>
+            <p className="text-[9px] text-white/25">{todayLabel}</p>
+            <p className="text-xs font-bold text-white/45">{today}M ₪</p>
           </div>
-          <div className="text-left">
-            <p className="text-[9px] text-white/30">גידול שנה 1</p>
-            <p className="text-2xl font-black" style={{ color: gainColor }}>+{gain}M</p>
-          </div>
+        )}
+        <div className={today === undefined ? "w-full text-center" : "text-left"}>
+          <p className="text-[9px] text-white/25">{gainLabel}</p>
+          <p className="text-xl font-black" style={{ color }}>+{gain}M ₪</p>
         </div>
-        {note && <p className="text-[9px] text-white/20 mt-1 italic">{note}</p>}
       </div>
+      {note && <p className="text-[9px] text-white/15 mt-1 italic leading-tight">{note}</p>}
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Main Component ────────────────────────────────────────────────────────────
 export default function SlideFlow() {
 
-  // LAYER 1 — Interchange
-  const [cards,     setCards]     = useState(400);   // K total cards
+  // 1. Interchange
+  const [cardsK,    setCardsK]    = useState(400);   // K cards total
   const [fiwNow,    setFiwNow]    = useState(10);    // % current FIW
   const [fiwTarget, setFiwTarget] = useState(22);    // % FIW with The Box
   const [iRate,     setIRate]     = useState(0.25);  // % interchange rate
   const [primSpend, setPrimSpend] = useState(5000);  // NIS/month primary user
 
-  // LAYER 2 — Float
-  const [floatSpread,  setFloatSpread]  = useState(2);   // % spread
-  const [floatGrowth,  setFloatGrowth]  = useState(25);  // % balance growth
+  // 2. Float
+  const [floatSpread,  setFloatSpread]  = useState(2);    // % spread
+  const [floatGrowth,  setFloatGrowth]  = useState(25);   // % balance growth
 
-  // LAYER 3 — New Cards
+  // 3. New Cards
   const [newCardsK, setNewCardsK] = useState(40);    // K new cards/year
   const [avgSpend,  setAvgSpend]  = useState(1800);  // NIS/month per new card
 
-  // LAYER 4 — Commerce
-  const [gmv,      setGmv]      = useState(300);   // M NIS/year
-  const [commPct,  setCommPct]  = useState(1.0);   // %
+  // 4. Gift Groups
+  const [giftConv,  setGiftConv]  = useState(20);    // % of 400M that flows to The Box
+  const [giftComm,  setGiftComm]  = useState(1.0);   // % Commerce on gift GMV
+
+  // 5. Commerce (other / non-gift)
+  const [otherGmv,  setOtherGmv]  = useState(100);   // M NIS other GMV
+  const [commPct,   setCommPct]   = useState(1.0);   // % Commerce
 
   const R = useMemo(() => {
-    // ── Layer 1: Interchange ────────────────────────────────────────────────
-    // Derive secondary spend from total volume (560M = cards * weighted avg)
-    // 560M = cards*K * (fiwNow/100 * primSpend + (1-fiwNow/100) * secSpend)
-    const totalCards = cards * 1000;
+    const totalCards = cardsK * 1000;
+
+    // ─ Interchange ──────────────────────────────────────────────────────────
     const primNow = totalCards * (fiwNow / 100);
     const secNow  = totalCards * (1 - fiwNow / 100);
-    // Back-calculate secondary spend so current volume ≈ 560M
-    // 560M = primNow*primSpend + secNow*secSpend → secSpend = (560M - primNow*primSpend)/secNow
-    const secSpend = secNow > 0
-      ? Math.max(200, (560e6 - primNow * primSpend) / secNow)
-      : 800;
+    // back-calc secondary spend so current volume = 560M
+    const secSpend = secNow > 0 ? Math.max(300, (560e6 - primNow * primSpend) / secNow) : 800;
+    const volNow    = (primNow * primSpend + secNow * secSpend) / 1e6;
 
-    const volToday = (primNow * primSpend + secNow * secSpend) / 1e6; // M NIS/month
+    const fiwTgt   = Math.max(fiwNow, fiwTarget);
+    const primTgt  = totalCards * (fiwTgt / 100);
+    const secTgt   = totalCards * (1 - fiwTgt / 100);
+    const volTgt   = (primTgt * primSpend + secTgt * secSpend) / 1e6;
 
-    const primTarget = totalCards * (fiwTarget / 100);
-    const secTarget  = totalCards * (1 - fiwTarget / 100);
-    const volTarget  = (primTarget * primSpend + secTarget * secSpend) / 1e6; // M NIS/month
+    const intToday = +(volNow * (iRate / 100) * 12).toFixed(1);
+    const intNew   = +(volTgt * (iRate / 100) * 12).toFixed(1);
+    const intGain  = +(intNew - intToday).toFixed(1);
 
-    const interchangeToday = f1(volToday  * (iRate / 100) * 12);
-    const interchangeNew   = f1(volTarget * (iRate / 100) * 12);
-    const interchangeGain  = f1(interchangeNew - interchangeToday);
+    // ─ Float ────────────────────────────────────────────────────────────────
+    const floatToday  = +(FLOAT_BASE_M * (floatSpread / 100)).toFixed(1);
+    const floatNewBal = FLOAT_BASE_M * (1 + floatGrowth / 100);
+    const floatNew    = +(floatNewBal * (floatSpread / 100)).toFixed(1);
+    const floatGain   = +(floatNew - floatToday).toFixed(1);
 
-    // ── Layer 2: Float ──────────────────────────────────────────────────────
-    const floatBase  = 938; // M NIS
-    const floatNew_M = floatBase * (1 + floatGrowth / 100);
-    const floatToday = f1(floatBase  * (floatSpread / 100));
-    const floatFuture= f1(floatNew_M * (floatSpread / 100));
-    const floatGain  = f1(floatFuture - floatToday);
+    // ─ New Cards ─────────────────────────────────────────────────────────────
+    const newCardsGain = +(newCardsK * 1000 * avgSpend * (iRate / 100) * 12 * 0.5 / 1e6).toFixed(1);
 
-    // ── Layer 3: New Cards ──────────────────────────────────────────────────
-    // Year 1 annualized: cards grow monthly, use avg 6-month effect → *0.5
-    const newCardsGain = f1(newCardsK * 1000 * avgSpend * (iRate / 100) * 12 * 0.5 / 1e6);
+    // ─ Gift Groups ───────────────────────────────────────────────────────────
+    const giftGmv      = +(GIFT_BASE_M * (giftConv / 100)).toFixed(1);  // M NIS GMV from gifts
+    const giftRevenue  = +(giftGmv * (giftComm / 100)).toFixed(1);
 
-    // ── Layer 4: Commerce ───────────────────────────────────────────────────
-    const commerce = f1(gmv * commPct / 100);
+    // ─ Commerce (other) ──────────────────────────────────────────────────────
+    const otherRevenue = +(otherGmv * (commPct / 100)).toFixed(1);
 
-    // ── Totals ──────────────────────────────────────────────────────────────
-    const layer1Total = f1(interchangeGain + floatGain + newCardsGain);
-    const totalGain   = f1(layer1Total + commerce);
-    const netRet      = f1(totalGain - RETAINER_ANNUAL);
-    const coverPct    = Math.min(200, Math.round(totalGain / RETAINER_ANNUAL * 100));
-    const breakMonths = totalGain > 0 ? f1(RETAINER_ANNUAL / totalGain * 12) : 999;
+    // ─ Totals ────────────────────────────────────────────────────────────────
+    const totalGmv    = +(giftGmv + otherGmv).toFixed(1);
+    const totalComm   = +(giftRevenue + otherRevenue).toFixed(1);
+    const layer1      = +(intGain + floatGain + newCardsGain).toFixed(1);
+    const totalGain   = +(layer1 + totalComm).toFixed(1);
+    const netRet      = +(totalGain - RETAINER_ANNUAL).toFixed(1);
+    const coverPct    = Math.round(totalGain / RETAINER_ANNUAL * 100);
+    const breakMonths = totalGain > 0 ? +(RETAINER_ANNUAL / totalGain * 12).toFixed(1) : 99;
 
     return {
-      interchangeToday, interchangeGain, interchangeNew,
-      volToday: f1(volToday), volTarget: f1(volTarget),
+      intToday, intGain, intNew,
+      volNow: +volNow.toFixed(0), volTgt: +volTgt.toFixed(0),
       secSpend: Math.round(secSpend),
-      floatToday, floatGain, floatFuture, floatNew_M: Math.round(floatNew_M),
+      floatToday, floatGain, floatNewBal: Math.round(floatNewBal),
       newCardsGain,
-      commerce,
-      layer1Total, totalGain, netRet, coverPct, breakMonths,
+      giftGmv, giftRevenue,
+      otherRevenue, totalGmv, totalComm,
+      layer1, totalGain, netRet, coverPct, breakMonths,
     };
-  }, [cards, fiwNow, fiwTarget, iRate, primSpend, floatSpread, floatGrowth,
-      newCardsK, avgSpend, gmv, commPct]);
+  }, [cardsK, fiwNow, fiwTarget, iRate, primSpend,
+      floatSpread, floatGrowth,
+      newCardsK, avgSpend,
+      giftConv, giftComm,
+      otherGmv, commPct]);
 
-  const coverColor = R.coverPct >= 100 ? "#4ade80" : R.coverPct >= 60 ? "#D4AF37" : "#60A5FA";
+  const cc = R.coverPct >= 100 ? "#4ade80" : R.coverPct >= 60 ? "#D4AF37" : "#60A5FA";
 
   return (
-    <div className="relative min-h-full w-full flex flex-col px-5 md:px-8 py-6 text-white"
+    <div className="relative min-h-full w-full flex flex-col px-4 md:px-7 py-5 text-white"
       style={{ background: "linear-gradient(145deg,#0D1F3C 0%,#0B1930 60%,#07101e 100%)" }}>
       <div className="absolute top-0 left-0 right-0 h-[3px]"
         style={{ background: "linear-gradient(90deg,#D4AF37,#F5D883,#D4AF37)" }} />
@@ -164,183 +165,181 @@ export default function SlideFlow() {
       <div className="text-right shrink-0 mb-3">
         <span className="text-xs font-bold text-[#D4AF37] tracking-[0.15em]">סימולטור הנחות</span>
         <div className="w-0.5 h-7 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent ml-auto mt-1 mb-1" />
-        <h1 className="text-xl md:text-2xl font-black">
-          כל שכבת הכנסה — הניחו את המספרים שלכם
-        </h1>
-        <p className="text-white/30 text-[10px] mt-0.5">גררו · ראו תוצאה חיה · אתם קובעים</p>
+        <h1 className="text-xl md:text-2xl font-black">כל שכבה — אתם קובעים את המספרים</h1>
+        <p className="text-white/25 text-[10px] mt-0.5">גררו · ראו תוצאה חיה · אתם מאמתים</p>
       </div>
 
-      <div className="flex gap-4 flex-1 min-h-0">
+      <div className="flex gap-3 flex-1 min-h-0">
 
-        {/* 4 Layer Cards */}
-        <div className="grid grid-cols-2 gap-3 w-[65%] shrink-0 content-start">
+        {/* LEFT — 5 Layer Cards */}
+        <div className="flex flex-col gap-2 w-[62%] shrink-0 overflow-y-auto">
 
-          {/* LAYER 1 — Interchange */}
-          <LayerCard
-            title="Interchange — כרטיס ראשי"
-            icon="💳" color="#60A5FA"
-            today={R.interchangeToday}
-            gain={R.interchangeGain}
-            note={`מחזור: ${R.volToday}M → ${R.volTarget}M ₪/חודש · ₪${R.secSpend.toLocaleString()}/חודש כרטיס משני`}
-          >
-            <Slider label="כרטיסים כיום" sub="CC + Young (K)" min={300} max={500} step={10}
-              value={cards} onChange={setCards} unit="K" color="#60A5FA" />
-            <Slider label="FIW נוכחי — כמה % ראשי היום?" sub="אמרתם 10% — האם נכון?"
-              min={5} max={40} step={1} value={fiwNow} onChange={setFiwNow} unit="%" color="#93C5FD" />
-            <Slider label="FIW עם The Box — כמה % ריאלי?" sub="לאן תגיעו בשנה 1?"
-              min={fiwNow} max={50} step={1} value={fiwTarget} onChange={setFiwTarget} unit="%" color="#60A5FA" />
-            <Slider label="שיעור Interchange שלכם" sub="המספר האמיתי — אתם יודעים"
-              min={0.1} max={0.5} step={0.01} value={iRate} onChange={setIRate} unit="%" color="#3B82F6" decimals={2} />
-            <Slider label="הוצאה חודשית — כרטיס ראשי" sub="₪/חודש (כרטיס שמשתמשים בו לכל)"
-              min={2000} max={12000} step={500} value={primSpend} onChange={setPrimSpend} unit="₪" color="#60A5FA" />
-          </LayerCard>
+          {/* ROW 1: Interchange + Float */}
+          <div className="grid grid-cols-2 gap-2">
 
-          {/* LAYER 2 — Float */}
-          <LayerCard
-            title="Float — כסף שיושב"
-            icon="🏦" color="#34D399"
-            today={R.floatToday}
-            gain={R.floatGain}
-            note={`יתרה: 938M → ${R.floatNew_M}M ₪ · ריבית נטו: ${pct(floatSpread)} × יתרה`}
-          >
-            <div className="rounded-lg bg-white/5 px-3 py-2 mb-3 text-right">
-              <p className="text-[9px] text-white/30">יתרת לקוחות נוכחית</p>
-              <p className="text-base font-black text-white/60">938M ₪</p>
-              <p className="text-[9px] text-white/20">מדוחות דיסקונט 2024 ✓</p>
+            <Card title="Interchange — כרטיס ראשי" icon="💳" color="#60A5FA"
+              today={R.intToday} gain={R.intGain}
+              note={`${R.volNow}M → ${R.volTgt}M ₪/חודש · ₪${R.secSpend.toLocaleString()} כרטיס משני`}>
+              <Slider label="כרטיסים סה״כ" min={300} max={500} step={10} value={cardsK} onChange={setCardsK} unit="K" color="#60A5FA" />
+              <Slider label="FIW נוכחי — % ראשי היום" sub="אמרתם 10% — האם נכון?" min={5} max={40} step={1} value={fiwNow} onChange={v => { setFiwNow(v); if (v > fiwTarget) setFiwTarget(v); }} unit="%" color="#93C5FD" />
+              <Slider label="FIW עם The Box — יעד" sub="לאן תגיעו בשנה 1?" min={fiwNow} max={60} step={1} value={Math.max(fiwTarget, fiwNow)} onChange={setFiwTarget} unit="%" color="#60A5FA" />
+              <Slider label="שיעור Interchange שלכם" sub="המספר האמיתי — אתם יודעים" min={0.1} max={0.5} step={0.01} value={iRate} onChange={setIRate} unit="%" color="#3B82F6" decimals={2} />
+              <Slider label="הוצאה חודשית — כרטיס ראשי" min={2000} max={12000} step={500} value={primSpend} onChange={setPrimSpend} unit="₪" color="#60A5FA" />
+            </Card>
+
+            <Card title="Float — כסף שיושב" icon="🏦" color="#34D399"
+              today={R.floatToday} gain={R.floatGain}
+              note={`938M → ${R.floatNewBal}M ₪ × ${floatSpread}%`}>
+              <div className="rounded-lg bg-white/5 px-2.5 py-2 mb-2 text-right">
+                <p className="text-[9px] text-white/30">יתרת לקוחות — דוחות דיסקונט 2024 ✓</p>
+                <p className="text-lg font-black text-white/60">938M ₪</p>
+              </div>
+              <Slider label="פער ריבית נטו" sub="BoI rate פחות ריבית ללקוחות" min={0.5} max={4} step={0.25} value={floatSpread} onChange={setFloatSpread} unit="%" color="#34D399" decimals={2} />
+              <Slider label="גידול יתרה עם ZUZ" sub="ZUZ משאיר כסף יותר זמן — כמה %?" min={0} max={80} step={5} value={floatGrowth} onChange={setFloatGrowth} unit="%" color="#10B981" />
+              <div className="rounded-lg bg-[#34D399]/8 border border-[#34D399]/20 px-2.5 py-1.5 mt-1">
+                <p className="text-[9px] text-[#34D399]/70 font-bold">400M ₪ בקבוצות מתנה</p>
+                <p className="text-[9px] text-white/25">כסף שיושב עד חלוקה → Float אמיתי</p>
+              </div>
+            </Card>
+          </div>
+
+          {/* ROW 2: New Cards + Gift Groups */}
+          <div className="grid grid-cols-2 gap-2">
+
+            <Card title="כרטיסים חדשים" icon="🆕" color="#A78BFA"
+              gain={R.newCardsGain} today={undefined}
+              gainLabel="Interchange נוסף שנה 1"
+              note={`${newCardsK}K × ${avgSpend.toLocaleString()}₪ × ${iRate.toFixed(2)}% × 12 × 50%`}>
+              <Slider label="כרטיסים חדשים — כמה ריאלי שנה 1?" sub="ZUZ מתגמל פתיחת כרטיס" min={0} max={120} step={5} value={newCardsK} onChange={setNewCardsK} unit="K" color="#A78BFA" />
+              <Slider label="הוצאה חודשית — כרטיס חדש" sub="₪/חודש ממוצע" min={500} max={5000} step={100} value={avgSpend} onChange={setAvgSpend} unit="₪" color="#8B5CF6" />
+            </Card>
+
+            {/* ★ GIFT GROUPS — הנחת יסוד עצמאית */}
+            <Card title="קבוצות מתנה → The Box" icon="🎁" color="#F472B6"
+              gain={R.giftRevenue} today={undefined}
+              gainLabel="Commerce ממתנות"
+              note={`${GIFT_BASE_M}M × ${giftConv}% = ${R.giftGmv}M GMV × ${giftComm}%`}>
+              <div className="rounded-lg bg-white/5 px-2.5 py-2 mb-2 text-right">
+                <p className="text-[9px] text-white/30">קבוצות מתנה פעילות — דיווחתם ✓</p>
+                <p className="text-lg font-black text-white/60">400M ₪</p>
+                <p className="text-[9px] text-white/20">כסף שיושב וממתין לחלוקה</p>
+              </div>
+              <Slider
+                label="כמה % יעברו לקנות דרך The Box?"
+                sub="5% = 20M GMV · 50% = 200M GMV"
+                min={5} max={50} step={5}
+                value={giftConv} onChange={setGiftConv}
+                unit="%" color="#F472B6" />
+              <div className="rounded-lg bg-[#F472B6]/10 border border-[#F472B6]/25 px-2.5 py-1.5 my-1.5">
+                <div className="flex justify-between items-center">
+                  <span className="text-[9px] text-white/35">GMV ממתנות</span>
+                  <span className="text-base font-black text-[#F472B6]">{R.giftGmv}M ₪</span>
+                </div>
+              </div>
+              <Slider
+                label="% Commerce לפייבוקס על מתנות"
+                sub="מה ריאלי לכם?"
+                min={0.5} max={3.0} step={0.25}
+                value={giftComm} onChange={setGiftComm}
+                unit="%" color="#EC4899" decimals={2} />
+            </Card>
+          </div>
+
+          {/* ROW 3: Commerce (other) — full width */}
+          <Card title="Commerce — מקורות נוספים (מעבר למתנות)" icon="🛍️" color="#D4AF37"
+            gain={R.otherRevenue} today={undefined}
+            gainLabel="Commerce מרכישות אחרות"
+            note={`סה״כ GMV: ${R.giftGmv}M (מתנות) + ${otherGmv}M (אחר) = ${R.totalGmv}M × ממוצע`}>
+            <div className="grid grid-cols-2 gap-4 mt-1">
+              <Slider label="GMV ממקורות אחרים (אוכל, חופשות, מוצרים...)" sub="מעבר לקבוצות המתנה" min={0} max={500} step={25} value={otherGmv} onChange={setOtherGmv} unit="M₪" color="#D4AF37" />
+              <Slider label="% Commerce לפייבוקס על שאר" min={0.5} max={2.0} step={0.1} value={commPct} onChange={setCommPct} unit="%" color="#B45309" decimals={1} />
             </div>
-            <Slider label="פער ריבית נטו" sub="BoI rate פחות מה שמשלמים ללקוחות"
-              min={0.5} max={4} step={0.25} value={floatSpread} onChange={setFloatSpread} unit="%" color="#34D399" decimals={2} />
-            <Slider label="גידול יתרה עם ZUZ"
-              sub="ZUZ משאיר כסף יותר זמן ב-wallet — כמה % גידול?"
-              min={0} max={80} step={5} value={floatGrowth} onChange={setFloatGrowth} unit="%" color="#10B981" />
-            <div className="rounded-lg bg-[#34D399]/8 border border-[#34D399]/20 px-3 py-2 mt-1">
-              <p className="text-[9px] text-white/30">400M ₪ קיים בקבוצות מתנה פעילות</p>
-              <p className="text-[9px] text-[#34D399]/60">כסף שיושב עד שהמתנה מחולקת — Float אמיתי</p>
-            </div>
-          </LayerCard>
-
-          {/* LAYER 3 — New Cards */}
-          <LayerCard
-            title="כרטיסים חדשים"
-            icon="🆕" color="#A78BFA"
-            today={0}
-            gain={R.newCardsGain}
-            note={`${newCardsK}K × ${avgSpend.toLocaleString()}₪ × ${pct(iRate, 2)} × 12 × 50% (ממוצע שנה)`}
-          >
-            <div className="rounded-lg bg-white/5 px-3 py-2 mb-3 text-right">
-              <p className="text-[9px] text-white/30">מנגנון</p>
-              <p className="text-[10px] text-white/50 leading-relaxed">
-                ZUZ = תגמול על שימוש בכרטיס פייבוקס.<br/>
-                לקוחות חדשים ייפתחו כרטיס בשביל ZUZ.<br/>
-                כל כרטיס חדש = מחזור נוסף = Interchange נוסף.
-              </p>
-            </div>
-            <Slider label="כמה כרטיסים חדשים ריאלי — שנה 1?"
-              sub="הניחו מה שנראה לכם הגיוני"
-              min={0} max={120} step={5} value={newCardsK} onChange={setNewCardsK} unit="K" color="#A78BFA" />
-            <Slider label="הוצאה ממוצעת לכרטיס חדש"
-              sub="₪/חודש — לקוחות שפותחים בשביל ZUZ"
-              min={500} max={4000} step={100} value={avgSpend} onChange={setAvgSpend} unit="₪" color="#8B5CF6" />
-          </LayerCard>
-
-          {/* LAYER 4 — Commerce */}
-          <LayerCard
-            title="Commerce — % מ-GMV"
-            icon="🛍️" color="#D4AF37"
-            today={0}
-            gain={R.commerce}
-            note={`${gmv}M ₪ GMV × ${pct(commPct, 1)} · Break-even: ${(RETAINER_ANNUAL / commPct * 100).toFixed(0)}M GMV`}
-          >
-            <div className="rounded-lg bg-white/5 px-3 py-2 mb-3 text-right">
-              <p className="text-[9px] text-white/30">מנגנון</p>
-              <p className="text-[10px] text-white/50 leading-relaxed">
-                כל קנייה בThe Box — מתנות, אוכל, חופשה —<br/>
-                X% ממנה הולך לפייבוקס.<br/>
-                זהו הבונוס — מעבר לכל Layer 1.
-              </p>
-            </div>
-            <Slider label="GMV The Box — מחזור שנה 1"
-              sub="כמה קניות ריאלי? Break-even ב-4.2M"
-              min={50} max={1000} step={25} value={gmv} onChange={setGmv} unit="M₪" color="#D4AF37" />
-            <Slider label="אחוז Commerce לפייבוקס"
-              sub="נסכים יחד — מה ריאלי?"
-              min={0.5} max={2.0} step={0.1} value={commPct} onChange={setCommPct} unit="%" color="#B45309" decimals={1} />
-          </LayerCard>
+          </Card>
         </div>
 
-        {/* RIGHT — Grand Total */}
-        <div className="flex-1 flex flex-col gap-3">
-          <p className="text-[10px] font-bold text-white/30 tracking-widest text-center">סיכום — כל השכבות</p>
+        {/* RIGHT — Live Summary */}
+        <div className="flex-1 flex flex-col gap-2">
+          <p className="text-[9px] font-bold text-white/25 tracking-widest text-center">סיכום חי</p>
 
-          {/* Per-layer summary */}
           {[
-            { label: "💳 Interchange", gain: R.interchangeGain, color: "#60A5FA" },
-            { label: "🏦 Float",        gain: R.floatGain,        color: "#34D399" },
-            { label: "🆕 כרטיסים",      gain: R.newCardsGain,     color: "#A78BFA" },
-            { label: "🛍️ Commerce",      gain: R.commerce,         color: "#D4AF37" },
+            { label: "💳 Interchange",      val: R.intGain,      color: "#60A5FA" },
+            { label: "🏦 Float",             val: R.floatGain,    color: "#34D399" },
+            { label: "🆕 כרטיסים",           val: R.newCardsGain, color: "#A78BFA" },
+            { label: "🎁 Commerce מתנות",    val: R.giftRevenue,  color: "#F472B6" },
+            { label: "🛍️ Commerce אחר",      val: R.otherRevenue, color: "#D4AF37" },
           ].map((row, i) => (
-            <div key={i} className="rounded-xl border border-white/8 bg-white/3 px-4 py-3">
+            <div key={i} className="rounded-xl border border-white/8 bg-white/3 px-3 py-2">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] text-white/45">{row.label}</span>
-                <span className="text-lg font-black" style={{ color: row.color }}>+{row.gain}M ₪</span>
+                <span className="text-[9px] text-white/40">{row.label}</span>
+                <span className="text-sm font-black" style={{ color: row.color }}>+{row.val}M</span>
               </div>
-              <div className="h-1.5 rounded-full mt-2 overflow-hidden bg-white/8">
-                <div className="h-full rounded-full transition-all duration-300"
-                  style={{ width: `${Math.min(100, row.gain / R.totalGain * 100 || 0)}%`, background: row.color }} />
+              <div className="h-1 rounded-full mt-1.5 overflow-hidden bg-white/8">
+                <div className="h-full rounded-full"
+                  style={{ width: `${R.totalGain > 0 ? Math.min(100, row.val / R.totalGain * 100) : 0}%`, background: row.color }} />
               </div>
             </div>
           ))}
 
-          {/* Divider */}
-          <div className="h-px bg-white/10 my-1" />
+          <div className="h-px bg-white/10 my-0.5" />
 
-          {/* Layer 1 subtotal */}
-          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          {/* Layer 1 sub */}
+          <div className="rounded-xl border border-white/10 bg-white/4 px-3 py-2">
             <div className="flex justify-between">
-              <span className="text-[10px] text-white/40">Layer 1 — אורגני</span>
-              <span className="text-base font-black text-[#34D399]">+{R.layer1Total}M ₪</span>
+              <span className="text-[9px] text-white/35">Layer 1 — אורגני</span>
+              <span className="text-sm font-black text-[#34D399]">+{R.layer1}M ₪</span>
             </div>
           </div>
 
-          {/* Grand total */}
-          <div className="rounded-xl border px-4 py-4 text-center"
-            style={{ borderColor: `${coverColor}50`, background: `${coverColor}08` }}>
-            <p className="text-[10px] text-white/35 mb-1">סה"כ גידול / שנה</p>
-            <p className="text-4xl font-black" style={{ color: coverColor }}>+{R.totalGain}M ₪</p>
-            <p className="text-[10px] text-white/30 mt-1">מול ריטנר: {RETAINER_ANNUAL}M ₪</p>
+          {/* Total */}
+          <div className="rounded-xl border px-3 py-3 text-center"
+            style={{ borderColor: `${cc}50`, background: `${cc}08` }}>
+            <p className="text-[9px] text-white/30 mb-0.5">סה״כ / שנה</p>
+            <p className="text-3xl font-black" style={{ color: cc }}>+{R.totalGain}M ₪</p>
           </div>
 
-          {/* Coverage bar */}
+          {/* Bar */}
           <div>
-            <div className="h-3 rounded-full overflow-hidden bg-white/8">
+            <div className="h-2.5 rounded-full overflow-hidden bg-white/8">
               <div className="h-full rounded-full transition-all duration-300"
-                style={{ width: `${Math.min(100, R.coverPct / 2)}%`, background: coverColor }} />
+                style={{ width: `${Math.min(100, R.coverPct)}%`, background: cc }} />
             </div>
-            <div className="flex justify-between text-[10px] mt-1">
-              <span style={{ color: coverColor }} className="font-black">{R.coverPct}% כיסוי ריטנר</span>
-              <span className="text-white/25">חוזר בחודש {R.breakMonths}</span>
+            <div className="flex justify-between text-[9px] mt-0.5">
+              <span style={{ color: cc }} className="font-black">{R.coverPct}% ריטנר</span>
+              <span className="text-white/20">חוזר בחודש {R.breakMonths}</span>
             </div>
           </div>
 
           {/* Net */}
-          <div className="rounded-xl border px-4 py-3 text-center"
+          <div className="rounded-xl border px-3 py-3 text-center"
             style={{
               borderColor: R.netRet >= 0 ? "rgba(74,222,128,.4)" : "rgba(96,165,250,.25)",
               background:  R.netRet >= 0 ? "rgba(74,222,128,.06)" : "rgba(96,165,250,.04)"
             }}>
-            <p className="text-[9px] text-white/30 mb-0.5">
-              {R.netRet >= 0 ? "✓ ריטנר מכוסה · שארית — רווח נטו" : "חסר לכיסוי ריטנר"}
+            <p className="text-[9px] text-white/25 mb-0.5">
+              {R.netRet >= 0 ? "✓ ריטנר מכוסה · רווח נטו" : "חסר לכיסוי"}
             </p>
-            <p className="text-2xl font-black" style={{ color: coverColor }}>
+            <p className="text-2xl font-black" style={{ color: cc }}>
               {R.netRet >= 0 ? "+" : ""}{R.netRet}M ₪
             </p>
+          </div>
+
+          {/* GMV breakdown */}
+          <div className="rounded-xl border border-white/8 bg-white/3 px-3 py-2 mt-auto">
+            <p className="text-[9px] text-white/25 mb-1.5">GMV כולל</p>
+            <div className="flex justify-between text-[9px]">
+              <span className="text-[#F472B6]">🎁 {R.giftGmv}M</span>
+              <span className="text-white/20">+</span>
+              <span className="text-[#D4AF37]">🛍️ {otherGmv}M</span>
+              <span className="text-white/20">=</span>
+              <span className="text-white font-black">{R.totalGmv}M ₪</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-2 flex justify-between text-[10px] text-gray-600 shrink-0">
-        <span className="font-bold tracking-widest">BoomBuy × PayBox</span>
-        <span className="text-white/15">הנחות: Float spread 2% · כרטיסים חדשים = 50% מ-year 1</span>
+      <div className="mt-2 flex justify-between text-[9px] text-white/15 shrink-0">
+        <span className="font-bold">BoomBuy × PayBox</span>
+        <span>כרטיסים חדשים = 50% מ-year 1 · Float spread = הנחה</span>
       </div>
 
       <SpeakerNotes notes={SCRIPT} />
