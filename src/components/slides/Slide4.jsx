@@ -36,7 +36,7 @@ const SCRIPT = `"אתם משלמים לנו ריטיינר של 350 אלף שק�
 
 ועכשיו לחלק החשוב: The Box מניע שלושה מנועי הכנסה. הראשון — Commerce: % מוסכם מה-GMV של המועדון. השני — Interchange: כשהכרטיס הופך לראשי, כל שקל עובר דרככם. השלישי — כרטיסים חדשים ו-float גדל.
 
-בחודש 6 — הריטנר מתאפס. בחודש 12 — אתם בפלוס."`;
+כשה-GMV מגיע לנקודת האיזון — הריטנר מתכסה. נקודת האיזון נחשב יחד בסימולטור."`;
 
 const item = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } };
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
@@ -108,7 +108,7 @@ export default function Slide4() {
           <span className="text-[#34D399] font-black text-lg">Commerce + Interchange + כרטיסים</span>
           <ArrowRight className="w-5 h-5 text-gray-600 rotate-180" strokeWidth={1.5} />
           <span className="text-white font-black text-lg">עלות נטו: <span className="text-[#34D399]">₪0</span></span>
-          <span className="text-gray-500 text-sm">· החל מחודש 6</span>
+          <span className="text-gray-500 text-sm">· לפי תוצאות הפיילוט</span>
         </motion.div>
       </motion.div>
 
