@@ -18,6 +18,7 @@ import SlideAd1 from "@/components/slides/SlideAd1";
 import SlideAd2 from "@/components/slides/SlideAd2";
 import Slide11 from "@/components/slides/Slide11";
 import Slide12 from "@/components/slides/Slide12";
+import SlideClose from "@/components/slides/SlideClose";
 
 const SLIDES = [
   IntroSlide,      // 00 — Launch Animation
@@ -37,12 +38,13 @@ const SLIDES = [
   SlideAd2,        // 15 — קמפיין Young B
   Slide11,         // 16 — Q&A
   Slide12,         // 17 — Term Sheet
+  SlideClose,       // 18 — סיכום + CTA
 ];
 
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "מודל",
   "ZUZ", "UX", "דמו", "Gift",
-  "ריטנר", "סימולטור", "תוצאות", "רודמאפ", "📢", "📢", "Q&A", "Term",
+  "ריטנר", "סימולטור", "תוצאות", "רודמאפ", "📢", "📢", "Q&A", "Term", "✅",
 ];
 
 export default function Home() {
