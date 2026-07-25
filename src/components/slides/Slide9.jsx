@@ -94,7 +94,7 @@ export default function Slide9() {
         <span className="text-sm font-bold text-[#D4AF37] tracking-[0.15em]">ערך השותפות</span>
         <div className="w-14 h-1 rounded-full bg-gradient-to-l from-[#D4AF37] to-[#F5D883] mt-4 mb-1 mr-0 ml-auto" />
         <h1 className="mt-3 text-3xl md:text-4xl font-black leading-tight">
-          שני שכבות הכנסה — ה-Layer 1 הוא כסף שלכם
+          שתי שכבות הכנסה — ה-Layer 1 הוא כסף שלכם
         </h1>
         <p className="mt-2 text-white/35 text-sm">The Box מגדיל את המנועים שכבר קיימים לכם · Commerce הוא הבונוס</p>
       </div>
