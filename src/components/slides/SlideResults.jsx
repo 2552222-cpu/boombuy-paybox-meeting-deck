@@ -2,7 +2,7 @@ import React from "react";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 import {
   useSimulator,
-  INT_BASE, FLOAT_BASE_REV, GIFT_BASE,
+  FLOAT_BASE_REV, GIFT_BASE,
   RETAINER, LOSS_TODAY, REV_TODAY,
 } from "@/contexts/SimulatorContext";
 
@@ -53,7 +53,7 @@ export default function SlideResults() {
 
           <Row label="רווח סליקה (Interchange)"
             val={`+${R.intGain}M ₪`} color="#60A5FA"
-            sub={`בסיס ${INT_BASE}M ₪ → חדש ${R.intTotal}M ₪`} />
+            sub={`בסיס ${R.intBase}M ₪ → חדש ${R.intTotal}M ₪`} />
           <Row label="ריבית Float — יתרה גדלה"
             val={`+${R.floatGain}M ₪`} color="#34D399"
             sub={`בסיס ${FLOAT_BASE_REV}M ₪ → חדש ${R.floatTotal}M ₪`} />
