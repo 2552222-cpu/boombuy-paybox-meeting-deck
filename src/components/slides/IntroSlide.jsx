@@ -37,9 +37,9 @@ export default function IntroSlide() {
         initial={{ scale: 0.6, opacity: 0, y: 28 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         transition={{ delay: 0.55, type: "spring", stiffness: 190, damping: 18 }}
-        className="relative mt-8 rounded-[28px] bg-white p-4 shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
+        className="relative mt-8 rounded-[28px] overflow-hidden shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
       >
-        <img src={THE_BOX_LOGO} alt="The Box" className="w-28 h-28 object-contain rounded-2xl" />
+        <img src={THE_BOX_LOGO} alt="The Box" className="w-32 h-32 object-cover" />
       </motion.div>
 
       {/* THE BOX headline */}
