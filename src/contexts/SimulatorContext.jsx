@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useMemo } from "react";
 const SimulatorContext = createContext(null);
 
 // ── Known / verified constants ────────────────────────────────────────────────
-export const INT_BASE       = 20;    // M NIS/year: 560M × 0.3% × 12
+export const VOL_MONTHLY    = 560;   // M NIS/month credit volume (300K×1800 + 100K×200 ✓)
 export const FLOAT_BASE_REV = 19;    // M NIS/year: 938M × 2% net spread
 export const GIFT_BASE      = 400;   // M NIS in active gift groups (reported ✓)
 export const RETAINER       = 4.2;   // M NIS/year
@@ -12,7 +12,8 @@ export const REV_TODAY      = 55;    // M NIS total revenue (estimate)
 
 export function SimulatorProvider({ children }) {
   // Layer 1 — Organic
-  const [intGrowth,   setIntGrowth]   = useState(0);    // % growth in interchange
+  const [iRate,       setIRate]       = useState(0.30); // % interchange rate (consultant est: 0.25-0.35)
+  const [intGrowth,   setIntGrowth]   = useState(0);    // % growth in interchange volume
   const [floatGrowth, setFloatGrowth] = useState(0);    // % growth in float balance
   const [txnGrowth,   setTxnGrowth]   = useState(0);    // % growth in transactions (revenue TBD)
 
@@ -23,9 +24,10 @@ export function SimulatorProvider({ children }) {
   const [generalComm, setGeneralComm] = useState(1.5);  // % commerce on general GMV
 
   const R = useMemo(() => {
-    // Interchange: base 20M, grows by intGrowth%
-    const intGain   = +(INT_BASE * (intGrowth / 100)).toFixed(1);
-    const intTotal  = +(INT_BASE + intGain).toFixed(1);
+    // Interchange: dynamic base from rate × volume × 12
+    const intBase   = +(VOL_MONTHLY * (iRate / 100) * 12).toFixed(1); // M NIS/year today
+    const intGain   = +(intBase * (intGrowth / 100)).toFixed(1);
+    const intTotal  = +(intBase + intGain).toFixed(1);
 
     // Float: base 19M, grows by floatGrowth%
     const floatGain  = +(FLOAT_BASE_REV * (floatGrowth / 100)).toFixed(1);
@@ -37,6 +39,7 @@ export function SimulatorProvider({ children }) {
 
     // Layer 1 (transactions NOT counted — revenue TBD)
     const layer1 = +(intGain + floatGain).toFixed(1);
+    const floatBase = FLOAT_BASE_REV;
 
     // Gift groups
     const giftGmv = +(GIFT_BASE * (giftConv / 100)).toFixed(1);
@@ -57,8 +60,8 @@ export function SimulatorProvider({ children }) {
       : 999;
 
     return {
-      intGain, intTotal,
-      floatGain, floatTotal,
+      intBase, intGain, intTotal,
+      floatBase, floatGain, floatTotal,
       txnVolNew, txnYearAdd,
       layer1,
       giftGmv, giftRev,
@@ -70,6 +73,7 @@ export function SimulatorProvider({ children }) {
 
   return (
     <SimulatorContext.Provider value={{
+      iRate, setIRate,
       intGrowth, setIntGrowth,
       floatGrowth, setFloatGrowth,
       txnGrowth, setTxnGrowth,
