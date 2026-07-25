@@ -148,7 +148,7 @@ export default function Slide5() {
               height={210}
               animate={{ rotateY:[0,8,-8,0], y:[0,-6,0] }}
               transition={{ duration:4, repeat:Infinity, ease:"easeInOut" }}
-              style={{ filter:"drop-shadow(0 20px 40px rgba(91,164,207,0.3))" }}
+              style={{ mixBlendMode:"screen", filter:"drop-shadow(0 20px 40px rgba(91,164,207,0.4))" }}
             />
             <div className="text-center">
               <p className="text-[10px] font-bold tracking-widest text-white/30 uppercase">Issued by PayBox</p>
