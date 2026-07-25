@@ -3,7 +3,7 @@ import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 // ─── TWO-LAYER MODEL ──────────────────────────────────────────────────────────
 // Numbers aligned with SlideValueModel (Discount Bank reports 2024):
-// Interchange: 300K × 1,800 ₪ × 12 × 0.3% = 19.4M NIS/year (confirmed)
+// Interchange: 560M × מודל מדורג × 12 ≈ 20M NIS/year (הנחה — מודל לא אומת)
 // Float: 938M NIS balance × 2% spread = ~19M NIS/year (goes to Discount Bank group)
 // Cards: 300K active → ZUZ attracts 60K new cards/year → more interchange
 //
@@ -17,14 +17,14 @@ const ORGANIC = [
     icon: "💳",
     title: "Interchange",
     today: "19.4M ₪/שנה",
-    todayNote: "300K × 1,800 ₪ × 12 × 0.3%",
+    todayNote: "560M ₪/חודש × מודל מדורג × 12 ≈ 20M ₪",
     engine: "The Box מגדיל First in Wallet",
     engineNote: "10% → 22% שימוש ככרטיס ראשי",
     gain: "+15M ₪/שנה",
     yr3: "+25M ₪",
     yr3note: "FIW 30%+ = 25M Interchange נוסף",
     color: "#60A5FA",
-    calc: "540M → 810M ₪/חודש מחזור × 0.3% × 12",
+    calc: "560M → 840M ₪/חודש × שיעור מדורג × 12",
   },
   {
     icon: "🏦",
@@ -45,12 +45,12 @@ const ORGANIC = [
     today: "300K כרטיסים",
     todayNote: "1,800 ₪/חודש ממוצע לכרטיס",
     engine: "ZUZ מושך +60K כרטיסים/שנה",
-    engineNote: "כל כרטיס = 1,800 ₪ × 12 × 0.3%",
-    gain: "+12M ₪/שנה",
-    yr3: "+30M ₪",
+    engineNote: "כל כרטיס חדש מגדיל מחזור → Interchange מדורג",
+    gain: "+4M ₪/שנה",
+    yr3: "+10M ₪",
     yr3note: "+30% מחזור מכרטיסים חדשים",
     color: "#A78BFA",
-    calc: "60K × 1,800 ₪ × 12 × 0.3% × 12 חודשים",
+    calc: "60K × 1,800 ₪ × 12 × שיעור מדורג ≈ 4M ₪",
   },
 ];
 
@@ -64,7 +64,7 @@ const RETAINER_BREAKDOWN = [
 
 const SCRIPT = `"אני רוצה להסביר לכם למה הריטנר הוא ההשקעה הכי טובה שתעשו.
 
-פייבוקס היום מרוויח מ-Interchange — 300 אלף כרטיסים, 1,800 שח בחודש לכרטיס, 0.3% — זה 19 מיליון שקל לשנה.
+פייבוקס היום מרוויח מ-Interchange — 560 מיליון שקל סליקה חודשית, מודל מדורג — זה כ-20 מיליון שקל לשנה (הנחה).
 
 The Box הופך יותר ויותר משתמשים לשימוש בכרטיס כראשי — First in Wallet עולה מ-10% ל-22%. כל השקלים האלה עוברים דרככם. זה עוד 15 מיליון שקל לשנה — רק מ-Interchange.
 

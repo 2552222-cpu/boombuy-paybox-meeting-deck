@@ -17,8 +17,8 @@ const OFFSETS = [
   {
     icon: TrendingUp,
     title: "Interchange — First in Wallet",
-    desc: "10%→25% שימוש בכרטיס כראשי = +57M ₪ סליקה נוספת/חודש. 0.3% Interchange ישירות לפייבוקס.",
-    est: "19.4M ₪ → 25M+ ₪/שנה",
+    desc: "מודל Interchange מדורג — שיפור FIW מ-10% ל-22%+ = מחזור גדל = Interchange גדל לפייבוקס.",
+    est: "~20M ₪ → 25M+ ₪/שנה (מדורג)",
     color: "#5BA4CF",
   },
   {
