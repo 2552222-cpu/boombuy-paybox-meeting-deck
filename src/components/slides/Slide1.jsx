@@ -74,11 +74,11 @@ export default function Slide1() {
             transition={{ delay: 0.5, type: "spring", stiffness: 190, damping: 20 }}
             className="flex justify-end mb-8"
           >
-            <div className="rounded-3xl bg-white p-3 shadow-[0_12px_36px_rgba(0,0,0,0.22)]">
+            <div className="rounded-3xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.28)]">
               <img
                 src={THE_BOX_LOGO}
                 alt="The Box"
-                className="h-20 md:h-24 w-auto object-contain rounded-2xl"
+                className="h-20 md:h-24 w-20 md:w-24 object-cover"
               />
             </div>
           </motion.div>
