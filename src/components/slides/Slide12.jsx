@@ -11,8 +11,8 @@ const THEBOX_LOGO = LOGO_BASE + "96ca92369_60.png";
 
 const TERMS = [
   { icon: Users,      section:"א. שותפות", title:"Experience as a Service",  content:"BoomBuy מספקת תשתית, ניהול 2 מועדונים, סחר וסבסוד. PayBox מספקת תשתית API ובסיס הלקוחות.", color:"#5BA4CF" },
-  { icon: DollarSign, section:"ב. תשלום",  title:"ריטיינר חודשי",            content:"300,000 ₪ (1 ₪ × 300K כרטיסים). מנגנון קיזוז: כל הכנסה ממימוש/סחר/עמלות מופחתת מהריטיינר.", color:"#D4AF37" },
-  { icon: PieChart,   section:"ג. הכנסות", title:"חלוקת Rev-Share",          content:"סחר: 50/50. עמלה צולבת נוספת: 70% PayBox / 30% BoomBuy. Box Eilat: 30 ₪ לעסקה לכל צד.", color:"#34D399" },
+  { icon: DollarSign, section:"ב. תשלום",  title:"ריטיינר חודשי",            content:"350,000 ₪ לחודש = 4.2M ₪ לשנה. כולל: טכנולוגיה, צוותי סחר ושירות, סבסוד ההטבות. מתכסה מעצמו ב-420M GMV ב-1% Commerce.", color:"#D4AF37" },
+  { icon: PieChart,   section:"ג. הכנסות", title:"חלוקת Rev-Share",          content:"Commerce: % מוסכם מה-GMV של The Box. הריטנר מתכסה ב-420M GMV ב-1% עמלה. כל שקל מעל 420M — רווח נטו לפייבוקס.", color:"#34D399" },
   { icon: Database,   section:"ד. דאטה",   title:"בעלות מידע",               content:"כל הדאטה שייך ל-PayBox. BoomBuy — גישת Read-Only לצרכי הפלטפורמה בלבד. הסכם NDA מלא.", color:"#A78BFA" },
   { icon: Layers,     section:"ה. SLA",    title:"זמינות ויעדים",            content:"99.5% uptime. יעד Break-Even: חודש 6. דוחות ביצוע חודשיים שקופים לשני הצדדים.", color:"#F97316" },
   { icon: LogOut,     section:"ו. יציאה",  title:"Exit Clause",              content:"לאחר 12 חודש — כל צד יכול לצאת עם התראה של 90 יום. הטכנולוגיה נשארת במצב פעיל ל-PayBox.", color:"#EC4899" },
