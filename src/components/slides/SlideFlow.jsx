@@ -235,52 +235,45 @@ export default function SlideFlow() {
         </div>
       </div>
 
-      {/* ── BOTTOM: SUMMARY ─────────────────────────────────────────────── */}
-      <div className="mt-3 rounded-2xl p-4 shrink-0" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
-        <div className="grid grid-cols-5 gap-4 items-center">
+      {/* ── BOTTOM: ONE NUMBER ─────────────────────────────────────────── */}
+      <div className="mt-3 rounded-2xl p-4 shrink-0 flex items-center gap-6"
+        style={{ background: `${cc}08`, border: `1px solid ${cc}30` }}>
 
-          {/* Before */}
+        {/* THE ONE NUMBER */}
+        <div className="text-center flex-1">
+          <p className="text-[10px] font-bold tracking-widest mb-1" style={{ color: `${cc}80` }}>
+            כמה כסף פייבוקס מרוויח מהפעילות איתנו — שנה 1
+          </p>
+          <p className="text-5xl font-black" style={{ color: cc }}>+{R.totalGain}M ₪</p>
+          <p className="text-xs text-white/30 mt-1">הכנסות אורגניות {R.layer1}M + Commerce {R.layer2}M</p>
+        </div>
+
+        {/* Divider */}
+        <div className="w-px h-16 bg-white/10 shrink-0" />
+
+        {/* Context */}
+        <div className="flex gap-5 shrink-0">
           <div className="text-center">
-            <p className="text-[9px] text-red-400/60 mb-1">לפני BoomBuy</p>
-            <p className="text-2xl font-black text-red-400">-{LOSS_TODAY}M ₪</p>
-            <p className="text-[9px] text-white/20">הפסד שנתי 2024</p>
+            <p className="text-[9px] text-white/25">הפסד היום</p>
+            <p className="text-xl font-black text-red-400">-{LOSS_TODAY}M</p>
           </div>
-
-          {/* Arrow + gain */}
           <div className="text-center">
-            <p className="text-[9px] text-white/25 mb-1">גידול הכנסות</p>
-            <p className="text-xl font-black" style={{ color: cc }}>+{R.totalGain}M ₪</p>
-            <p className="text-[9px] text-white/20">Layer1 {R.layer1}M + Layer2 {R.layer2}M</p>
+            <p className="text-[9px] text-white/25">ריטנר שנתי</p>
+            <p className="text-xl font-black text-red-300">-{RETAINER}M</p>
           </div>
-
-          {/* After */}
           <div className="text-center">
-            <p className="text-[9px] mb-1" style={{ color: `${cc}99` }}>אחרי BoomBuy שנה 1</p>
-            <p className="text-2xl font-black" style={{ color: cc }}>
+            <p className="text-[9px] mb-0.5" style={{ color: `${cc}80` }}>נטו — הפסד חדש</p>
+            <p className="text-xl font-black" style={{ color: cc }}>
               {R.newLoss >= 0 ? "+" : ""}{R.newLoss}M ₪
             </p>
+          </div>
+          <div className="text-center rounded-xl px-3 py-1" style={{ background: `${cc}12` }}>
+            <p className="text-[9px] text-white/25">Break-Even</p>
+            <p className="text-xl font-black" style={{ color: cc }}>
+              {R.monthsToZero < 120 ? R.monthsToZero : "∞"}
+            </p>
             <p className="text-[9px] text-white/20">
-              {R.newLoss >= 0 ? "✅ רווח!" : `הפסד ירד ב-${(LOSS_TODAY - Math.abs(R.newLoss)).toFixed(1)}M`}
-            </p>
-          </div>
-
-          {/* Retainer */}
-          <div className="text-center">
-            <p className="text-[9px] text-white/25 mb-1">ריטנר מכוסה</p>
-            <p className="text-2xl font-black" style={{ color: cc }}>{Math.min(R.coverPct, 999)}%</p>
-            <div className="h-1.5 rounded-full overflow-hidden bg-white/10 mt-1">
-              <div className="h-full rounded-full" style={{ width: `${Math.min(100, R.coverPct)}%`, background: cc }} />
-            </div>
-          </div>
-
-          {/* Break-even */}
-          <div className="text-center rounded-xl py-2 px-3" style={{ background: `${cc}12`, border: `1px solid ${cc}30` }}>
-            <p className="text-[9px] text-white/25 mb-1">Break-Even מלא</p>
-            <p className="text-2xl font-black" style={{ color: cc }}>
-              {R.monthsToZero < 999 ? `${R.monthsToZero}` : "∞"}
-            </p>
-            <p className="text-[9px] text-white/30">
-              {R.monthsToZero < 999 ? `חודשים · ${(R.monthsToZero/12).toFixed(1)} שנים` : "הגדל הנחות"}
+              {R.monthsToZero < 120 ? "חודשים" : ""}
             </p>
           </div>
         </div>
