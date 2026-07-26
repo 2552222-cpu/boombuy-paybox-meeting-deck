@@ -1,4 +1,4 @@
-import { useSimulator, LOSS_TODAY, RETAINER, FLOAT_BASE_REV, VOL_MONTHLY, TXN_MONTHLY, GIFT_BASE } from "../../contexts/SimulatorContext";
+import { useSimulator, RETAINER, FLOAT_BASE_REV, VOL_MONTHLY, TXN_MONTHLY, GIFT_BASE } from "../../contexts/SimulatorContext";
 
 const PB_BLUE = "#4F7FE0";
 const GOLD    = "#D4AF37";
@@ -245,7 +245,7 @@ export default function SlideFlow() {
         </div>
       </div>
 
-      {/* BOTTOM: P&L + 5-YEAR STRIP */}
+      {/* BOTTOM: תרומה שנתית + 5-YEAR STRIP */}
       <div className="border-t border-gray-700 px-4 py-2" style={{ background: "#060e1c" }}>
 
         {/* EQUATION ROW */}
@@ -254,14 +254,7 @@ export default function SlideFlow() {
             <div className="text-lg font-black text-green-400">
               +{R.totalGain}M ₪
             </div>
-            <div className="text-xs text-gray-500">רווח מ-BoomBuy</div>
-          </div>
-          <div className="text-gray-500 text-lg font-bold">−</div>
-          <div className="flex flex-col items-center">
-            <div className="text-lg font-black text-red-400">
-              {LOSS_TODAY}M ₪
-            </div>
-            <div className="text-xs text-gray-500">הפסד היום</div>
+            <div className="text-xs text-gray-500">ערך פיננסי חדש</div>
           </div>
           <div className="text-gray-500 text-lg font-bold">−</div>
           <div className="flex flex-col items-center">
@@ -277,17 +270,22 @@ export default function SlideFlow() {
               {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
             </div>
             <div className="text-xs" style={{ color: netColor }}>
-              {netSign ? "🎉 רווח נטו שנתי" : `עד Break-Even: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
+              {netSign
+                ? "✅ תרומה נטו לשותפות"
+                : `עד כיסוי ריטנר: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
             </div>
           </div>
+        </div>
+        <div className="text-center text-xs text-gray-600 mb-2">
+          * הפסד היסטורי של PayBox אינו חלק מהחשבון — השותפות נבחנת לפי הערך החדש שהיא מייצרת בלבד
         </div>
 
         {/* 5-YEAR PROJECTION */}
         <div className="border-t border-gray-800 pt-2">
-          <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים (גידול 10% בשנה) — רק מהשכבות החדשות</div>
+          <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים — תרומה נטו לשותפות (10% גידול שנתי)</div>
           <div className="flex justify-between gap-1">
-            {R.yr5.map((v, i) => {
-              const net = +(v - LOSS_TODAY - RETAINER).toFixed(1);
+            {R.yr5Net.map((net, i) => {
+              const gross = R.yr5[i];
               const isPos = net > 0;
               return (
                 <div key={i} className="flex-1 text-center rounded-lg py-1 border"
@@ -296,16 +294,14 @@ export default function SlideFlow() {
                   <div className="text-sm font-black" style={{ color: isPos ? "#4ade80" : "#f87171" }}>
                     {net > 0 ? "+" : ""}{net}M
                   </div>
-                  <div className="text-xs text-gray-600">{v}M רווח</div>
+                  <div className="text-xs text-gray-600">{gross}M רווח</div>
                 </div>
               );
             })}
           </div>
-          {R.yr5.some((v, i) => v - LOSS_TODAY - RETAINER > 0) && (
-            <div className="text-center text-xs text-green-400 mt-1">
-              💰 מצטבר 5 שנים: +{R.cumulative5}M ₪ רווח ברוטו לפייבוקס (לפני הפסד נוכחי)
-            </div>
-          )}
+          <div className="text-center text-xs text-green-400 mt-1">
+            💰 תרומה מצטברת 5 שנים: +{R.cumulative5}M ₪ ערך חדש לפייבוקס
+          </div>
         </div>
       </div>
     </div>
