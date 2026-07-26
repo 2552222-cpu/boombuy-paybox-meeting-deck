@@ -202,6 +202,9 @@ export default function Slide5() {
         </motion.div>
       </motion.div>
 
+      <div className="text-center text-[10px] text-gray-600 mt-1 px-4">
+        ⚖️ ZUZ = תוכנית הטבות בלבד — אינו אמצעי תשלום, אינו מטבע, אינו נסחר. הגדרה משפטית: נקודות ערך לשימוש ב-The Box בלבד.
+      </div>
       <div className="flex items-center justify-between text-gray-600 text-[11px] shrink-0 mt-4">
         <span className="font-bold tracking-widest">BOOMBUY × PAYBOX</span>
         <span>05 / 13</span>
