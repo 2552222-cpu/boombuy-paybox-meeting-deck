@@ -1,4 +1,4 @@
-import { useSimulator, LOSS_TODAY, RETAINER, FLOAT_BASE_REV } from "../../contexts/SimulatorContext";
+import { useSimulator, RETAINER, FLOAT_BASE_REV } from "../../contexts/SimulatorContext";
 
 const PB_BLUE = "#4F7FE0";
 const GOLD    = "#D4AF37";
@@ -100,38 +100,43 @@ export default function SlideResults() {
           </div>
         </div>
 
-        {/* COL 3: P&L */}
+        {/* COL 3: תרומה לשותפות */}
         <div className="flex-1">
           <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
             style={{ background: netColor + "22", color: netColor }}>
-            P&L — לפני / אחרי
+            תרומה שנתית לשותפות
           </div>
           <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
-            {/* Before BoomBuy */}
+            {/* Breakdown */}
             <div className="mb-3 pb-2 border-b border-gray-800">
-              <div className="text-xs font-bold text-gray-400 mb-1">לפני שותפות BoomBuy</div>
-              <Row label="הפסד נוכחי" val={-LOSS_TODAY} color="#f87171" sub="מדו&quot;ח דיסקונט 2024 ✓" />
-              <Row label="ריטנר BoomBuy" val={-RETAINER} color="#fb923c" sub="350K ₪/חודש" />
-              <Row label="רווח מ-Interchange (בסיס)" val={R.intBase} color="#94a3b8" />
+              <div className="text-xs font-bold text-gray-400 mb-1">ערך פיננסי חדש שהשותפות מייצרת</div>
+              <Row label="שכבה 1 — רווח נוסף" val={R.layer1} color={PB_BLUE}
+                sub="Interchange + Float שמגדלים" />
+              <Row label="שכבה 2 — מנוע סחר" val={R.layer2} color={GOLD}
+                sub="מתנות + ZUZ + סחר כללי" />
+              <Row label="סהך ערך חדש" val={R.totalGain} color="#4ade80" />
             </div>
 
-            {/* After BoomBuy */}
+            {/* Cost */}
             <div className="mb-3 pb-2 border-b border-gray-800">
-              <div className="text-xs font-bold text-gray-400 mb-1">עם שותפות BoomBuy</div>
-              <Row label="שכבה 1 — רווח נוסף" val={R.layer1} color={PB_BLUE} />
-              <Row label="שכבה 2 — מנוע סחר" val={R.layer2} color={GOLD} />
-              <Row label="סה&quot;כ רווח שנתי חדש" val={R.totalGain} color="#4ade80" />
+              <div className="text-xs font-bold text-gray-400 mb-1">עלות שותפות</div>
+              <Row label="ריטנר BoomBuy" val={-RETAINER} color="#fb923c" sub="350K ₪/חודש — שותפות, לא ספק" />
             </div>
 
             {/* Net */}
             <div className="text-center py-2">
-              <div className="text-xs text-gray-400">משוואה: +{R.totalGain} − {LOSS_TODAY} − {RETAINER} =</div>
+              <div className="text-xs text-gray-400">משוואה: +{R.totalGain} − {RETAINER} =</div>
               <div className="text-3xl font-black mt-1" style={{ color: netColor }}>
                 {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
               </div>
               <div className="text-sm" style={{ color: netColor }}>
-                {netSign ? "✅ פייבוקס בשחור" : `Break-Even: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
+                {netSign
+                  ? "✅ תרומה נטו לשותפות"
+                  : `עד כיסוי ריטנר: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
               </div>
+            </div>
+            <div className="mt-1 text-xs text-gray-600 text-center">
+              * הP&L הכולל של PayBox אינו חלק מהחשבון
             </div>
           </div>
         </div>
@@ -140,11 +145,11 @@ export default function SlideResults() {
       {/* 5-YEAR PROJECTION */}
       <div className="border-t border-gray-700 px-4 py-3" style={{ background: "#060e1c" }}>
         <div className="text-center text-xs text-gray-400 mb-2">
-          📈 תחזית 5 שנים — גידול זהיר של 10% בשנה (נטו אחרי הפסד + ריטנר)
+          📈 תחזית 5 שנים — תרומה נטו לשותפות (10% גידול שנתי)
         </div>
         <div className="flex gap-2 mb-2">
-          {R.yr5.map((v, i) => {
-            const net = +(v - LOSS_TODAY - RETAINER).toFixed(1);
+          {R.yr5Net.map((net, i) => {
+            const gross = R.yr5[i];
             const isPos = net > 0;
             return (
               <div key={i} className="flex-1 text-center rounded-xl py-2 border"
@@ -153,16 +158,16 @@ export default function SlideResults() {
                 <div className="text-base font-black" style={{ color: isPos ? "#4ade80" : "#f87171" }}>
                   {net > 0 ? "+" : ""}{net}M
                 </div>
-                <div className="text-xs text-gray-600 mt-0.5">{v}M רווח</div>
+                <div className="text-xs text-gray-600 mt-0.5">{gross}M רווח</div>
               </div>
             );
           })}
         </div>
         <div className="text-center text-sm font-bold" style={{ color: GOLD }}>
-          סה"כ רווח ברוטו 5 שנים: {R.cumulative5}M ₪ | 
+          סה"כ ערך חדש 5 שנים: {R.cumulative5}M ₪ |
           {" "}
           <span style={{ color: "#4ade80" }}>
-            פוטנציאל נטו: {+(R.cumulative5 - (LOSS_TODAY + RETAINER) * 5).toFixed(1)}M ₪
+            תרומה נטו: +{+(R.cumulative5 - RETAINER * 5).toFixed(1)}M ₪
           </span>
         </div>
       </div>
