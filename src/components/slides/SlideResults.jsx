@@ -138,6 +138,46 @@ export default function SlideResults() {
             <div className="mt-1 text-xs text-gray-600 text-center">
               * הP&L הכולל של PayBox אינו חלק מהחשבון
             </div>
+
+            {/* RETAINER MILESTONE TRACKER */}
+            <div className="mt-3 pt-2 border-t border-gray-700">
+              <div className="text-xs font-bold text-gray-400 mb-2">🎯 נקודות הפחתת ריטנר</div>
+              {/* Progress bar */}
+              {(() => {
+                const gmv = R.totalGmv;
+                const MAX = 450;
+                const pct = Math.min((gmv / MAX) * 100, 100);
+                const m1Pct = (210 / MAX) * 100;
+                const m2Pct = (420 / MAX) * 100;
+                return (
+                  <div>
+                    <div className="relative h-3 rounded-full bg-gray-800 mb-1 overflow-visible">
+                      {/* filled bar */}
+                      <div className="absolute left-0 top-0 h-full rounded-full transition-all"
+                        style={{ width: `${pct}%`, background: "linear-gradient(90deg,#4ade80,#D4AF37)" }} />
+                      {/* milestone 1 */}
+                      <div className="absolute top-0 h-full border-r-2 border-yellow-500"
+                        style={{ left: `${m1Pct}%` }} />
+                      {/* milestone 2 */}
+                      <div className="absolute top-0 h-full border-r-2 border-green-400"
+                        style={{ left: `${m2Pct}%` }} />
+                    </div>
+                    <div className="flex justify-between text-xs mb-2">
+                      <span className="text-gray-500">0</span>
+                      <span className="text-yellow-400">210M ↓50%</span>
+                      <span className="text-green-400">420M ↓100%</span>
+                    </div>
+                    <div className="text-xs text-center font-bold" style={{ color: gmv >= 420 ? "#4ade80" : gmv >= 210 ? "#D4AF37" : "#94a3b8" }}>
+                      GMV נוכחי בסימולטור: {gmv}M ₪
+                      {gmv >= 420 ? " ✅ ריטנר = 0" : gmv >= 210 ? " → ריטנר -50% (1.05M ₪)" : ""}
+                    </div>
+                    <div className="text-xs text-gray-600 mt-1 text-center">
+                      ריטנר יורד אוטומטית ככל שה-GMV של The Box גדל
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
           </div>
         </div>
       </div>
