@@ -1,291 +1,211 @@
 import { useState } from "react";
-import { useSimulator, RETAINER, FLOAT_BASE_REV, VOL_MONTHLY, TXN_MONTHLY, GIFT_BASE } from "../../contexts/SimulatorContext";
+import { useSimulator, RETAINER } from "../../contexts/SimulatorContext";
 
 const PB_BLUE = "#4F7FE0";
 const GOLD    = "#D4AF37";
 const NAVY    = "#0B1930";
+const GREEN   = "#4ade80";
+const PURPLE  = "#8b5cf6";
 
-/* ── tiny slider ───────────────────────────────────────────────────────────── */
-function Slider({ label, sub, value, min, max, step = 1, format, set, color = PB_BLUE }) {
-  const pct = ((value - min) / (max - min)) * 100;
+function Badge({ who }) {
+  const isPayBox = who === "PayBox";
   return (
-    <div className="mb-2">
+    <span className="text-[9px] font-black px-2 py-0.5 rounded-full ml-auto"
+      style={{
+        background: isPayBox ? "#4F7FE022" : "#D4AF3722",
+        color: isPayBox ? PB_BLUE : GOLD,
+      }}>
+      {who} מזינה
+    </span>
+  );
+}
+
+function Card({ icon, title, who, color = PB_BLUE, children }) {
+  return (
+    <div className="rounded-xl border border-gray-700 p-3 mb-3" style={{ background: "#0f1c32" }}>
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-base">{icon}</span>
+        <span className="font-bold text-sm" style={{ color }}>{title}</span>
+        {who && <Badge who={who} />}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function Slider({ label, sub, value, min, max, step = 1, format, set, color = PB_BLUE }) {
+  const pct = Math.min(100, ((value - min) / (max - min)) * 100);
+  return (
+    <div className="mb-3">
       <div className="flex justify-between items-center mb-0.5">
         <span className="text-xs text-gray-300">{label}</span>
         <span className="text-sm font-bold" style={{ color }}>{format ? format(value) : value}</span>
       </div>
-      {sub && <div className="text-xs text-gray-500 mb-0.5 leading-tight">{sub}</div>}
-      <div className="relative h-1.5 rounded-full bg-gray-700">
-        <div
-          className="absolute left-0 top-0 h-full rounded-full transition-all"
-          style={{ width: `${pct}%`, background: color }}
-        />
-        <input
-          type="range" min={min} max={max} step={step} value={value}
+      {sub && <div className="text-[11px] text-gray-500 mb-1 leading-tight">{sub}</div>}
+      <div className="relative h-2 rounded-full bg-gray-700">
+        <div className="absolute left-0 top-0 h-full rounded-full transition-all"
+          style={{ width: `${pct}%`, background: color }} />
+        <input type="range" min={min} max={max} step={step} value={value}
           onChange={e => set(+e.target.value)}
-          className="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
-        />
+          className="absolute inset-0 w-full opacity-0 cursor-pointer h-full" />
       </div>
     </div>
   );
 }
 
-/* ── section card ──────────────────────────────────────────────────────────── */
-function Card({ icon, title, badge, who, question, children, color = PB_BLUE }) {
-  return (
-    <div className="rounded-xl border border-gray-700 p-3 mb-3" style={{ background: "#0f1c32" }}>
-      <div className="flex items-center gap-2 mb-2 flex-wrap">
-        <span className="text-lg">{icon}</span>
-        <span className="font-bold text-sm" style={{ color }}>{title}</span>
-        {badge && (
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full"
-            style={{ background: color + "22", color }}>{badge}</span>
-        )}
-        {who && (
-          <span className="mr-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-            style={{
-              background: who === "PayBox" ? "#4F7FE022" : "#D4AF3722",
-              color: who === "PayBox" ? "#4F7FE0" : "#D4AF37"
-            }}>
-            {who} מזין
-          </span>
-        )}
-      </div>
-      {children}
-      {question && (
-        <div className="mt-2 rounded-lg p-2 text-xs text-yellow-300 border border-yellow-800"
-          style={{ background: "#1a1500" }}>
-          <span className="font-bold">❓ שאלה לפייבוקס: </span>{question}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/* ── number pill ───────────────────────────────────────────────────────────── */
-function Pill({ label, val, color, big }) {
-  const fmtVal = typeof val === "number"
-    ? (Math.abs(val) >= 1 ? val.toFixed(1) : val.toFixed(2))
-    : val;
-  return (
-    <div className="flex flex-col items-center">
-      <div className={`font-black ${big ? "text-2xl" : "text-lg"}`}
-        style={{ color: color || (val >= 0 ? "#4ade80" : "#f87171") }}>
-        {typeof val === "number" && val > 0 ? "+" : ""}{fmtVal}M ₪
-      </div>
-      <div className="text-xs text-gray-400 text-center">{label}</div>
-    </div>
-  );
-}
-
-/* ── calculation row ────────────────────────────────────────────────────────── */
-function CalcRow({ label, val, unit = "M ₪", color = "#94a3b8" }) {
-  return (
-    <div className="flex justify-between items-center text-xs py-0.5">
-      <span style={{ color: "#94a3b8" }}>{label}</span>
-      <span style={{ color }} className="font-semibold">{typeof val === "number" ? val.toLocaleString() : val} {unit}</span>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════ */
 export default function SlideFlow() {
   const {
-    iRate, setIRate, intGrowth, setIntGrowth,
-    floatGrowth, setFloatGrowth,
-    giftConv, setGiftConv, giftComm, setGiftComm,
-    txnGrowth, setTxnGrowth, avgTxnValue, setAvgTxnValue,
-    zuzRate, setZuzRate, txnConv, setTxnConv, txnComm, setTxnComm,
-    generalGmv, setGeneralGmv, generalComm, setGeneralComm,
-    reset,
-    R,
+    intRevNow,      setIntRevNow,
+    intGrowthPct,   setIntGrowthPct,
+    floatRevNow,    setFloatRevNow,
+    floatGrowthPct, setFloatGrowthPct,
+    giftVol,        setGiftVol,
+    giftToBoxPct,   setGiftToBoxPct,
+    payboxCommercePct, setPayboxCommercePct,
+    boombuyLayer1Pct,  setBoombuyLayer1Pct,
+    reset, R,
   } = useSimulator();
 
   const [calculated, setCalculated] = useState(false);
 
-  const netSign  = R.netResult >= 0;
-  const netColor = netSign ? "#4ade80" : "#f87171";
+  function handleReset() { reset(); setCalculated(false); }
 
-  function handleReset() {
-    reset();
-    setCalculated(false);
-  }
+  const netColor = R.payboxNet >= 0 ? GREEN : "#f87171";
 
   return (
     <div dir="rtl" className="flex flex-col h-full text-white overflow-hidden"
       style={{ background: NAVY, fontFamily: "'Heebo', sans-serif" }}>
 
       {/* HEADER */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700 shrink-0">
         <div>
-          <div className="text-xl font-black" style={{ color: PB_BLUE }}>🧮 סימולטור הזדמנויות</div>
-          <div className="text-xs text-gray-400">הזיזו את הסליידרים לפי הנתונים שלכם, ואז לחצו "חשב תרחיש"</div>
+          <div className="text-xl font-black" style={{ color: PB_BLUE }}>🧮 סימולטור | הזינו את המספרים שלכם</div>
+          <div className="text-xs text-gray-400 mt-0.5">
+            PayBox מזינה את הנתונים הפנימיים שלה · BoomBuy מציעה את מבנה העסקה
+          </div>
         </div>
-        {calculated ? (
-          <div className="text-center">
-            <div className="text-3xl font-black" style={{ color: R.totalGain > 0 ? "#4ade80" : GOLD }}>
-              {R.totalGain > 0 ? "+" : ""}{R.totalGain}M ₪
-            </div>
-            <div className="text-xs text-gray-400">סה&quot;כ ערך שנתי חדש לפייבוקס</div>
-          </div>
-        ) : (
-          <div className="text-center px-3 py-1 rounded-xl border border-gray-600">
-            <div className="text-sm text-gray-500">ממתין לחישוב</div>
-            <div className="text-xs text-gray-600">הזיזו סליידרים → חשב</div>
-          </div>
+        {calculated && (
+          <button onClick={handleReset}
+            className="text-xs px-3 py-1.5 rounded-lg border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-colors">
+            ↺ איפוס
+          </button>
         )}
       </div>
 
       {/* TWO COLUMNS */}
       <div className="flex-1 flex gap-3 px-4 pt-3 pb-2 overflow-y-auto min-h-0">
 
-        {/* ═══ LEFT: LAYER 1 — ORGANIC ══════════════════════════════════════ */}
+        {/* LEFT: LAYER 1 */}
         <div className="flex-1">
-          <div className="text-center mb-2 text-xs font-bold rounded-lg py-1"
+          <div className="text-center text-xs font-bold rounded-lg py-1 mb-2"
             style={{ background: PB_BLUE + "22", color: PB_BLUE }}>
-            שכבה 1 | ערוצים קיימים ← כסף שכבר בתוך פייבוקס
+            שכבה 1 | הכנסות פיננסיות קיימות שגדלות
           </div>
 
-          {/* INTERCHANGE */}
-          <Card icon="💳" title="Interchange" color={PB_BLUE}
-            badge={`בסיס ${R.intBase}M ₪/שנה`}
-            who="PayBox"
-            question="מה שיעור ה-Interchange שלכם מכאל? (לא נחשף לנו | שאלה קריטית)">
-            <div className="text-xs text-gray-500 mb-2 leading-tight">
-              {VOL_MONTHLY}M ₪ × {iRate}% × 12 = <span style={{color:PB_BLUE}} className="font-bold">{R.intBase}M ₪/שנה</span> | מה שאתם כבר מרוויחים
+          <Card icon="💳" title="Interchange — הכרטיס" who="PayBox" color={PB_BLUE}>
+            <div className="text-xs text-gray-500 mb-2">
+              כמה PayBox מרוויחה <span className="text-white font-bold">היום</span> מהכרטיס? (Interchange נטו)
             </div>
-            <Slider label="שיעור Interchange שלכם" value={iRate} min={0.10} max={0.50} step={0.01}
-              format={v => `${v.toFixed(2)}%`} set={setIRate} color={PB_BLUE}
-              sub="הערכת יועץ: 0.15%–0.35% (עמלת מעבר מכאל | לא נחשף לנו)" />
-            <Slider label="גידול נפח סליקה (FIW נוסף)" value={intGrowth} min={0} max={50}
-              format={v => `+${v}%`} set={setIntGrowth} color={PB_BLUE} />
-            {intGrowth > 0 && (
-              <div className="text-xs text-center mt-1 font-bold" style={{color: PB_BLUE}}>
-                רווח נוסף: +{R.intGain}M ₪/שנה
+            <Slider label="רווח נוכחי מהכרטיס" value={intRevNow} min={0} max={80} step={1}
+              format={v => `${v}M ₪/שנה`} set={setIntRevNow} color={PB_BLUE} />
+            <Slider label="גידול צפוי מ-FIW (כרטיס ראשי)" value={intGrowthPct} min={0} max={50}
+              format={v => `+${v}%`} set={setIntGrowthPct} color={PB_BLUE}
+              sub="כשפייבוקס הופך לכרטיס ראשי — יותר עסקאות, יותר נפח" />
+            {intRevNow > 0 && intGrowthPct > 0 && (
+              <div className="text-xs text-center font-bold mt-1 py-1 rounded" style={{ color: PB_BLUE, background: PB_BLUE + "11" }}>
+                ערך חדש מהכרטיס: +{R.intGain}M ₪/שנה
               </div>
             )}
           </Card>
 
-          {/* FLOAT */}
-          <Card icon="🏦" title="Float | יתרות לקוחות" color="#8b5cf6"
-            badge={`בסיס ${FLOAT_BASE_REV}M ₪/שנה`}
-            who="PayBox"
-            question="כמה כסף יושב בממוצע בארנקי המשתמשים, וכמה זמן? האם ה-ZUZ יגרום לאנשים להשאיר יותר כסף יותר זמן לפני שהם ממשכים לבנק?">
-            <div className="text-xs text-gray-500 mb-2 leading-tight">
-              938M ₪ יתרת לקוחות × 2% ריבית נטו = <span style={{color:"#8b5cf6"}} className="font-bold">{FLOAT_BASE_REV}M ₪/שנה</span>
+          <Card icon="🏦" title="Float — יתרות לקוחות" who="PayBox" color={PURPLE}>
+            <div className="text-xs text-gray-500 mb-2">
+              כמה PayBox מרוויחה <span className="text-white font-bold">היום</span> מהיתרות? (ריבית נטו)
             </div>
-            <Slider label="גידול יתרה ממוצעת (ZUZ מגדיל dwell time)" value={floatGrowth}
-              min={0} max={100} format={v => `+${v}%`} set={setFloatGrowth} color="#8b5cf6" />
-            {floatGrowth > 0 && (
-              <div className="text-xs text-center mt-1 font-bold" style={{color:"#8b5cf6"}}>
-                רווח נוסף: +{R.floatGain}M ₪/שנה
+            <Slider label="רווח נוכחי מהיתרות" value={floatRevNow} min={0} max={60} step={1}
+              format={v => `${v}M ₪/שנה`} set={setFloatRevNow} color={PURPLE} />
+            <Slider label="גידול צפוי — ZUZ מגדיל זמן שהייה" value={floatGrowthPct} min={0} max={50}
+              format={v => `+${v}%`} set={setFloatGrowthPct} color={PURPLE}
+              sub="ZUZ = תמריץ להשאיר כסף בפייבוקס במקום למשוך" />
+            {floatRevNow > 0 && floatGrowthPct > 0 && (
+              <div className="text-xs text-center font-bold mt-1 py-1 rounded" style={{ color: PURPLE, background: PURPLE + "11" }}>
+                ערך חדש מהיתרות: +{R.floatGain}M ₪/שנה
               </div>
             )}
           </Card>
 
-          {/* LAYER 1 TOTAL */}
-          <div className="rounded-lg p-2 text-center border border-blue-800 mt-1"
+          {/* L1 Total */}
+          <div className="rounded-lg p-2 text-center border border-blue-900 mt-1"
             style={{ background: "#0a1628" }}>
-            <div className="text-xs text-gray-400 mb-1">שכבה 1 | רווח נוסף שנתי</div>
-            <div className="text-2xl font-black" style={{ color: PB_BLUE }}>
-              {R.layer1 > 0 ? "+" : ""}{R.layer1}M ₪
+            <div className="text-xs text-gray-400">שכבה 1 | ערך פיננסי חדש סה"כ</div>
+            <div className="text-2xl font-black mt-1" style={{ color: PB_BLUE }}>
+              {R.layer1New > 0 ? `+${R.layer1New}` : "—"}M ₪
             </div>
-            <div className="text-xs text-gray-500">
-              Interchange {R.intGain > 0 ? `+${R.intGain}` : "0"} | Float {R.floatGain > 0 ? `+${R.floatGain}` : "0"}
-            </div>
+            {R.layer1New === 0 && (
+              <div className="text-xs text-gray-600 mt-0.5">הזינו נתונים למעלה</div>
+            )}
           </div>
         </div>
 
-        {/* ═══ RIGHT: LAYER 2 — COMMERCE ════════════════════════════════════ */}
+        {/* RIGHT: LAYER 2 + DEAL */}
         <div className="flex-1">
-          <div className="text-center mb-2 text-xs font-bold rounded-lg py-1"
+          <div className="text-center text-xs font-bold rounded-lg py-1 mb-2"
             style={{ background: GOLD + "22", color: GOLD }}>
-            שכבה 2 | מנוע סחר חדש ← כסף שעדיין לא קיים בפייבוקס
+            שכבה 2 | מסחר חדש דרך The Box
           </div>
 
-          {/* GIFT GROUPS */}
-          <Card icon="🎁" title="קבוצות מתנה" color={GOLD}
-            badge={`${GIFT_BASE}M ₪ פעיל`}
-            who="BoomBuy"
-            question="מה % ההמרה הנוכחי שלכם מקבוצות → רכישה? כמה קבוצות פעילות חודשית?">
+          <Card icon="🎁" title="קבוצות מתנה | The Box" who="PayBox" color={GOLD}>
             <div className="text-xs text-gray-500 mb-2">
-              {GIFT_BASE}M ₪ קבוצות פעילות | כמה ממירים ל-GMV בפועל?
+              כמה כסף נאסף בקבוצות מתנה בחודש?
             </div>
-            <Slider label="% קבוצות שממירות לקנייה" value={giftConv} min={0} max={100}
-              format={v => `${v}%`} set={setGiftConv} color={GOLD} />
-            <Slider label="% רווח לפייבוקס מה-GMV" value={giftComm} min={0.5} max={3} step={0.1}
-              format={v => `${v}%`} set={setGiftComm} color={GOLD} />
-            {giftConv > 0 && (
-              <CalcRow label={`${GIFT_BASE}M × ${giftConv}% = GMV`} val={R.giftGmv} color={GOLD} />
+            <Slider label="מחזור קבוצות חודשי" value={giftVol} min={0} max={500} step={10}
+              format={v => `${v}M ₪/חודש`} set={setGiftVol} color={GOLD} />
+            <Slider label="% שיופנה לקנייה ב-The Box" value={giftToBoxPct} min={0} max={50}
+              format={v => `${v}%`} set={setGiftToBoxPct} color={GOLD}
+              sub="מה % הקבוצות שמסיימות בקנייה בפועל?" />
+            {giftVol > 0 && giftToBoxPct > 0 && (
+              <div className="text-xs text-center font-bold mt-1 py-1 rounded" style={{ color: GOLD, background: GOLD + "11" }}>
+                GMV שנתי ב-The Box: {R.giftGmv}M ₪
+              </div>
             )}
-            <div className="text-xs text-center mt-1 font-bold" style={{color: GOLD}}>
-              {R.giftRev > 0 ? `+${R.giftRev}` : "0"}M ₪/שנה
+          </Card>
+
+          <Card icon="🤝" title="מבנה העסקה | ייקבע בפיילוט" who="BoomBuy" color="#22d3ee">
+            <div className="text-xs text-gray-500 mb-2">
+              אלה הפרמטרים שנסגור יחד — BoomBuy מציעה, PayBox מאשרת
+            </div>
+            <Slider label="% רווח לפייבוקס מה-GMV של The Box" value={payboxCommercePct}
+              min={0.5} max={3} step={0.1} format={v => `${v.toFixed(1)}%`}
+              set={setPayboxCommercePct} color="#22d3ee" />
+            <Slider label="% מהערך הפיננסי החדש ל-BoomBuy (Layer 1)" value={boombuyLayer1Pct}
+              min={0} max={30} step={1} format={v => `${v}%`}
+              set={setBoombuyLayer1Pct} color="#22d3ee"
+              sub="ככל שBoomBuy מרוויחה מ-Layer 1 — הריטנר יורד בהתאם" />
+            <div className="mt-2 rounded-lg px-2 py-1.5 text-xs text-emerald-300 border border-emerald-900"
+              style={{ background: "#021208" }}>
+              💡 BoomBuy נושאת את עלות ZUZ, הסבסוד, השירות והתפעול — ל-PayBox אין עלות ישירה
             </div>
           </Card>
 
-          {/* TRANSACTIONS → ZUZ → COMMERCE */}
-          <Card icon="⚡" title="טרנזקציות → ZUZ → The Box" color="#22d3ee"
-            who="BoomBuy"
-            question="מה הערך הממוצע לטרנזקציה בפועל? (אנחנו מניחים 200 ₪ | זקוקים לנתון שלכם)">
-            <div className="text-xs text-gray-500 mb-2 leading-tight">
-              2M טרנזקציות × ערך ממוצע = נפח שממנו מנוע ZUZ מוציא כסף לשוק
-            </div>
-            <Slider label="ערך ממוצע לטרנזקציה" value={avgTxnValue} min={50} max={1000} step={50}
-              format={v => `${v} ₪`} set={setAvgTxnValue} color="#22d3ee"
-              sub={`נפח שנתי: ${R.txnAnnualFlow.toLocaleString()}M ₪/שנה`} />
-            <Slider label="% נפח → ZUZ לשוק" value={zuzRate} min={5} max={50}
-              format={v => `${v}%`} set={setZuzRate} color="#22d3ee"
-              sub={`ZUZ שיצאו: ${R.zuzIssued.toLocaleString()}M ₪`} />
-            <Slider label="% ZUZ → קנייה ב-The Box" value={txnConv} min={1} max={15}
-              format={v => `${v}%`} set={setTxnConv} color="#22d3ee"
-              sub={`GMV: ${R.txnGmv}M ₪`} />
-            <Slider label="% רווח לפייבוקס מה-GMV" value={txnComm} min={0.5} max={3} step={0.1}
-              format={v => `${v}%`} set={setTxnComm} color="#22d3ee" />
-            <div className="text-xs text-center mt-1 font-bold" style={{color:"#22d3ee"}}>
-              {R.txnCommerceRev > 0 ? `+${R.txnCommerceRev}` : "0"}M ₪/שנה
-            </div>
-            <Slider label="גידול מספר טרנזקציות" value={txnGrowth} min={0} max={100}
-              format={v => `+${v}%`} set={setTxnGrowth} color="#22d3ee" />
-            <div className="mt-2 rounded-lg px-2 py-1.5 text-xs text-emerald-300 border border-emerald-900" style={{background:"#021208"}}>
-              💡 עלות ZUZ וסבסוד = על BoomBuy בלבד. ל-PayBox אין עלות ישירה.
-            </div>
-          </Card>
-
-          {/* GENERAL COMMERCE */}
-          <Card icon="🛍️" title="סחר כללי | BoomBuy" color="#fb923c"
-            who="BoomBuy"
-            question="כמה GMV אתם מצפים לנתב דרך The Box מסך הפעילות שלכם? (ריאלי | ₪ בחודש)">
-            <Slider label="GMV שנתי דרך The Box" value={generalGmv} min={10} max={2000} step={10}
-              format={v => `${v}M ₪`} set={setGeneralGmv} color="#fb923c" />
-            <Slider label="% רווח לפייבוקס" value={generalComm} min={0.5} max={3} step={0.1}
-              format={v => `${v}%`} set={setGeneralComm} color="#fb923c" />
-            <div className="text-xs text-center mt-1 font-bold" style={{color:"#fb923c"}}>
-              +{R.generalRev}M ₪/שנה
-            </div>
-          </Card>
-
-          {/* LAYER 2 TOTAL */}
-          <div className="rounded-lg p-2 text-center border border-yellow-800 mt-1"
+          {/* L2 Total */}
+          <div className="rounded-lg p-2 text-center border border-yellow-900 mt-1"
             style={{ background: "#0a1205" }}>
-            <div className="text-xs text-gray-400 mb-1">שכבה 2 | רווח נוסף שנתי</div>
-            <div className="text-2xl font-black" style={{ color: GOLD }}>
-              {R.layer2 > 0 ? "+" : ""}{R.layer2}M ₪
+            <div className="text-xs text-gray-400">שכבה 2 | רווח מסחר ל-PayBox</div>
+            <div className="text-2xl font-black mt-1" style={{ color: GOLD }}>
+              {R.payboxCommerceRev > 0 ? `+${R.payboxCommerceRev}` : "—"}M ₪
             </div>
-            <div className="text-xs text-gray-500">
-              מתנות {R.giftRev}M | ZUZ {R.txnCommerceRev}M | סחר {R.generalRev}M
-            </div>
+            {R.giftGmv > 0 && (
+              <div className="text-xs text-gray-500 mt-0.5">{R.giftGmv}M ₪ GMV × {payboxCommercePct}%</div>
+            )}
           </div>
         </div>
       </div>
 
       {/* BOTTOM: כפתור חשב / תוצאות */}
-      <div className="border-t border-gray-700 px-4 py-3" style={{ background: "#060e1c" }}>
-
+      <div className="border-t border-gray-700 px-4 py-3 shrink-0" style={{ background: "#060e1c" }}>
         {!calculated ? (
-          /* ── CALCULATE BUTTON ── */
           <div className="flex flex-col items-center gap-2">
-            <button
-              onClick={() => setCalculated(true)}
+            <button onClick={() => setCalculated(true)}
               className="px-10 py-3 rounded-2xl font-black text-lg text-[#0B1930] shadow-lg transition-transform active:scale-95"
               style={{ background: "linear-gradient(135deg, #D4AF37 0%, #B8941F 100%)" }}>
               ✦ חשב תרחיש ✦
@@ -293,72 +213,43 @@ export default function SlideFlow() {
             <div className="text-xs text-gray-500">הזיזו את הסליידרים לפי הנתונים שלכם ולחצו לחישוב</div>
           </div>
         ) : (
-          /* ── RESULTS ── */
-          <>
-            {/* EQUATION ROW */}
-            <div className="flex items-center justify-center gap-2 mb-2 flex-wrap">
-              <div className="flex flex-col items-center">
-                <div className="text-lg font-black text-green-400">
-                  +{R.totalGain}M ₪
-                </div>
-                <div className="text-xs text-gray-500">ערך פיננסי חדש</div>
+          <div>
+            {/* Equation */}
+            <div className="flex items-center justify-center gap-3 flex-wrap mb-2">
+              <div className="text-center">
+                <div className="text-lg font-black" style={{ color: PB_BLUE }}>+{R.payboxLayer1Share}M ₪</div>
+                <div className="text-xs text-gray-500">שכבה 1 לפייבוקס</div>
               </div>
-              <div className="text-gray-500 text-lg font-bold">−</div>
-              <div className="flex flex-col items-center">
-                <div className="text-lg font-black text-orange-400">
-                  {RETAINER}M ₪
-                </div>
-                <div className="text-xs text-gray-500">ריטנר שנתי</div>
+              <div className="text-gray-500">+</div>
+              <div className="text-center">
+                <div className="text-lg font-black" style={{ color: GOLD }}>+{R.payboxCommerceRev}M ₪</div>
+                <div className="text-xs text-gray-500">שכבה 2 (סחר)</div>
               </div>
-              <div className="text-gray-500 text-2xl font-bold">=</div>
-              <div className="flex flex-col items-center px-3 py-1 rounded-xl border-2"
+              <div className="text-gray-500">−</div>
+              <div className="text-center">
+                <div className="text-lg font-black text-orange-400">{R.effectiveRetainer}M ₪</div>
+                <div className="text-xs text-gray-500">ריטנר אפקטיבי</div>
+              </div>
+              <div className="text-gray-500 text-xl">=</div>
+              <div className="px-4 py-2 rounded-xl border-2 text-center"
                 style={{ borderColor: netColor, background: netColor + "15" }}>
                 <div className="text-2xl font-black" style={{ color: netColor }}>
-                  {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
+                  {R.payboxNet > 0 ? "+" : ""}{R.payboxNet}M ₪
                 </div>
                 <div className="text-xs" style={{ color: netColor }}>
-                  {netSign
-                    ? "✅ תרומה נטו לשותפות"
-                    : `עד כיסוי ריטנר: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
+                  {R.payboxNet >= 0 ? "✅ תרומה נטו לפייבוקס" : "⏳ עדיין מתחת לריטנר"}
                 </div>
               </div>
-
-              {/* RESET BUTTON */}
-              <button
-                onClick={handleReset}
-                className="mr-2 px-3 py-1.5 rounded-xl text-xs font-bold border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-colors"
-                title="איפוס ↺">
-                ↺ איפוס
-              </button>
             </div>
-            <div className="text-center text-xs text-gray-600 mb-2">
-              * הפסד היסטורי של PayBox אינו חלק מהחשבון | השותפות נבחנת לפי הערך החדש שהיא מייצרת בלבד
-            </div>
-
-            {/* 5-YEAR PROJECTION */}
-            <div className="border-t border-gray-800 pt-2">
-              <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים | תרומה נטו לשותפות (10% גידול שנתי)</div>
-              <div className="flex justify-between gap-1">
-                {R.yr5Net.map((net, i) => {
-                  const gross = R.yr5[i];
-                  const isPos = net > 0;
-                  return (
-                    <div key={i} className="flex-1 text-center rounded-lg py-1 border"
-                      style={{ borderColor: isPos ? "#4ade8044" : "#f8717144", background: isPos ? "#052005" : "#200505" }}>
-                      <div className="text-xs text-gray-500">שנה {i + 1}</div>
-                      <div className="text-sm font-black" style={{ color: isPos ? "#4ade80" : "#f87171" }}>
-                        {net > 0 ? "+" : ""}{net}M
-                      </div>
-                      <div className="text-xs text-gray-600">{gross}M רווח</div>
-                    </div>
-                  );
-                })}
+            {R.effectiveRetainer < RETAINER && (
+              <div className="text-center text-xs text-emerald-400 mb-1">
+                💡 ריטנר בסיס {RETAINER}M ← יורד ל-{R.effectiveRetainer}M כי BoomBuy מרוויחה {R.boombuyLayer1Share}M מ-Layer 1
               </div>
-              <div className="text-center text-xs text-green-400 mt-1">
-                💰 תרומה מצטברת 5 שנים: +{R.cumulative5}M ₪ ערך חדש לפייבוקס
-              </div>
+            )}
+            <div className="text-center text-xs text-gray-600">
+              * מדידה לפי ערך חדש שהשותפות מייצרת בלבד — לא משווים ל-P&L הכולל של PayBox
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
