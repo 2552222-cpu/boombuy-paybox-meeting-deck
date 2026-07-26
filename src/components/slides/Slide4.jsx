@@ -58,7 +58,7 @@ export default function Slide4() {
               <span className="text-[#5BA4CF]">סיכון כניסה מוגבל, מדיד וחוזי.</span>
             </h1>
           </div>
-          <div className="h-16 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent shrink-0 mt-1" />
+          <div className="text-[#D4AF37] font-black text-xl mt-1 mb-1 ml-auto">·</div>
         </motion.div>
 
         {/* Retainer box */}
