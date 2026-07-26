@@ -71,7 +71,7 @@ export default function Slide4() {
               <p className="text-white font-black text-5xl md:text-6xl">₪350,000</p>
               <p className="text-gray-400 text-sm mt-1.5">= 350K ₪/חודש · 4.2M ₪/שנה</p>
             </div>
-            <div className="h-px md:h-24 w-full md:w-px bg-white/8" />
+            <div className="text-white/20 text-2xl font-thin mx-2">·</div>
             <ul className="space-y-2.5 text-right">
               {["הקמה ורישוי טכנולוגיה (NEXUS OS)", "ניהול 2 מועדונים (PayBox CC + Young)", "צוותי סחר, שירות ותפעול", "סבסוד ההטבות — על חשבוננו"].map((t, i) => (
                 <li key={i} className="flex items-center gap-2 flex-row-reverse text-sm text-gray-300">
