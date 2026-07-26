@@ -17,14 +17,14 @@ const OFFSETS = [
   {
     icon: TrendingUp,
     title: "Interchange | First in Wallet",
-    desc: "מודל Interchange מדורג | שיפור FIW מ-10% ל-22%+ = מחזור גדל = Interchange גדל לפייבוקס.",
+    desc: "מודל Interchange מדורג | כרטיס ראשי = מחזור גדל = Interchange גדל לפייבוקס.",
     est: "~20M ₪ → 25M+ ₪/שנה (מדורג)",
     color: "#5BA4CF",
   },
   {
     icon: Percent,
     title: "כרטיסים חדשים + Float",
-    desc: "ZUZ מושך 60K כרטיסים חדשים בשנה. כסף שיושב יותר זמן = float גבוה יותר = ריבית לדיסקונט.",
+    desc: "ZUZ מושך כרטיסים חדשים כרטיסים חדשים בשנה. כסף שיושב יותר זמן = float גבוה יותר = ריבית לדיסקונט.",
     est: "+12M ₪/שנה שנה 1",
     color: "#FBBF24",
   },
