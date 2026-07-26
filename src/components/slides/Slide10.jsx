@@ -9,10 +9,10 @@ const MILESTONES = [
     icon: Rocket,
     color: "#2D7FF9",
     items: [
-      "חיבור API ל-PayBox — שבועות בלבד",
+      "חיבור API ל-PayBox | שבועות בלבד",
       "הקמת The Box בתוך האפליקציה",
       "גיוס ספקים לקטגוריות מתנות ועל האש",
-      "עלייה לאוויר — פיילוט ל-10K משתמשים",
+      "עלייה לאוויר | פיילוט ל-10K משתמשים",
     ],
   },
   {
@@ -23,7 +23,7 @@ const MILESTONES = [
     items: [
       "הרחבה ל-100K משתמשים",
       "הוספת Box Wellness + Box Culture",
-      "מדידת אחוזי מימוש — יעד 15%+",
+      "מדידת אחוזי מימוש | יעד 15%+",
       "אופטימיזציה של מסלולי קאשבק",
     ],
   },
@@ -53,14 +53,14 @@ const MILESTONES = [
   },
   {
     period: "שנה 2–5",
-    title: "מארנק — למנוע צרכנות לאומי",
+    title: "מארנק | למנוע צרכנות לאומי",
     icon: Flame,
     color: "#F97316",
     items: [
-      "🍶 דליברי מקומי — וולט לאלכוהול, בשר, מכולת שכונתית",
-      "🏛️ תשלומי ממשל — רישיונות נהיגה, דוחות, ארנונה, אגרות",
-      "💼 PayBox לעסקים — ארנק B2B, קבלת תשלומים, עסקים קטנים",
-      "🎮 Box Gaming · ✈️ Box Travel · 🚗 Box Auto · 📱 Young — מגרש אחד",
+      "🍶 דליברי מקומי | וולט לאלכוהול, בשר, מכולת שכונתית",
+      "🏛️ תשלומי ממשל | רישיונות נהיגה, דוחות, ארנונה, אגרות",
+      "💼 PayBox לעסקים | ארנק B2B, קבלת תשלומים, עסקים קטנים",
+      "🎮 Box Gaming · ✈️ Box Travel · 🚗 Box Auto · 📱 Young | מגרש אחד",
     ],
   },
 ];
@@ -100,7 +100,7 @@ export default function Slide10() {
         <span className="text-sm font-bold text-[#2D7FF9] tracking-[0.18em]">מפת הדרכים</span>
         <div className="w-0.5 h-12 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent ml-auto mt-3 mb-1" />
         <h1 className="mt-3 text-3xl md:text-5xl font-black text-[#0B1930] leading-[1.1] tracking-[-0.02em]">
-          מחתימה לרווחיות — 6 חודשים.
+          מחתימה לרווחיות | 6 חודשים.
         </h1>
       </div>
 
@@ -168,7 +168,7 @@ export default function Slide10() {
             </div>
             <div className="rounded-xl py-2 px-3" style={{background:"#4F7FE015"}}>
               <div className="font-black text-[#4F7FE0]">🛒 מועדון</div>
-              <div className="text-white/55 mt-0.5">The Box — מנוע צרכנות לאומי</div>
+              <div className="text-white/55 mt-0.5">The Box | מנוע צרכנות לאומי</div>
             </div>
             <div className="rounded-xl py-2 px-3" style={{background:"#34D39915"}}>
               <div className="font-black text-[#34D399]">🍶 דליברי</div>

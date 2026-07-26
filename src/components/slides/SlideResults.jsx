@@ -34,14 +34,14 @@ export default function SlideResults() {
       {/* HEADER */}
       <div className="px-5 py-3 border-b border-gray-700 flex justify-between items-center">
         <div>
-          <div className="text-xl font-black" style={{ color: GOLD }}>📊 סיכום מודל — P&L</div>
-          <div className="text-xs text-gray-400">תוצאות מהסימולטור — שנה 1 ותחזית 5 שנים</div>
+          <div className="text-xl font-black" style={{ color: GOLD }}>📊 סיכום מודל | P&L</div>
+          <div className="text-xs text-gray-400">תוצאות מהסימולטור | שנה 1 ותחזית 5 שנים</div>
         </div>
         <div className="text-center">
           <div className="text-3xl font-black" style={{ color: netColor }}>
             {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
           </div>
-          <div className="text-xs text-gray-400">נטו — שנה 1</div>
+          <div className="text-xs text-gray-400">נטו | שנה 1</div>
         </div>
       </div>
 
@@ -52,16 +52,16 @@ export default function SlideResults() {
         <div className="flex-1">
           <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
             style={{ background: PB_BLUE + "22", color: PB_BLUE }}>
-            שכבה 1 — ערוצים קיימים
+            שכבה 1 | ערוצים קיימים
           </div>
           <div className="rounded-xl p-3 border border-gray-700 h-auto" style={{ background: "#0f1c32" }}>
             <Row label="Interchange (בסיס)" val={R.intBase} color="#94a3b8"
-              sub={`רווח נוכחי מסליקה — לא משתנה`} />
-            <Row label="Interchange — גידול FIW" val={R.intGain} color={PB_BLUE}
+              sub={`רווח נוכחי מסליקה | לא משתנה`} />
+            <Row label="Interchange | גידול FIW" val={R.intGain} color={PB_BLUE}
               sub="נפח סליקה נוסף מ-FIW" />
-            <Row label="Float — בסיס" val={FLOAT_BASE_REV} color="#94a3b8"
-              sub="938M × 2% נטו — כבר קיים" />
-            <Row label="Float — גידול ZUZ" val={R.floatGain} color="#8b5cf6"
+            <Row label="Float | בסיס" val={FLOAT_BASE_REV} color="#94a3b8"
+              sub="938M × 2% נטו | כבר קיים" />
+            <Row label="Float | גידול ZUZ" val={R.floatGain} color="#8b5cf6"
               sub="dwell time גבוה יותר" />
             <div className="mt-3 pt-2 border-t border-gray-700 text-center">
               <div className="text-xs text-gray-400">רווח נוסף שכבה 1</div>
@@ -76,20 +76,20 @@ export default function SlideResults() {
         <div className="flex-1">
           <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
             style={{ background: GOLD + "22", color: GOLD }}>
-            שכבה 2 — מנוע סחר
+            שכבה 2 | מנוע סחר
           </div>
           <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
-            <Row label="קבוצות מתנה — GMV" val={R.giftGmv} color="#94a3b8"
+            <Row label="קבוצות מתנה | GMV" val={R.giftGmv} color="#94a3b8"
               sub="400M × % המרה" />
-            <Row label="קבוצות מתנה — רווח" val={R.giftRev} color={GOLD}
+            <Row label="קבוצות מתנה | רווח" val={R.giftRev} color={GOLD}
               sub={`GMV × ${"%"} עמלה`} />
             <div className="border-t border-gray-800 mt-1 pt-1" />
             <Row label="טרנזקציות → ZUZ → GMV" val={R.txnGmv} color="#94a3b8"
               sub={`${R.zuzIssued.toLocaleString()}M ZUZ × ${"%"} המרה`} />
-            <Row label="טרנזקציות — רווח" val={R.txnCommerceRev} color="#22d3ee"
+            <Row label="טרנזקציות | רווח" val={R.txnCommerceRev} color="#22d3ee"
               sub="GMV × % עמלה" />
             <div className="border-t border-gray-800 mt-1 pt-1" />
-            <Row label="סחר כללי — רווח" val={R.generalRev} color="#fb923c"
+            <Row label="סחר כללי | רווח" val={R.generalRev} color="#fb923c"
               sub="GMV ישיר × % עמלה" />
             <div className="mt-3 pt-2 border-t border-gray-700 text-center">
               <div className="text-xs text-gray-400">רווח נוסף שכבה 2</div>
@@ -110,9 +110,9 @@ export default function SlideResults() {
             {/* Breakdown */}
             <div className="mb-3 pb-2 border-b border-gray-800">
               <div className="text-xs font-bold text-gray-400 mb-1">ערך פיננסי חדש שהשותפות מייצרת</div>
-              <Row label="שכבה 1 — רווח נוסף" val={R.layer1} color={PB_BLUE}
+              <Row label="שכבה 1 | רווח נוסף" val={R.layer1} color={PB_BLUE}
                 sub="Interchange + Float שמגדלים" />
-              <Row label="שכבה 2 — מנוע סחר" val={R.layer2} color={GOLD}
+              <Row label="שכבה 2 | מנוע סחר" val={R.layer2} color={GOLD}
                 sub="מתנות + ZUZ + סחר כללי" />
               <Row label="סהך ערך חדש" val={R.totalGain} color="#4ade80" />
             </div>
@@ -120,7 +120,7 @@ export default function SlideResults() {
             {/* Cost */}
             <div className="mb-3 pb-2 border-b border-gray-800">
               <div className="text-xs font-bold text-gray-400 mb-1">עלות שותפות</div>
-              <Row label="ריטנר BoomBuy" val={-RETAINER} color="#fb923c" sub="350K ₪/חודש — שותפות, לא ספק" />
+              <Row label="ריטנר BoomBuy" val={-RETAINER} color="#fb923c" sub="350K ₪/חודש | שותפות, לא ספק" />
             </div>
 
             {/* Net */}
@@ -185,7 +185,7 @@ export default function SlideResults() {
       {/* 5-YEAR PROJECTION */}
       <div className="border-t border-gray-700 px-4 py-3" style={{ background: "#060e1c" }}>
         <div className="text-center text-xs text-gray-400 mb-2">
-          📈 תחזית 5 שנים — תרומה נטו לשותפות (10% גידול שנתי)
+          📈 תחזית 5 שנים | תרומה נטו לשותפות (10% גידול שנתי)
         </div>
         <div className="flex gap-2 mb-2">
           {R.yr5Net.map((net, i) => {

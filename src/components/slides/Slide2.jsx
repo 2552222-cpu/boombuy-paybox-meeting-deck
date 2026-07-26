@@ -5,7 +5,7 @@ import { EASE } from "@/components/slides/deckAnim";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const STATS = [
-  { value:"100%", label:"מכספי הקבוצות", sub:"נמשכים לעו\"ש בנקים אחרים — הכסף בורח מהמערכת", icon: ArrowDownToLine, color:"#EF4444" },
+  { value:"100%", label:"מכספי הקבוצות", sub:"נמשכים לעו\"ש בנקים אחרים | הכסף בורח מהמערכת", icon: ArrowDownToLine, color:"#EF4444" },
   { value:"10%",  label:"First in Wallet",sub:"90% מהמחזיקים משתמשים בכרטיס פייבוקס כמשני",     icon: CreditCard,        color:"#F59E0B" },
   { value:"₪0",   label:"תקציב סבסוד",   sub:"הסיבה האמיתית שלא נבנה מועדון עד היום",          icon: Wallet,            color:"#94A3B8" },
 ];

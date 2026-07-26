@@ -49,7 +49,7 @@ export default function Slide9() {
           <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: "#D4AF37" }}>ערך השותפות</span>
           <h1 className="mt-3 text-4xl md:text-5xl font-black leading-[1.06] tracking-[-0.02em]">
             שתי שכבות הכנסה.<br />
-            <span style={{ color: "#4F7FE0" }}>הכסף כבר בפנים — הוא פשוט גדל.</span>
+            <span style={{ color: "#4F7FE0" }}>הכסף כבר בפנים | הוא פשוט גדל.</span>
           </h1>
           <p className="mt-2 text-white/35 text-sm">שכבה 1 מגדילה את מה שיש · שכבה 2 מייצרת מה שאין</p>
         </motion.div>
@@ -60,7 +60,7 @@ export default function Slide9() {
           {/* Layer 1 */}
           <motion.div variants={item} className="flex-1">
             <div className="text-xs font-black tracking-widest mb-3 text-right" style={{ color: "#4F7FE0" }}>
-              שכבה 1 — הכנסות קיימות שגדלות
+              שכבה 1 | הכנסות קיימות שגדלות
             </div>
             <div className="space-y-2">
               {L1.map((e, i) => (
@@ -92,7 +92,7 @@ export default function Slide9() {
           {/* Layer 2 */}
           <motion.div variants={item} className="flex-1">
             <div className="text-xs font-black tracking-widest mb-3 text-right" style={{ color: "#D4AF37" }}>
-              שכבה 2 — הכנסות חדשות לגמרי
+              שכבה 2 | הכנסות חדשות לגמרי
             </div>
             <div className="space-y-2">
               {L2.map((e, i) => (
@@ -112,7 +112,7 @@ export default function Slide9() {
             </div>
             <div className="mt-3 rounded-2xl px-4 py-3 text-center border"
               style={{ background: "#120a00", borderColor: "#D4AF3733" }}>
-              <div className="text-xs text-white/40">תלוי בתשובותיכם — נחשב יחד</div>
+              <div className="text-xs text-white/40">תלוי בתשובותיכם | נחשב יחד</div>
               <div className="text-2xl font-black mt-0.5" style={{ color: "#D4AF37" }}>X%  × GMV</div>
               <div className="text-xs text-white/25">הסימולטור מחשב בזמן אמת</div>
             </div>
@@ -124,7 +124,7 @@ export default function Slide9() {
           className="mt-5 rounded-2xl px-6 py-4 flex items-center justify-between border"
           style={{ background: "rgba(212,175,55,0.07)", borderColor: "rgba(212,175,55,0.2)" }}>
           <div className="text-right">
-            <div className="text-xs text-white/35">ריטנר חודשי — שותפות, לא ספק</div>
+            <div className="text-xs text-white/35">ריטנר חודשי | שותפות, לא ספק</div>
             <div className="text-3xl font-black" style={{ color: "#D4AF37" }}>350,000 ₪</div>
           </div>
           <div className="text-white/35 text-3xl font-thin">→</div>
@@ -135,7 +135,7 @@ export default function Slide9() {
           </div>
           <div className="text-white/35 text-3xl font-thin">→</div>
           <div className="text-center">
-            <div className="text-xs font-black tracking-widest mb-1" style={{ color: "#4ade80" }}>עכשיו — בואו נחשב</div>
+            <div className="text-xs font-black tracking-widest mb-1" style={{ color: "#4ade80" }}>עכשיו | בואו נחשב</div>
             <div className="text-sm text-white/50">👇 סימולטור</div>
           </div>
         </motion.div>

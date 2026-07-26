@@ -88,7 +88,7 @@ export default function Slide3() {
           <p className="text-white font-black text-2xl md:text-3xl mt-1.5 leading-tight">
             לא קטלוג. <span className="text-[#D4AF37]">מנוע כלכלי</span> שעובד בשבילכם.
           </p>
-          <p className="text-white/65 text-sm mt-1">Expression-as-a-Service — מקצה לקצה, מקצועי, מחובר ליבואנים.</p>
+          <p className="text-white/65 text-sm mt-1">Expression-as-a-Service | מקצה לקצה, מקצועי, מחובר ליבואנים.</p>
         </div>
         <div className="flex gap-7 shrink-0">
           {EAAS.map((e, i) => (

@@ -128,7 +128,7 @@ export default function Slide5() {
           <div className="h-8 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent"/>
         </div>
         <h1 className="text-3xl md:text-4xl font-black leading-[1.15] tracking-[-0.02em]">
-          ZUZ — המטבע שגורם לכסף לזוז
+          ZUZ | המטבע שגורם לכסף לזוז
         </h1>
         <p className="mt-2 text-white/40 text-sm">כל פעולה בפייבוקס = ZUZ · כל ZUZ = עסקה ב-The Box</p>
       </motion.div>
@@ -153,7 +153,7 @@ export default function Slide5() {
             <div className="text-center">
               <p className="text-[10px] font-bold tracking-widest text-white/30 uppercase">Issued by PayBox</p>
               <p className="text-lg font-black text-white mt-1">1 ZUZ ≈ 1 ₪ ערך הטבה</p>
-              <p className="text-[11px] text-white/40 mt-0.5">זוז — עברית לוקדמון + "לזוז" + מטבע יהודי עתיק</p>
+              <p className="text-[11px] text-white/40 mt-0.5">זוז | עברית לוקדמון + "לזוז" + מטבע יהודי עתיק</p>
             </div>
           </motion.div>
 
@@ -194,7 +194,7 @@ export default function Slide5() {
         <motion.div variants={item}
           className="rounded-2xl border border-[#D4AF37]/30 bg-[#D4AF37]/06 px-6 py-4 text-center">
           <p className="text-sm font-black text-white">
-            💡 ZUZ לא יוצא החוצה — הוא חי <span className="text-[#D4AF37]">רק בתוך פייבוקס</span>
+            💡 ZUZ לא יוצא החוצה | הוא חי <span className="text-[#D4AF37]">רק בתוך פייבוקס</span>
           </p>
           <p className="text-xs text-white/45 mt-1">
             כל ZUZ שנוצר = לחץ נוסף לקנות ב-The Box = GMV גדל = עמלה גדלה = ריטיינר מתקזז
@@ -203,7 +203,7 @@ export default function Slide5() {
       </motion.div>
 
       <div className="text-center text-[10px] text-gray-600 mt-1 px-4">
-        ⚖️ ZUZ = תוכנית הטבות בלבד — אינו אמצעי תשלום, אינו מטבע, אינו נסחר. הגדרה משפטית: נקודות ערך לשימוש ב-The Box בלבד.
+        ⚖️ ZUZ = תוכנית הטבות בלבד | אינו אמצעי תשלום, אינו מטבע, אינו נסחר. הגדרה משפטית: נקודות ערך לשימוש ב-The Box בלבד.
       </div>
       <div className="flex items-center justify-between text-gray-600 text-[11px] shrink-0 mt-4">
         <span className="font-bold tracking-widest">BOOMBUY × PAYBOX</span>

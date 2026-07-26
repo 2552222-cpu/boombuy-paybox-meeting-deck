@@ -143,20 +143,20 @@ export default function SlideFlow() {
         <div className="flex-1">
           <div className="text-center mb-2 text-xs font-bold rounded-lg py-1"
             style={{ background: PB_BLUE + "22", color: PB_BLUE }}>
-            שכבה 1 — ערוצים קיימים ← כסף שכבר בתוך פייבוקס
+            שכבה 1 | ערוצים קיימים ← כסף שכבר בתוך פייבוקס
           </div>
 
           {/* INTERCHANGE */}
           <Card icon="💳" title="Interchange" color={PB_BLUE}
             badge={`בסיס ${R.intBase}M ₪/שנה`}
             who="PayBox"
-            question="מה שיעור ה-Interchange שלכם מכאל? (לא נחשף לנו — שאלה קריטית)">
+            question="מה שיעור ה-Interchange שלכם מכאל? (לא נחשף לנו | שאלה קריטית)">
             <div className="text-xs text-gray-500 mb-2 leading-tight">
-              {VOL_MONTHLY}M ₪ × {iRate}% × 12 = <span style={{color:PB_BLUE}} className="font-bold">{R.intBase}M ₪/שנה</span> — מה שאתם כבר מרוויחים
+              {VOL_MONTHLY}M ₪ × {iRate}% × 12 = <span style={{color:PB_BLUE}} className="font-bold">{R.intBase}M ₪/שנה</span> | מה שאתם כבר מרוויחים
             </div>
             <Slider label="שיעור Interchange שלכם" value={iRate} min={0.10} max={0.50} step={0.01}
               format={v => `${v.toFixed(2)}%`} set={setIRate} color={PB_BLUE}
-              sub="הערכת יועץ: 0.15%–0.35% (עמלת מעבר מכאל — לא נחשף לנו)" />
+              sub="הערכת יועץ: 0.15%–0.35% (עמלת מעבר מכאל | לא נחשף לנו)" />
             <Slider label="גידול נפח סליקה (FIW נוסף)" value={intGrowth} min={0} max={50}
               format={v => `+${v}%`} set={setIntGrowth} color={PB_BLUE} />
             {intGrowth > 0 && (
@@ -167,7 +167,7 @@ export default function SlideFlow() {
           </Card>
 
           {/* FLOAT */}
-          <Card icon="🏦" title="Float — יתרות לקוחות" color="#8b5cf6"
+          <Card icon="🏦" title="Float | יתרות לקוחות" color="#8b5cf6"
             badge={`בסיס ${FLOAT_BASE_REV}M ₪/שנה`}
             who="PayBox"
             question="כמה כסף יושב בממוצע בארנקי המשתמשים, וכמה זמן? האם ה-ZUZ יגרום לאנשים להשאיר יותר כסף יותר זמן לפני שהם ממשכים לבנק?">
@@ -186,7 +186,7 @@ export default function SlideFlow() {
           {/* LAYER 1 TOTAL */}
           <div className="rounded-lg p-2 text-center border border-blue-800 mt-1"
             style={{ background: "#0a1628" }}>
-            <div className="text-xs text-gray-400 mb-1">שכבה 1 — רווח נוסף שנתי</div>
+            <div className="text-xs text-gray-400 mb-1">שכבה 1 | רווח נוסף שנתי</div>
             <div className="text-2xl font-black" style={{ color: PB_BLUE }}>
               {R.layer1 > 0 ? "+" : ""}{R.layer1}M ₪
             </div>
@@ -200,7 +200,7 @@ export default function SlideFlow() {
         <div className="flex-1">
           <div className="text-center mb-2 text-xs font-bold rounded-lg py-1"
             style={{ background: GOLD + "22", color: GOLD }}>
-            שכבה 2 — מנוע סחר חדש ← כסף שעדיין לא קיים בפייבוקס
+            שכבה 2 | מנוע סחר חדש ← כסף שעדיין לא קיים בפייבוקס
           </div>
 
           {/* GIFT GROUPS */}
@@ -209,7 +209,7 @@ export default function SlideFlow() {
             who="BoomBuy"
             question="מה % ההמרה הנוכחי שלכם מקבוצות → רכישה? כמה קבוצות פעילות חודשית?">
             <div className="text-xs text-gray-500 mb-2">
-              {GIFT_BASE}M ₪ קבוצות פעילות — כמה ממירים ל-GMV בפועל?
+              {GIFT_BASE}M ₪ קבוצות פעילות | כמה ממירים ל-GMV בפועל?
             </div>
             <Slider label="% קבוצות שממירות לקנייה" value={giftConv} min={0} max={100}
               format={v => `${v}%`} set={setGiftConv} color={GOLD} />
@@ -226,7 +226,7 @@ export default function SlideFlow() {
           {/* TRANSACTIONS → ZUZ → COMMERCE */}
           <Card icon="⚡" title="טרנזקציות → ZUZ → The Box" color="#22d3ee"
             who="BoomBuy"
-            question="מה הערך הממוצע לטרנזקציה בפועל? (אנחנו מניחים 200 ₪ — זקוקים לנתון שלכם)">
+            question="מה הערך הממוצע לטרנזקציה בפועל? (אנחנו מניחים 200 ₪ | זקוקים לנתון שלכם)">
             <div className="text-xs text-gray-500 mb-2 leading-tight">
               2M טרנזקציות × ערך ממוצע = נפח שממנו מנוע ZUZ מוציא כסף לשוק
             </div>
@@ -252,9 +252,9 @@ export default function SlideFlow() {
           </Card>
 
           {/* GENERAL COMMERCE */}
-          <Card icon="🛍️" title="סחר כללי — BoomBuy" color="#fb923c"
+          <Card icon="🛍️" title="סחר כללי | BoomBuy" color="#fb923c"
             who="BoomBuy"
-            question="כמה GMV אתם מצפים לנתב דרך The Box מסך הפעילות שלכם? (ריאלי — ₪ בחודש)">
+            question="כמה GMV אתם מצפים לנתב דרך The Box מסך הפעילות שלכם? (ריאלי | ₪ בחודש)">
             <Slider label="GMV שנתי דרך The Box" value={generalGmv} min={10} max={2000} step={10}
               format={v => `${v}M ₪`} set={setGeneralGmv} color="#fb923c" />
             <Slider label="% רווח לפייבוקס" value={generalComm} min={0.5} max={3} step={0.1}
@@ -267,7 +267,7 @@ export default function SlideFlow() {
           {/* LAYER 2 TOTAL */}
           <div className="rounded-lg p-2 text-center border border-yellow-800 mt-1"
             style={{ background: "#0a1205" }}>
-            <div className="text-xs text-gray-400 mb-1">שכבה 2 — רווח נוסף שנתי</div>
+            <div className="text-xs text-gray-400 mb-1">שכבה 2 | רווח נוסף שנתי</div>
             <div className="text-2xl font-black" style={{ color: GOLD }}>
               {R.layer2 > 0 ? "+" : ""}{R.layer2}M ₪
             </div>
@@ -332,12 +332,12 @@ export default function SlideFlow() {
               </button>
             </div>
             <div className="text-center text-xs text-gray-600 mb-2">
-              * הפסד היסטורי של PayBox אינו חלק מהחשבון — השותפות נבחנת לפי הערך החדש שהיא מייצרת בלבד
+              * הפסד היסטורי של PayBox אינו חלק מהחשבון | השותפות נבחנת לפי הערך החדש שהיא מייצרת בלבד
             </div>
 
             {/* 5-YEAR PROJECTION */}
             <div className="border-t border-gray-800 pt-2">
-              <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים — תרומה נטו לשותפות (10% גידול שנתי)</div>
+              <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים | תרומה נטו לשותפות (10% גידול שנתי)</div>
               <div className="flex justify-between gap-1">
                 {R.yr5Net.map((net, i) => {
                   const gross = R.yr5[i];

@@ -69,7 +69,7 @@ export default function Slide8() {
         {/* Text block */}
         <div className="flex-1 text-right max-w-md">
           <p className="text-lg md:text-xl leading-[1.75] text-[#4a4a4a]">
-            כל מי שאוסף כסף באפליקציה — לאירוע, למתנה או למטרה משותפת — פוגש בדיוק ברגע הנכון
+            כל מי שאוסף כסף באפליקציה | לאירוע, למתנה או למטרה משותפת | פוגש בדיוק ברגע הנכון
             הצעת מתנה רלוונטית מקטלוג BoomBuy, ישירות בתוך תהליך פתיחת הקבוצה.
           </p>
           <p className="mt-5 text-base font-bold text-[#7C3AED]">

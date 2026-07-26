@@ -9,15 +9,15 @@ import SpeakerNotes from "@/components/slides/SpeakerNotes";
 const OFFSETS = [
   {
     icon: ShoppingBag,
-    title: "Commerce — מחזור The Box",
-    desc: "% מוסכם מה-GMV של המועדון. מתנות, על האש, פוקר, נסיעות — כל קטגוריה מולידה הכנסה.",
+    title: "Commerce | מחזור The Box",
+    desc: "% מוסכם מה-GMV של המועדון. מתנות, על האש, פוקר, נסיעות | כל קטגוריה מולידה הכנסה.",
     est: "GMV × % עמלה",
     color: "#34D399",
   },
   {
     icon: TrendingUp,
-    title: "Interchange — First in Wallet",
-    desc: "מודל Interchange מדורג — שיפור FIW מ-10% ל-22%+ = מחזור גדל = Interchange גדל לפייבוקס.",
+    title: "Interchange | First in Wallet",
+    desc: "מודל Interchange מדורג | שיפור FIW מ-10% ל-22%+ = מחזור גדל = Interchange גדל לפייבוקס.",
     est: "~20M ₪ → 25M+ ₪/שנה (מדורג)",
     color: "#5BA4CF",
   },
@@ -73,7 +73,7 @@ export default function Slide4() {
             </div>
             <div className="h-px md:h-24 w-full md:w-px bg-white/8" />
             <ul className="space-y-2.5 text-right">
-              {["הקמה ורישוי טכנולוגיה (NEXUS OS)", "ניהול 2 מועדונים (PayBox CC + Young)", "צוותי סחר, שירות ותפעול", "סבסוד ההטבות — על חשבוננו"].map((t, i) => (
+              {["הקמה ורישוי טכנולוגיה (NEXUS OS)", "ניהול 2 מועדונים (PayBox CC + Young)", "צוותי סחר, שירות ותפעול", "סבסוד ההטבות | על חשבוננו"].map((t, i) => (
                 <li key={i} className="flex items-center gap-2 flex-row-reverse text-sm text-gray-300">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#34D399] shrink-0" />
                   {t}
