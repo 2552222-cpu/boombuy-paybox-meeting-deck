@@ -70,15 +70,18 @@ export function SimulatorProvider({ children }) {
     // ── Summary ───────────────────────────────────────────────────────────────
     const totalGain    = +(layer1 + layer2).toFixed(1);
     const coverPct     = Math.round(totalGain / RETAINER * 100);
-    const netResult    = +(totalGain - LOSS_TODAY - RETAINER).toFixed(1);
+    // תרומה שנתית לשותפות = רווח חדש שנוצר − ריטנר
+    // (לא מפחיתים הפסד היסטורי של PayBox — זה לא מה שאנחנו מציעים לפתור)
+    const netResult    = +(totalGain - RETAINER).toFixed(1);
     const monthsToZero = totalGain > 0
-      ? Math.round(LOSS_TODAY / (totalGain / 12))
+      ? Math.round(RETAINER / (totalGain / 12))
       : 999;
 
     // 5-year projection (10% annual growth)
     const yr5 = Array.from({ length: 5 }, (_, i) =>
       +(totalGain * Math.pow(1.10, i)).toFixed(1)
     );
+    const yr5Net = yr5.map(v => +(v - RETAINER).toFixed(1));
     const cumulative5 = +(yr5.reduce((a, b) => a + b, 0)).toFixed(1);
 
     return {
@@ -94,7 +97,7 @@ export function SimulatorProvider({ children }) {
       // Totals
       layer1, totalGain, coverPct, netResult, monthsToZero,
       // 5yr
-      yr5, cumulative5,
+      yr5, yr5Net, cumulative5,
     };
   }, [iRate, intGrowth, floatGrowth,
       giftConv, giftComm,
