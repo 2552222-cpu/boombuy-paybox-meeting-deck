@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSimulator, RETAINER, FLOAT_BASE_REV, VOL_MONTHLY, TXN_MONTHLY, GIFT_BASE } from "../../contexts/SimulatorContext";
 
 const PB_BLUE = "#4F7FE0";
@@ -30,15 +31,24 @@ function Slider({ label, sub, value, min, max, step = 1, format, set, color = PB
 }
 
 /* ── section card ──────────────────────────────────────────────────────────── */
-function Card({ icon, title, badge, question, children, color = PB_BLUE }) {
+function Card({ icon, title, badge, who, question, children, color = PB_BLUE }) {
   return (
     <div className="rounded-xl border border-gray-700 p-3 mb-3" style={{ background: "#0f1c32" }}>
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-2 mb-2 flex-wrap">
         <span className="text-lg">{icon}</span>
         <span className="font-bold text-sm" style={{ color }}>{title}</span>
         {badge && (
-          <span className="mr-auto text-xs font-bold px-2 py-0.5 rounded-full"
+          <span className="text-xs font-bold px-2 py-0.5 rounded-full"
             style={{ background: color + "22", color }}>{badge}</span>
+        )}
+        {who && (
+          <span className="mr-auto text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+            style={{
+              background: who === "PayBox" ? "#4F7FE022" : "#D4AF3722",
+              color: who === "PayBox" ? "#4F7FE0" : "#D4AF37"
+            }}>
+            {who} מזין
+          </span>
         )}
       </div>
       {children}
@@ -87,11 +97,19 @@ export default function SlideFlow() {
     txnGrowth, setTxnGrowth, avgTxnValue, setAvgTxnValue,
     zuzRate, setZuzRate, txnConv, setTxnConv, txnComm, setTxnComm,
     generalGmv, setGeneralGmv, generalComm, setGeneralComm,
+    reset,
     R,
   } = useSimulator();
 
+  const [calculated, setCalculated] = useState(false);
+
   const netSign  = R.netResult >= 0;
   const netColor = netSign ? "#4ade80" : "#f87171";
+
+  function handleReset() {
+    reset();
+    setCalculated(false);
+  }
 
   return (
     <div dir="rtl" className="flex flex-col h-full text-white overflow-hidden"
@@ -101,14 +119,21 @@ export default function SlideFlow() {
       <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700">
         <div>
           <div className="text-xl font-black" style={{ color: PB_BLUE }}>🧮 סימולטור הזדמנויות</div>
-          <div className="text-xs text-gray-400">הזז את הסליידרים — המספרים מחושבים בזמן אמת</div>
+          <div className="text-xs text-gray-400">הזיזו את הסליידרים לפי הנתונים שלכם, ואז לחצו "חשב תרחיש"</div>
         </div>
-        <div className="text-center">
-          <div className="text-3xl font-black" style={{ color: R.totalGain > 0 ? "#4ade80" : GOLD }}>
-            {R.totalGain > 0 ? "+" : ""}{R.totalGain}M ₪
+        {calculated ? (
+          <div className="text-center">
+            <div className="text-3xl font-black" style={{ color: R.totalGain > 0 ? "#4ade80" : GOLD }}>
+              {R.totalGain > 0 ? "+" : ""}{R.totalGain}M ₪
+            </div>
+            <div className="text-xs text-gray-400">סה&quot;כ ערך שנתי חדש לפייבוקס</div>
           </div>
-          <div className="text-xs text-gray-400">סה"כ רווח שנתי חדש לפייבוקס</div>
-        </div>
+        ) : (
+          <div className="text-center px-3 py-1 rounded-xl border border-gray-600">
+            <div className="text-sm text-gray-500">ממתין לחישוב</div>
+            <div className="text-xs text-gray-600">הזיזו סליידרים → חשב</div>
+          </div>
+        )}
       </div>
 
       {/* TWO COLUMNS */}
@@ -124,6 +149,7 @@ export default function SlideFlow() {
           {/* INTERCHANGE */}
           <Card icon="💳" title="Interchange" color={PB_BLUE}
             badge={`בסיס ${R.intBase}M ₪/שנה`}
+            who="PayBox"
             question="מה שיעור ה-Interchange שלכם מכאל? (לא נחשף לנו — שאלה קריטית)">
             <div className="text-xs text-gray-500 mb-2 leading-tight">
               {VOL_MONTHLY}M ₪ × {iRate}% × 12 = <span style={{color:PB_BLUE}} className="font-bold">{R.intBase}M ₪/שנה</span> — מה שאתם כבר מרוויחים
@@ -143,6 +169,7 @@ export default function SlideFlow() {
           {/* FLOAT */}
           <Card icon="🏦" title="Float — יתרות לקוחות" color="#8b5cf6"
             badge={`בסיס ${FLOAT_BASE_REV}M ₪/שנה`}
+            who="PayBox"
             question="כמה כסף יושב בממוצע בארנקי המשתמשים, וכמה זמן? האם ה-ZUZ יגרום לאנשים להשאיר יותר כסף יותר זמן לפני שהם ממשכים לבנק?">
             <div className="text-xs text-gray-500 mb-2 leading-tight">
               938M ₪ יתרת לקוחות × 2% ריבית נטו = <span style={{color:"#8b5cf6"}} className="font-bold">{FLOAT_BASE_REV}M ₪/שנה</span>
@@ -179,6 +206,7 @@ export default function SlideFlow() {
           {/* GIFT GROUPS */}
           <Card icon="🎁" title="קבוצות מתנה" color={GOLD}
             badge={`${GIFT_BASE}M ₪ פעיל`}
+            who="BoomBuy"
             question="מה % ההמרה הנוכחי שלכם מקבוצות → רכישה? כמה קבוצות פעילות חודשית?">
             <div className="text-xs text-gray-500 mb-2">
               {GIFT_BASE}M ₪ קבוצות פעילות — כמה ממירים ל-GMV בפועל?
@@ -197,6 +225,7 @@ export default function SlideFlow() {
 
           {/* TRANSACTIONS → ZUZ → COMMERCE */}
           <Card icon="⚡" title="טרנזקציות → ZUZ → The Box" color="#22d3ee"
+            who="BoomBuy"
             question="מה הערך הממוצע לטרנזקציה בפועל? (אנחנו מניחים 200 ₪ — זקוקים לנתון שלכם)">
             <div className="text-xs text-gray-500 mb-2 leading-tight">
               2M טרנזקציות × ערך ממוצע = נפח שממנו מנוע ZUZ מוציא כסף לשוק
@@ -224,6 +253,7 @@ export default function SlideFlow() {
 
           {/* GENERAL COMMERCE */}
           <Card icon="🛍️" title="סחר כללי — BoomBuy" color="#fb923c"
+            who="BoomBuy"
             question="כמה GMV אתם מצפים לנתב דרך The Box מסך הפעילות שלכם? (ריאלי — ₪ בחודש)">
             <Slider label="GMV שנתי דרך The Box" value={generalGmv} min={10} max={2000} step={10}
               format={v => `${v}M ₪`} set={setGeneralGmv} color="#fb923c" />
@@ -248,64 +278,88 @@ export default function SlideFlow() {
         </div>
       </div>
 
-      {/* BOTTOM: תרומה שנתית + 5-YEAR STRIP */}
-      <div className="border-t border-gray-700 px-4 py-2" style={{ background: "#060e1c" }}>
+      {/* BOTTOM: כפתור חשב / תוצאות */}
+      <div className="border-t border-gray-700 px-4 py-3" style={{ background: "#060e1c" }}>
 
-        {/* EQUATION ROW */}
-        <div className="flex items-center justify-center gap-2 mb-2 flex-wrap">
-          <div className="flex flex-col items-center">
-            <div className="text-lg font-black text-green-400">
-              +{R.totalGain}M ₪
-            </div>
-            <div className="text-xs text-gray-500">ערך פיננסי חדש</div>
+        {!calculated ? (
+          /* ── CALCULATE BUTTON ── */
+          <div className="flex flex-col items-center gap-2">
+            <button
+              onClick={() => setCalculated(true)}
+              className="px-10 py-3 rounded-2xl font-black text-lg text-[#0B1930] shadow-lg transition-transform active:scale-95"
+              style={{ background: "linear-gradient(135deg, #D4AF37 0%, #B8941F 100%)" }}>
+              ✦ חשב תרחיש ✦
+            </button>
+            <div className="text-xs text-gray-500">הזיזו את הסליידרים לפי הנתונים שלכם ולחצו לחישוב</div>
           </div>
-          <div className="text-gray-500 text-lg font-bold">−</div>
-          <div className="flex flex-col items-center">
-            <div className="text-lg font-black text-orange-400">
-              {RETAINER}M ₪
-            </div>
-            <div className="text-xs text-gray-500">ריטנר שנתי</div>
-          </div>
-          <div className="text-gray-500 text-2xl font-bold">=</div>
-          <div className="flex flex-col items-center px-3 py-1 rounded-xl border-2"
-            style={{ borderColor: netColor, background: netColor + "15" }}>
-            <div className="text-2xl font-black" style={{ color: netColor }}>
-              {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
-            </div>
-            <div className="text-xs" style={{ color: netColor }}>
-              {netSign
-                ? "✅ תרומה נטו לשותפות"
-                : `עד כיסוי ריטנר: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
-            </div>
-          </div>
-        </div>
-        <div className="text-center text-xs text-gray-600 mb-2">
-          * הפסד היסטורי של PayBox אינו חלק מהחשבון — השותפות נבחנת לפי הערך החדש שהיא מייצרת בלבד
-        </div>
-
-        {/* 5-YEAR PROJECTION */}
-        <div className="border-t border-gray-800 pt-2">
-          <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים — תרומה נטו לשותפות (10% גידול שנתי)</div>
-          <div className="flex justify-between gap-1">
-            {R.yr5Net.map((net, i) => {
-              const gross = R.yr5[i];
-              const isPos = net > 0;
-              return (
-                <div key={i} className="flex-1 text-center rounded-lg py-1 border"
-                  style={{ borderColor: isPos ? "#4ade8044" : "#f8717144", background: isPos ? "#052005" : "#200505" }}>
-                  <div className="text-xs text-gray-500">שנה {i + 1}</div>
-                  <div className="text-sm font-black" style={{ color: isPos ? "#4ade80" : "#f87171" }}>
-                    {net > 0 ? "+" : ""}{net}M
-                  </div>
-                  <div className="text-xs text-gray-600">{gross}M רווח</div>
+        ) : (
+          /* ── RESULTS ── */
+          <>
+            {/* EQUATION ROW */}
+            <div className="flex items-center justify-center gap-2 mb-2 flex-wrap">
+              <div className="flex flex-col items-center">
+                <div className="text-lg font-black text-green-400">
+                  +{R.totalGain}M ₪
                 </div>
-              );
-            })}
-          </div>
-          <div className="text-center text-xs text-green-400 mt-1">
-            💰 תרומה מצטברת 5 שנים: +{R.cumulative5}M ₪ ערך חדש לפייבוקס
-          </div>
-        </div>
+                <div className="text-xs text-gray-500">ערך פיננסי חדש</div>
+              </div>
+              <div className="text-gray-500 text-lg font-bold">−</div>
+              <div className="flex flex-col items-center">
+                <div className="text-lg font-black text-orange-400">
+                  {RETAINER}M ₪
+                </div>
+                <div className="text-xs text-gray-500">ריטנר שנתי</div>
+              </div>
+              <div className="text-gray-500 text-2xl font-bold">=</div>
+              <div className="flex flex-col items-center px-3 py-1 rounded-xl border-2"
+                style={{ borderColor: netColor, background: netColor + "15" }}>
+                <div className="text-2xl font-black" style={{ color: netColor }}>
+                  {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
+                </div>
+                <div className="text-xs" style={{ color: netColor }}>
+                  {netSign
+                    ? "✅ תרומה נטו לשותפות"
+                    : `עד כיסוי ריטנר: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
+                </div>
+              </div>
+
+              {/* RESET BUTTON */}
+              <button
+                onClick={handleReset}
+                className="mr-2 px-3 py-1.5 rounded-xl text-xs font-bold border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-colors"
+                title="איפוס ↺">
+                ↺ איפוס
+              </button>
+            </div>
+            <div className="text-center text-xs text-gray-600 mb-2">
+              * הפסד היסטורי של PayBox אינו חלק מהחשבון — השותפות נבחנת לפי הערך החדש שהיא מייצרת בלבד
+            </div>
+
+            {/* 5-YEAR PROJECTION */}
+            <div className="border-t border-gray-800 pt-2">
+              <div className="text-center text-xs text-gray-500 mb-1">📈 תחזית 5 שנים — תרומה נטו לשותפות (10% גידול שנתי)</div>
+              <div className="flex justify-between gap-1">
+                {R.yr5Net.map((net, i) => {
+                  const gross = R.yr5[i];
+                  const isPos = net > 0;
+                  return (
+                    <div key={i} className="flex-1 text-center rounded-lg py-1 border"
+                      style={{ borderColor: isPos ? "#4ade8044" : "#f8717144", background: isPos ? "#052005" : "#200505" }}>
+                      <div className="text-xs text-gray-500">שנה {i + 1}</div>
+                      <div className="text-sm font-black" style={{ color: isPos ? "#4ade80" : "#f87171" }}>
+                        {net > 0 ? "+" : ""}{net}M
+                      </div>
+                      <div className="text-xs text-gray-600">{gross}M רווח</div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="text-center text-xs text-green-400 mt-1">
+                💰 תרומה מצטברת 5 שנים: +{R.cumulative5}M ₪ ערך חדש לפייבוקס
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
