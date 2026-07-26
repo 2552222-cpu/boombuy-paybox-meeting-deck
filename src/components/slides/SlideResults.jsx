@@ -1,216 +1,157 @@
-import { useSimulator, RETAINER, FLOAT_BASE_REV } from "../../contexts/SimulatorContext";
+import { useSimulator, RETAINER } from "../../contexts/SimulatorContext";
 
 const PB_BLUE = "#4F7FE0";
 const GOLD    = "#D4AF37";
 const NAVY    = "#0B1930";
+const PURPLE  = "#8b5cf6";
+const GREEN   = "#4ade80";
 
-function Row({ label, val, color, sub }) {
-  const fmtVal = typeof val === "number"
-    ? (val > 0 ? `+${val.toFixed(2)}` : val.toFixed(2))
-    : val;
+function Row({ label, val, color, sub, bold }) {
+  const sign = val > 0 ? "+" : "";
+  const display = typeof val === "number" ? `${sign}${val.toFixed(2)}M ₪` : val;
   return (
     <div className="flex justify-between items-start py-1.5 border-b border-gray-800">
       <div>
-        <div className="text-sm text-gray-200">{label}</div>
+        <div className={`text-sm ${bold ? "font-bold text-white" : "text-gray-300"}`}>{label}</div>
         {sub && <div className="text-xs text-gray-500">{sub}</div>}
       </div>
-      <div className="text-sm font-bold text-right" style={{ color: color || (val >= 0 ? "#4ade80" : "#f87171") }}>
-        {fmtVal}M ₪/שנה
+      <div className="text-sm font-bold" style={{ color: color || (val >= 0 ? GREEN : "#f87171") }}>
+        {display}
       </div>
     </div>
   );
 }
 
 export default function SlideResults() {
-  const { R } = useSimulator();
+  const { R, intRevNow, floatRevNow, intGrowthPct, floatGrowthPct,
+          giftVol, giftToBoxPct, payboxCommercePct, boombuyLayer1Pct } = useSimulator();
 
-  const netSign  = R.netResult >= 0;
-  const netColor = netSign ? "#4ade80" : "#f87171";
+  const netColor = R.payboxNet >= 0 ? GREEN : "#f87171";
+
+  const hasData = intRevNow > 0 || floatRevNow > 0 || giftVol > 0;
 
   return (
     <div dir="rtl" className="flex flex-col h-full text-white overflow-hidden"
       style={{ background: NAVY, fontFamily: "'Heebo', sans-serif" }}>
 
       {/* HEADER */}
-      <div className="px-5 py-3 border-b border-gray-700 flex justify-between items-center">
+      <div className="px-5 py-3 border-b border-gray-700 flex justify-between items-center shrink-0">
         <div>
-          <div className="text-xl font-black" style={{ color: GOLD }}>📊 סיכום מודל | P&L</div>
-          <div className="text-xs text-gray-400">תוצאות מהסימולטור | שנה 1 ותחזית 5 שנים</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-black" style={{ color: netColor }}>
-            {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
+          <div className="text-xl font-black" style={{ color: GOLD }}>📊 תוצאות | לפי הנתונים שהוזנו</div>
+          <div className="text-xs text-gray-400 mt-0.5">
+            המספרים כאן נגזרים אך ורק מהנתונים שהכנסתם — לא מהנחות BoomBuy
           </div>
-          <div className="text-xs text-gray-400">נטו | שנה 1</div>
         </div>
+        {hasData && (
+          <div className="text-center">
+            <div className="text-3xl font-black" style={{ color: netColor }}>
+              {R.payboxNet > 0 ? "+" : ""}{R.payboxNet}M ₪
+            </div>
+            <div className="text-xs text-gray-400">תרומה נטו שנתית לפייבוקס</div>
+          </div>
+        )}
       </div>
 
-      {/* THREE COLUMNS */}
-      <div className="flex-1 flex gap-3 px-4 pt-3 pb-2 overflow-y-auto min-h-0">
-
-        {/* COL 1: Layer 1 */}
-        <div className="flex-1">
-          <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
-            style={{ background: PB_BLUE + "22", color: PB_BLUE }}>
-            שכבה 1 | ערוצים קיימים
-          </div>
-          <div className="rounded-xl p-3 border border-gray-700 h-auto" style={{ background: "#0f1c32" }}>
-            <Row label="Interchange (בסיס)" val={R.intBase} color="#94a3b8"
-              sub={`רווח נוכחי מסליקה | לא משתנה`} />
-            <Row label="Interchange | גידול FIW" val={R.intGain} color={PB_BLUE}
-              sub="נפח סליקה נוסף מ-FIW" />
-            <Row label="Float | בסיס" val={FLOAT_BASE_REV} color="#94a3b8"
-              sub="938M × 2% נטו | כבר קיים" />
-            <Row label="Float | גידול ZUZ" val={R.floatGain} color="#8b5cf6"
-              sub="dwell time גבוה יותר" />
-            <div className="mt-3 pt-2 border-t border-gray-700 text-center">
-              <div className="text-xs text-gray-400">רווח נוסף שכבה 1</div>
-              <div className="text-2xl font-black mt-1" style={{ color: PB_BLUE }}>
-                {R.layer1 > 0 ? "+" : ""}{R.layer1}M ₪
-              </div>
-            </div>
+      {!hasData ? (
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-5xl mb-4">🧮</div>
+            <div className="text-xl font-bold text-gray-400">חזרו לסימולטור והזינו את המספרים שלכם</div>
+            <div className="text-sm text-gray-600 mt-2">התוצאות מחושבות לפי הנתונים הפנימיים של PayBox</div>
           </div>
         </div>
+      ) : (
+        <div className="flex-1 flex gap-3 px-4 pt-3 pb-2 overflow-y-auto min-h-0">
 
-        {/* COL 2: Layer 2 */}
-        <div className="flex-1">
-          <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
-            style={{ background: GOLD + "22", color: GOLD }}>
-            שכבה 2 | מנוע סחר
-          </div>
-          <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
-            <Row label="קבוצות מתנה | GMV" val={R.giftGmv} color="#94a3b8"
-              sub="400M × % המרה" />
-            <Row label="קבוצות מתנה | רווח" val={R.giftRev} color={GOLD}
-              sub={`GMV × ${"%"} עמלה`} />
-            <div className="border-t border-gray-800 mt-1 pt-1" />
-            <Row label="טרנזקציות → ZUZ → GMV" val={R.txnGmv} color="#94a3b8"
-              sub={`${R.zuzIssued.toLocaleString()}M ZUZ × ${"%"} המרה`} />
-            <Row label="טרנזקציות | רווח" val={R.txnCommerceRev} color="#22d3ee"
-              sub="GMV × % עמלה" />
-            <div className="border-t border-gray-800 mt-1 pt-1" />
-            <Row label="סחר כללי | רווח" val={R.generalRev} color="#fb923c"
-              sub="GMV ישיר × % עמלה" />
-            <div className="mt-3 pt-2 border-t border-gray-700 text-center">
-              <div className="text-xs text-gray-400">רווח נוסף שכבה 2</div>
-              <div className="text-2xl font-black mt-1" style={{ color: GOLD }}>
-                {R.layer2 > 0 ? "+" : ""}{R.layer2}M ₪
-              </div>
+          {/* COL 1: Layer 1 */}
+          <div className="flex-1">
+            <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
+              style={{ background: PB_BLUE + "22", color: PB_BLUE }}>
+              שכבה 1 | ערך פיננסי חדש
             </div>
-          </div>
-        </div>
-
-        {/* COL 3: תרומה לשותפות */}
-        <div className="flex-1">
-          <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
-            style={{ background: netColor + "22", color: netColor }}>
-            תרומה שנתית לשותפות
-          </div>
-          <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
-            {/* Breakdown */}
-            <div className="mb-3 pb-2 border-b border-gray-800">
-              <div className="text-xs font-bold text-gray-400 mb-1">ערך פיננסי חדש שהשותפות מייצרת</div>
-              <Row label="שכבה 1 | רווח נוסף" val={R.layer1} color={PB_BLUE}
-                sub="Interchange + Float שמגדלים" />
-              <Row label="שכבה 2 | מנוע סחר" val={R.layer2} color={GOLD}
-                sub="מתנות + ZUZ + סחר כללי" />
-              <Row label="סהך ערך חדש" val={R.totalGain} color="#4ade80" />
-            </div>
-
-            {/* Cost */}
-            <div className="mb-3 pb-2 border-b border-gray-800">
-              <div className="text-xs font-bold text-gray-400 mb-1">עלות שותפות</div>
-              <Row label="ריטנר BoomBuy" val={-RETAINER} color="#fb923c" sub="350K ₪/חודש | שותפות, לא ספק" />
-            </div>
-
-            {/* Net */}
-            <div className="text-center py-2">
-              <div className="text-xs text-gray-400">משוואה: +{R.totalGain} − {RETAINER} =</div>
-              <div className="text-3xl font-black mt-1" style={{ color: netColor }}>
-                {R.netResult > 0 ? "+" : ""}{R.netResult}M ₪
-              </div>
-              <div className="text-sm" style={{ color: netColor }}>
-                {netSign
-                  ? "✅ תרומה נטו לשותפות"
-                  : `עד כיסוי ריטנר: ${R.monthsToZero === 999 ? "∞" : R.monthsToZero + " חודשים"}`}
-              </div>
-            </div>
-            <div className="mt-1 text-xs text-gray-600 text-center">
-              * הP&L הכולל של PayBox אינו חלק מהחשבון
-            </div>
-
-            {/* RETAINER MILESTONE TRACKER */}
-            <div className="mt-3 pt-2 border-t border-gray-700">
-              <div className="text-xs font-bold text-gray-400 mb-2">🎯 נקודות הפחתת ריטנר</div>
-              {/* Progress bar */}
-              {(() => {
-                const gmv = R.totalGmv;
-                const MAX = 450;
-                const pct = Math.min((gmv / MAX) * 100, 100);
-                const m1Pct = (210 / MAX) * 100;
-                const m2Pct = (420 / MAX) * 100;
-                return (
-                  <div>
-                    <div className="relative h-3 rounded-full bg-gray-800 mb-1 overflow-visible">
-                      {/* filled bar */}
-                      <div className="absolute left-0 top-0 h-full rounded-full transition-all"
-                        style={{ width: `${pct}%`, background: "linear-gradient(90deg,#4ade80,#D4AF37)" }} />
-                      {/* milestone 1 */}
-                      <div className="absolute top-0 h-full border-r-2 border-yellow-500"
-                        style={{ left: `${m1Pct}%` }} />
-                      {/* milestone 2 */}
-                      <div className="absolute top-0 h-full border-r-2 border-green-400"
-                        style={{ left: `${m2Pct}%` }} />
-                    </div>
-                    <div className="flex justify-between text-xs mb-2">
-                      <span className="text-gray-500">0</span>
-                      <span className="text-yellow-400">210M ↓50%</span>
-                      <span className="text-green-400">420M ↓100%</span>
-                    </div>
-                    <div className="text-xs text-center font-bold" style={{ color: gmv >= 420 ? "#4ade80" : gmv >= 210 ? "#D4AF37" : "#94a3b8" }}>
-                      GMV נוכחי בסימולטור: {gmv}M ₪
-                      {gmv >= 420 ? " ✅ ריטנר = 0" : gmv >= 210 ? " → ריטנר -50% (1.05M ₪)" : ""}
-                    </div>
-                    <div className="text-xs text-gray-600 mt-1 text-center">
-                      ריטנר יורד אוטומטית ככל שה-GMV של The Box גדל
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 5-YEAR PROJECTION */}
-      <div className="border-t border-gray-700 px-4 py-3" style={{ background: "#060e1c" }}>
-        <div className="text-center text-xs text-gray-400 mb-2">
-          📈 תחזית 5 שנים | תרומה נטו לשותפות (10% גידול שנתי)
-        </div>
-        <div className="flex gap-2 mb-2">
-          {R.yr5Net.map((net, i) => {
-            const gross = R.yr5[i];
-            const isPos = net > 0;
-            return (
-              <div key={i} className="flex-1 text-center rounded-xl py-2 border"
-                style={{ borderColor: isPos ? "#4ade8055" : "#f8717155", background: isPos ? "#031403" : "#140303" }}>
-                <div className="text-xs text-gray-500 font-bold">שנה {i + 1}</div>
-                <div className="text-base font-black" style={{ color: isPos ? "#4ade80" : "#f87171" }}>
-                  {net > 0 ? "+" : ""}{net}M
+            <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
+              <Row label="Interchange — היום" val={intRevNow} color="#94a3b8"
+                sub="רווח נוכחי שהזנתם" />
+              <Row label={`גידול מ-FIW (+${intGrowthPct}%)`} val={R.intGain} color={PB_BLUE}
+                sub="ערך חדש מהכרטיס הראשי" />
+              <div className="border-t border-gray-800 mt-1 pt-1" />
+              <Row label="Float — היום" val={floatRevNow} color="#94a3b8"
+                sub="רווח נוכחי מהיתרות" />
+              <Row label={`גידול מ-ZUZ (+${floatGrowthPct}%)`} val={R.floatGain} color={PURPLE}
+                sub="זמן שהייה ארוך יותר" />
+              <div className="mt-3 pt-2 border-t border-gray-700 text-center">
+                <div className="text-xs text-gray-400">סה"כ ערך חדש שכבה 1</div>
+                <div className="text-2xl font-black mt-1" style={{ color: PB_BLUE }}>
+                  +{R.layer1New}M ₪
                 </div>
-                <div className="text-xs text-gray-600 mt-0.5">{gross}M רווח</div>
               </div>
-            );
-          })}
+
+              {boombuyLayer1Pct > 0 && (
+                <div className="mt-2 pt-2 border-t border-gray-800">
+                  <div className="text-xs text-gray-500 mb-1">חלוקת Layer 1 לפי העסקה:</div>
+                  <Row label={`לפייבוקס (${100-boombuyLayer1Pct}%)`} val={R.payboxLayer1Share} color={PB_BLUE} />
+                  <Row label={`ל-BoomBuy (${boombuyLayer1Pct}%)`} val={R.boombuyLayer1Share} color={GOLD}
+                    sub="מקזז את הריטנר" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* COL 2: Layer 2 */}
+          <div className="flex-1">
+            <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
+              style={{ background: GOLD + "22", color: GOLD }}>
+              שכבה 2 | מסחר דרך The Box
+            </div>
+            <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
+              <Row label="מחזור קבוצות חודשי" val={giftVol} color="#94a3b8"
+                sub="הזנתם (M ₪/חודש)" />
+              <Row label={`% ל-The Box (${giftToBoxPct}%)`} val={R.giftGmv} color="#94a3b8"
+                sub="GMV שנתי" />
+              <Row label={`% PayBox מ-GMV (${payboxCommercePct}%)`} val={R.payboxCommerceRev} color={GOLD}
+                sub="רווח מסחר לפייבוקס" />
+              <div className="mt-2 rounded-lg px-2 py-1.5 text-xs text-emerald-300 border border-emerald-900"
+                style={{ background: "#021208" }}>
+                💡 עלות ZUZ וסבסוד על BoomBuy בלבד
+              </div>
+            </div>
+          </div>
+
+          {/* COL 3: Net */}
+          <div className="flex-1">
+            <div className="text-center text-xs font-bold mb-2 rounded-lg py-1"
+              style={{ background: netColor + "22", color: netColor }}>
+              תרומה נטו לפייבוקס
+            </div>
+            <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
+              <Row label="שכבה 1 | חלק PayBox" val={R.payboxLayer1Share} color={PB_BLUE} bold />
+              <Row label="שכבה 2 | מסחר" val={R.payboxCommerceRev} color={GOLD} bold />
+              <Row label="סה\"כ ערך חדש" val={R.payboxTotal} color={GREEN} bold />
+              <div className="border-t border-gray-700 mt-2 pt-2">
+                <Row label="ריטנר בסיס" val={-RETAINER} color="#fb923c"
+                  sub="350K ₪/חודש" />
+                {R.boombuyLayer1Share > 0 && (
+                  <Row label={`קיזוז BoomBuy Layer 1`} val={R.boombuyLayer1Share} color={GREEN}
+                    sub="הכנסת BoomBuy מורידה ריטנר" />
+                )}
+                <Row label="ריטנר אפקטיבי" val={-R.effectiveRetainer} color="#fb923c" bold />
+              </div>
+              <div className="mt-3 pt-2 border-t-2 border-gray-600 text-center">
+                <div className="text-xs text-gray-400">= תרומה שנתית נטו</div>
+                <div className="text-3xl font-black mt-1" style={{ color: netColor }}>
+                  {R.payboxNet > 0 ? "+" : ""}{R.payboxNet}M ₪
+                </div>
+                {R.payboxNet >= 0
+                  ? <div className="text-xs text-green-400 mt-1">✅ השותפות תורמת ערך חיובי</div>
+                  : <div className="text-xs text-red-400 mt-1">⏳ ייקבע בפיילוט לפי נתונים אמיתיים</div>}
+              </div>
+              <div className="mt-3 text-xs text-gray-600 text-center">
+                * נמדד כיחידה עצמאית — לא לפי P&L הכולל של PayBox
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="text-center text-sm font-bold" style={{ color: GOLD }}>
-          סה"כ ערך חדש 5 שנים: {R.cumulative5}M ₪ |
-          {" "}
-          <span style={{ color: "#4ade80" }}>
-            תרומה נטו: +{+(R.cumulative5 - RETAINER * 5).toFixed(1)}M ₪
-          </span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
