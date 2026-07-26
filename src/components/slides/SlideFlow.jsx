@@ -217,6 +217,9 @@ export default function SlideFlow() {
             </div>
             <Slider label="גידול מספר טרנזקציות" value={txnGrowth} min={0} max={100}
               format={v => `+${v}%`} set={setTxnGrowth} color="#22d3ee" />
+            <div className="mt-2 rounded-lg px-2 py-1.5 text-xs text-emerald-300 border border-emerald-900" style={{background:"#021208"}}>
+              💡 עלות ZUZ וסבסוד = על BoomBuy בלבד. ל-PayBox אין עלות ישירה.
+            </div>
           </Card>
 
           {/* GENERAL COMMERCE */}
