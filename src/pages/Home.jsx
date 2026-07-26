@@ -19,6 +19,7 @@ import SlideAd2 from "@/components/slides/SlideAd2";
 import Slide11 from "@/components/slides/Slide11";
 import Slide12 from "@/components/slides/Slide12";
 import SlideClose from "@/components/slides/SlideClose";
+import SlideOnePager from "@/components/slides/SlideOnePager";
 
 const SLIDES = [
   IntroSlide,      // 00 — Launch Animation
@@ -39,12 +40,13 @@ const SLIDES = [
   Slide11,         // 16 — Q&A
   Slide12,         // 17 — Term Sheet
   SlideClose,       // 18 — סיכום + CTA
+  SlideOnePager,     // 19 — One Pager סיכום אחד
 ];
 
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "מודל",
   "ZUZ", "UX", "דמו", "Gift",
-  "סימולטור", "תוצאות", "ריטנר", "רודמאפ", "📢", "📢", "Q&A", "Term", "✅",
+  "סימולטור", "תוצאות", "ריטנר", "רודמאפ", "📢", "📢", "Q&A", "Term", "✅", "1️⃣",
 ];
 
 export default function Home() {
