@@ -80,9 +80,9 @@ export default function Slide9() {
             </div>
             <div className="mt-3 rounded-2xl px-4 py-3 text-center border"
               style={{ background: "#0a1628", borderColor: "#4F7FE033" }}>
-              <div className="text-xs text-white/40">תוצאה שנה 1 — הנחה</div>
-              <div className="text-2xl font-black mt-0.5" style={{ color: "#4F7FE0" }}>+20–30M ₪</div>
-              <div className="text-xs text-white/25">לפי הנחות שנסכים יחד בסימולטור</div>
+              <div className="text-xs text-white/40">תוצאה שנה 1</div>
+              <div className="text-lg font-black mt-0.5" style={{ color: "#4F7FE0" }}>לפי נתוני PayBox</div>
+              <div className="text-xs text-white/25">תזינו בסימולטור → המספר יחושב עלפי נתוניכם</div>
             </div>
           </motion.div>
 
