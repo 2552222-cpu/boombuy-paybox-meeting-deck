@@ -12,7 +12,7 @@ const EASE = [0.22, 1, 0.36, 1];
 const THREE = [
   { num: "4.2M ₪", label: "ריטנר שנתי", sub: "השקעה, לא הוצאה", color: "#D4AF37" },
   { num: "מוגבל", label: "סיכון כניסה", sub: "מדיד, מנוהל וחוזי", color: "#34D399" },
-  { num: "∞", label: "פוטנציאל הצמיחה", sub: "Layer 1 + Layer 2", color: "#4F7FE0" },
+  { num: "∞", label: "פוטנציאל הצמיחה", sub: "Layer 1 + Layer 2 − ריטנר = מועדון שמממן את עצמו ככל שגדל", color: "#4F7FE0" },
 ];
 
 const SCRIPT = `"שלושה מספרים לסיכום.
