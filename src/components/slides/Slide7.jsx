@@ -33,7 +33,7 @@ export default function Slide7() {
 
       <div className="text-right shrink-0 mt-3">
         <span className="text-sm font-bold text-[#0055FF] tracking-[0.15em]">הדמו: קטלוג ההטבות והמוצרים</span>
-        <div className="text-[#D4AF37] font-black text-xl mt-1 mb-1 ml-auto">·</div>
+        <div className="w-0.5 h-12 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent ml-auto mt-2 mb-1" />
         <h1 className="mt-2 text-3xl md:text-4xl font-black text-[#10162A] tracking-tight">
           עד 50% הנחה על מוצרים מבוקשים
         </h1>

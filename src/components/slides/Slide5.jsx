@@ -125,7 +125,7 @@ export default function Slide5() {
         className="text-center shrink-0">
         <span className="text-sm font-bold text-[#D4AF37] tracking-[0.18em] uppercase">מנוע הנאמנות</span>
         <div className="flex justify-center mt-3 mb-1">
-          <div className="text-[#D4AF37] font-black text-xl mt-1 mb-1 ml-auto">·</div>
+          <div className="h-8 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent"/>
         </div>
         <h1 className="text-3xl md:text-4xl font-black leading-[1.15] tracking-[-0.02em]">
           ZUZ — המטבע שגורם לכסף לזוז

@@ -33,7 +33,7 @@ export default function Slide2() {
         <motion.div variants={item} className="text-right">
           <span className="text-sm font-bold text-[#5BA4CF] tracking-[0.18em] uppercase">תמונת המצב</span>
           <div className="flex justify-end mt-4 mb-1">
-            <div className="text-[#D4AF37] font-black text-xl mt-1 mb-1 ml-auto">·</div>
+            <div className="h-14 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent" />
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-white leading-[1.08] tracking-[-0.02em]">
             הכסף עובר דרככם.<br/>

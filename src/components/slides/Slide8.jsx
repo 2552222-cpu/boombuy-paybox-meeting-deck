@@ -10,7 +10,7 @@ export default function Slide8() {
     <div className="relative min-h-full w-full bg-white flex flex-col px-6 md:px-16 py-10 overflow-visible">
       <div className="text-right shrink-0">
         <span className="text-sm font-bold text-[#7C3AED] tracking-[0.15em]">הדמו: PayGift</span>
-        <div className="text-[#D4AF37] font-black text-xl mt-1 mb-1 ml-auto">·</div>
+        <div className="w-0.5 h-12 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent ml-auto mt-3 mb-1" />
         <h1 className="mt-3 text-3xl md:text-4xl font-black text-[#10162A] tracking-tight">
           חנות המתנות PayGift
         </h1>
