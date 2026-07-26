@@ -55,7 +55,7 @@ export default function Slide4() {
             <span className="text-sm font-bold text-[#5BA4CF] tracking-[0.18em] uppercase">המודל העסקי</span>
             <h1 className="mt-2 text-4xl md:text-5xl font-black text-white leading-[1.08] tracking-[-0.02em]">
               שותפות מבוססת הצלחה.<br />
-              <span className="text-[#5BA4CF]">אפס סיכון לפייבוקס.</span>
+              <span className="text-[#5BA4CF]">סיכון כניסה מוגבל, מדיד וחוזי.</span>
             </h1>
           </div>
           <div className="h-16 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent shrink-0 mt-1" />
