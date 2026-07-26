@@ -126,7 +126,7 @@ export default function SlideResults() {
             <div className="rounded-xl p-3 border border-gray-700" style={{ background: "#0f1c32" }}>
               <Row label="שכבה 1 | חלק PayBox" val={R.payboxLayer1Share} color={PB_BLUE} bold />
               <Row label="שכבה 2 | מסחר" val={R.payboxCommerceRev} color={GOLD} bold />
-              <Row label="סה\"כ ערך חדש" val={R.payboxTotal} color={GREEN} bold />
+              <Row label="סה״כ ערך חדש" val={R.payboxTotal} color={GREEN} bold />
               <div className="border-t border-gray-700 mt-2 pt-2">
                 <Row label="ריטנר בסיס" val={-RETAINER} color="#fb923c"
                   sub="350K ₪/חודש" />
