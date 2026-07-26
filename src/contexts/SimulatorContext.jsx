@@ -62,6 +62,7 @@ export function SimulatorProvider({ children }) {
 
     // ── General commerce ──────────────────────────────────────────────────────
     const generalRev = +(generalGmv * (generalComm / 100)).toFixed(2);
+    const totalGmv   = +(giftGmv + txnGmv + generalGmv).toFixed(1);
 
     // ── Layer 2 total ─────────────────────────────────────────────────────────
     const totalGmv = +(giftGmv + txnGmv + generalGmv).toFixed(1);
@@ -95,7 +96,7 @@ export function SimulatorProvider({ children }) {
       giftGmv, giftRev, generalRev,
       totalGmv, layer2,
       // Totals
-      layer1, totalGain, coverPct, netResult, monthsToZero,
+      layer1, totalGain, coverPct, netResult, monthsToZero, totalGmv,
       // 5yr
       yr5, yr5Net, cumulative5,
     };
