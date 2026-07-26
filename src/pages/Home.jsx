@@ -30,9 +30,9 @@ const SLIDES = [
   Slide6,          // 06 — UX
   Slide7,          // 07 — דמו
   Slide8,          // 08 — PayGift
-  Slide9,          // 09 — ריטנר + שתי שכבות
   SlideFlow,       // 10 — סימולטור (שאלות + הנחות)
   SlideResults,    // 11 — תוצאות (לפי הנחות הסימולטור)
+  Slide9,          // 12 — ריטנר + שתי שכבות (אחרי הסימולטור)
   Slide10,         // 13 — רודמאפ
   SlideAd1,        // 14 — קמפיין Young A
   SlideAd2,        // 15 — קמפיין Young B
@@ -44,7 +44,7 @@ const SLIDES = [
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "מודל",
   "ZUZ", "UX", "דמו", "Gift",
-  "ריטנר", "סימולטור", "תוצאות", "רודמאפ", "📢", "📢", "Q&A", "Term", "✅",
+  "סימולטור", "תוצאות", "ריטנר", "רודמאפ", "📢", "📢", "Q&A", "Term", "✅",
 ];
 
 export default function Home() {
