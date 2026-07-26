@@ -18,7 +18,7 @@ The Box מניע שני מנועי הכנסה מקבילים.
 const L1 = [
   { icon: "💳", title: "Interchange", note: "560M ₪ סליקה חודשית → FIW עולה מ-10% ל-22%+", color: "#4F7FE0" },
   { icon: "🏦", title: "Float", note: "938M ₪ יתרת לקוחות × 2% ריבית נטו", color: "#8b5cf6" },
-  { icon: "💳", title: "כרטיסים חדשים", note: "ZUZ מושך 60K כרטיסים/שנה → סליקה גדלה", color: "#4F7FE0" },
+  { icon: "💳", title: "כרטיסים חדשים", note: "ZUZ מושך כרטיסים חדשים → סליקה גדלה — ייקבע בפיילוט", color: "#4F7FE0" },
 ];
 
 const L2 = [
