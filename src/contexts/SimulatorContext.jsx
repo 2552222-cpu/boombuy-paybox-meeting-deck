@@ -65,7 +65,6 @@ export function SimulatorProvider({ children }) {
     const totalGmv   = +(giftGmv + txnGmv + generalGmv).toFixed(1);
 
     // ── Layer 2 total ─────────────────────────────────────────────────────────
-    const totalGmv = +(giftGmv + txnGmv + generalGmv).toFixed(1);
     const layer2   = +(giftRev + txnCommerceRev + generalRev).toFixed(1);
 
     // ── Summary ───────────────────────────────────────────────────────────────
