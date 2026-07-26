@@ -52,15 +52,15 @@ const MILESTONES = [
     ],
   },
   {
-    period: "שנה 2 →",
-    title: "קטגוריות גדילה אגרסיבית",
+    period: "שנה 2–5",
+    title: "מארנק — למנוע צרכנות לאומי",
     icon: Flame,
     color: "#F97316",
     items: [
-      "🃏 Box Gaming — שולחנות פוקר, בילארד, קלפים (מועדוני בידור)",
-      "🍔 Box Food — שת״פ 2–3 רשתות מזון מהיר (הנחות ישירות)",
-      "🚗 Box Auto — רכישת כלי רכב ורישיון פרטי דרך ZUZ",
-      "📱 PayBox Young — מועדון נפרד לדור הצעיר (18–35)",
+      "🍶 דליברי מקומי — וולט לאלכוהול, בשר, מכולת שכונתית",
+      "🏛️ תשלומי ממשל — רישיונות נהיגה, דוחות, ארנונה, אגרות",
+      "💼 PayBox לעסקים — ארנק B2B, קבלת תשלומים, עסקים קטנים",
+      "🎮 Box Gaming · ✈️ Box Travel · 🚗 Box Auto · 📱 Young — מגרש אחד",
     ],
   },
 ];
@@ -69,15 +69,27 @@ const SCRIPT = `"מפת הדרכים — פשוטה ומהירה.
 
 חודש 1: ה-API שלכם מוכן, אנחנו מתחברים תוך שבועות. פיילוט קטן שאוסף מידע אמיתי.
 
-חודשים 2-3: בודקים, מתקנים, מרחיבים. מקטגוריות חדשות עולות לאוויר.
+חודשים 2-3: בודקים, מתקנים, מרחיבים. קטגוריות חדשות עולות לאוויר.
 
 חודשים 4-6: כל המשתמשים פנימה. ההכנסות כבר מכסות את הריטיינר.
 
 חודשים 7-12: פייבוקס חוצה את נקודת האיזון ועוברת לרווח נקי.
 
-שנה 2 — זה השלב שאני רוצה לדבר עליו לרגע. Box Gaming: מועדוני פוקר, שולחנות בילארד — רכישת ציוד דרך ZUZ. Box Food: שת"פ 2-3 רשתות מזון מהיר. Box Auto: רישיון פרטי וכלי רכב דרך הטוקן. PayBox Young: מועדון נפרד לגיל 18-35. זה לא סייד-שו — זה פייבוקס כמנוע צרכנות אמיתי.
+שנה 2 עד 5 — ואנחנו צריכים לדבר על זה רגע.
 
-ותוך 5 שנים: PayBox = הוולט של ישראל."`;
+פייבוקס היום היא ארנק להעברות — הגדול בישראל. אבל יש פה פוטנציאל להיות הרבה יותר.
+
+אנחנו כבר עובדים על וולט לאלכוהול, וולט לבשר — דליברי מקומי עם PayBox. זה רק ההתחלה.
+
+תשלומי ממשל: רישיונות נהיגה, דוחות, ארנונה — הכל דרך PayBox. כי למה לא?
+
+PayBox לעסקים — ארנק B2B לעצמאים ולעסקים קטנים שמקבלים תשלומים.
+
+ואז Gaming, Travel, Auto, Young — כל אחד מהם שוק בפני עצמו.
+
+החזון הוא לא 'עוד אפליקציה'. החזון הוא: ארנק אחד לכל חיי הצרכן הישראלי. מועדון הצרכנות הגדול במדינה.
+
+ועם BoomBuy — זה לא בעוד 5 שנים. זה מתחיל עכשיו."`;
 
 export default function Slide10() {
   return (
@@ -147,10 +159,36 @@ export default function Slide10() {
           style={{ background: "linear-gradient(135deg,#0B1930 0%,#10254a 100%)", border: "1.5px solid #D4AF37" }}>
           <span className="text-[#D4AF37] text-xs font-black tracking-[0.22em]">חזון 5 שנים</span>
           <p className="font-black text-2xl md:text-3xl mt-2 leading-tight">
-            PayBox = <span className="text-[#D4AF37]">הוולט של ישראל</span>
+            PayBox = <span className="text-[#D4AF37]">סופר-אפ הצרכנות של ישראל</span>
           </p>
-          <p className="text-white/65 text-sm mt-2">
-            Gaming · Food · Auto · Young · Travel · Business — הכל תחת קורת גג אחת
+          <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
+            <div className="rounded-xl py-2 px-3" style={{background:"#D4AF3715"}}>
+              <div className="font-black text-[#D4AF37]">💸 העברות</div>
+              <div className="text-white/55 mt-0.5">ארנק ה-P2P הגדול בישראל</div>
+            </div>
+            <div className="rounded-xl py-2 px-3" style={{background:"#4F7FE015"}}>
+              <div className="font-black text-[#4F7FE0]">🛒 מועדון</div>
+              <div className="text-white/55 mt-0.5">The Box — מנוע צרכנות לאומי</div>
+            </div>
+            <div className="rounded-xl py-2 px-3" style={{background:"#34D39915"}}>
+              <div className="font-black text-[#34D399]">🍶 דליברי</div>
+              <div className="text-white/55 mt-0.5">אלכוהול · בשר · מקומי</div>
+            </div>
+            <div className="rounded-xl py-2 px-3" style={{background:"#F9731615"}}>
+              <div className="font-black text-[#F97316]">🏛️ ממשל</div>
+              <div className="text-white/55 mt-0.5">רישיונות · דוחות · ארנונה</div>
+            </div>
+            <div className="rounded-xl py-2 px-3" style={{background:"#A78BFA15"}}>
+              <div className="font-black text-[#A78BFA]">💼 עסקים</div>
+              <div className="text-white/55 mt-0.5">B2B · עצמאים · עסקים קטנים</div>
+            </div>
+            <div className="rounded-xl py-2 px-3" style={{background:"#F59E0B15"}}>
+              <div className="font-black text-[#F59E0B]">🎮 בילוי</div>
+              <div className="text-white/55 mt-0.5">Gaming · Travel · Auto · Young</div>
+            </div>
+          </div>
+          <p className="text-white/40 text-[11px] mt-3">
+            ארנק אחד · כל חיי הצרכן הישראלי · מועדון הצרכנות הגדול במדינה
           </p>
         </div>
       </div>
