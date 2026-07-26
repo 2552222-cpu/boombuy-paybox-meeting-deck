@@ -104,6 +104,13 @@ export function SimulatorProvider({ children }) {
       txnGrowth, avgTxnValue, zuzRate, txnConv, txnComm,
       generalGmv, generalComm]);
 
+  function reset() {
+    setIRate(0.30); setIntGrowth(0); setFloatGrowth(0);
+    setGiftConv(0); setGiftComm(1.5);
+    setTxnGrowth(0); setAvgTxnValue(200); setZuzRate(25); setTxnConv(3); setTxnComm(1.5);
+    setGeneralGmv(50); setGeneralComm(1.5);
+  }
+
   return (
     <SimulatorContext.Provider value={{
       iRate, setIRate,
@@ -118,6 +125,7 @@ export function SimulatorProvider({ children }) {
       txnComm, setTxnComm,
       generalGmv, setGeneralGmv,
       generalComm, setGeneralComm,
+      reset,
       R,
     }}>
       {children}
