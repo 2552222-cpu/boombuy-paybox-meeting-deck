@@ -83,9 +83,9 @@ export default function Slide1() {
               style={{
                 width: 96, height: 96,
                 backgroundImage: `url(${THE_BOX_LOGO})`,
-                backgroundSize: "contain",
+                backgroundSize: "260%",
                 backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
+                backgroundPosition: "72% 28%",
               }}
             />
           </motion.div>
