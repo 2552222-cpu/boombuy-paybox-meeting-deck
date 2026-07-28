@@ -3,7 +3,7 @@ import React from "react";
 const ADS = [
   { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/a1f6c9e56_1.png", alt: "PayBox Young | העברתם משכורת אלינו?" },
   { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/3597b64a0_.png", alt: "PayBox Young | רוצים מתנות והטבות בחצי מחיר?" },
-  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/8ff6e12b0_superchargeyourhrimpact531pdf2.png", alt: "PayBox Young | רוצים לחסוך ולנצל כל שקל?" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/614f86070_superchargeyourhrimpact531pdf4.png", alt: "PayBox Young | רוצים לחסוך ולנצל כל שקל?" },
   { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/bd3e9c76c_superchargeyourhrimpact531pdf1.png", alt: "PayBox Young | עברתם טסט? מברוק!" },
 ];
 
