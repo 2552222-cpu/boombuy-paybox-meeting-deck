@@ -51,8 +51,11 @@ export default function SlideOnePager() {
         {/* COL 3: המודל */}
         <div className="rounded-2xl p-5 border border-blue-900/50 text-right" style={{ background: "#080e1a" }}>
           <div className="text-xs font-black tracking-widest text-blue-400 mb-3">המודל העסקי</div>
-          <div className="text-sm text-white/80 leading-relaxed font-bold">
+          <div className="text-sm text-white/80 leading-relaxed font-bold mb-3">
             שותפות אמיתית בין החברות המגדילה משמעותית את ערוצי ההכנסה הקיימים ומייצרת ערוצי הכנסה חדשים
+          </div>
+          <div className="text-xs leading-relaxed pt-3 border-t border-blue-900/40" style={{ color: GOLD }}>
+            <span className="font-black">מודל 4 —</span> BoomBuy מגדלה יותר סיכון, אך שותפה לגידול אך ורק מהערך שנוצר ל-PayBox
           </div>
         </div>
       </div>

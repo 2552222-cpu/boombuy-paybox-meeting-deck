@@ -29,7 +29,7 @@ export function TheBoxLogo({ size = 48, textColor = "white" }) {
   return (
     <div className="flex items-center justify-center overflow-hidden rounded-[28px] shrink-0" style={{ width: size * 1.5, height: size }}>
       <img
-        src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/2b893cba0_image.png"
+        src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/df7ae6128_65.png"
         alt="The Box"
         style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />

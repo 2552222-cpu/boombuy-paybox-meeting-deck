@@ -4,7 +4,7 @@ import { PayBoxLogo } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
-const THE_BOX_LOGO = BASE + "2b893cba0_image.png";
+const THE_BOX_LOGO = BASE + "df7ae6128_65.png";
 const BOOMBUY_LOGO = BASE + "f01a26580_.png";
 
 // Product images from the marketplace — used in the phone mockup

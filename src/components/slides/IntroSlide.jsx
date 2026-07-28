@@ -38,16 +38,9 @@ export default function IntroSlide() {
         initial={{ scale: 0.6, opacity: 0, y: 28 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         transition={{ delay: 0.55, type: "spring", stiffness: 190, damping: 18 }}
-        className="relative mt-8 rounded-[28px] overflow-hidden shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
-        style={{
-          width: 128, height: 128,
-          backgroundImage: `url(${THE_BOX_LOGO})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-        }}
+        className="relative mt-8"
       >
-        {/* logo via background — no cutting */}
+        <PayBoxLogo size={80} textColor="white" />
       </motion.div>
 
       {/* THE BOX headline */}
