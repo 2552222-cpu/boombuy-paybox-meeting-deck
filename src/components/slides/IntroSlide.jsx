@@ -43,14 +43,17 @@ export default function IntroSlide() {
         <img
           src={PAYBOX_LOGO}
           alt="PayBox"
-          className="h-28 w-28 object-contain rounded-3xl shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
+          className="h-28 w-auto rounded-[22px] shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
         />
         <span className="block w-px h-14 bg-white/25" />
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
-          className="h-28 w-auto object-contain brightness-125 contrast-110"
-          style={{ mixBlendMode: "lighten", filter: "drop-shadow(0 0 12px rgba(173,216,230,0.55))" }}
+          className="h-36 w-auto"
+          style={{
+            mixBlendMode: "lighten",
+            filter: "brightness(1.6) contrast(1.3) drop-shadow(0 0 18px rgba(173,216,230,0.75))",
+          }}
         />
       </motion.div>
 
@@ -81,13 +84,16 @@ export default function IntroSlide() {
         transition={{ delay: 1.7, duration: 0.6, ease: EASE }}
         className="relative mt-5 flex items-center gap-3"
       >
-        <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-9 object-contain rounded-2xl shadow shrink-0" />
+        <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-auto rounded-xl shadow shrink-0" />
         <span className="block w-px h-7 bg-white/25" />
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
-          className="h-8 w-auto object-contain shrink-0 brightness-125 contrast-110"
-          style={{ mixBlendMode: "lighten", filter: "drop-shadow(0 0 8px rgba(173,216,230,0.5))" }}
+          className="h-12 w-auto shrink-0"
+          style={{
+            mixBlendMode: "lighten",
+            filter: "brightness(1.6) contrast(1.3) drop-shadow(0 0 12px rgba(173,216,230,0.7))",
+          }}
         />
       </motion.div>
 
