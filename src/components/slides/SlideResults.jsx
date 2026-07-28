@@ -30,7 +30,7 @@ function CalcRow({ color, badge, lines, result }) {
         ))}
       </div>
       <div className="mt-3 pt-3 border-t text-right" style={{ borderColor: color + "22" }}>
-        <div className="text-[11px] text-white/40">רווח שנתי משוער</div>
+        <div className="text-[11px] text-white/40">הכנסה שנתית נוספת משוערת</div>
         <div className="text-2xl font-black" style={{ color }}>₪{fmt(result)}</div>
       </div>
     </div>
@@ -77,14 +77,14 @@ export default function SlideResults() {
             <div className="text-center">
               <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>תוצאות הסימולטור</span>
               <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
-                רווח שנתי משוער <span style={{ color: GREEN }}>מהפעילות</span>
+                ערך פיננסי שנתי משוער <span style={{ color: GREEN }}>מהפעילות</span>
               </h1>
               <p className="mt-1 text-white/45 text-sm">כל מספר חושב ישירות מהנתונים שהזנתם · לפניכם הסבר מלא</p>
             </div>
           </div>
           <div className="text-right rounded-2xl px-5 py-3 border shrink-0"
             style={{ background: GREEN + "12", borderColor: GREEN + "44" }}>
-            <div className="text-xs text-white/50">סה"כ רווח שנתי משוער</div>
+            <div className="text-xs text-white/50">סה"כ ערך פיננסי שנתי משוער</div>
             <div className="text-3xl md:text-4xl font-black mt-0.5" style={{ color: GREEN }}>₪{fmt(R.totalYearly)}</div>
           </div>
         </motion.div>
@@ -98,8 +98,8 @@ export default function SlideResults() {
               lines={[
                 `רווח נוכחי: ₪${fmt(interchangeCurrent)}/חודש`,
                 `צפי גידול: ${interchangeGrowthPct}%`,
-                `רווח חודשי נוסף = ${interchangeGrowthPct}% × ₪${fmt(interchangeCurrent)} = <b style="color:${PB_BLUE}">₪${fmt(R.intMonthlyGain)}</b>`,
-                `רווח שנתי = ₪${fmt(R.intMonthlyGain)} × 12 חודשים`,
+                `הכנסה חודשית נוספת = ${interchangeGrowthPct}% × ₪${fmt(interchangeCurrent)} = <b style="color:${PB_BLUE}">₪${fmt(R.intMonthlyGain)}</b>`,
+                `הכנסה שנתית = ₪${fmt(R.intMonthlyGain)} × 12 חודשים`,
               ]}
               result={R.intYearlyGain}
             />
@@ -126,7 +126,7 @@ export default function SlideResults() {
               lines={[
                 `מחזור שנתי: ₪${fmt(giftAnnualVolume)}`,
                 `אחוז עמלה קבוע: 3%`,
-                `רווח שנתי = ₪${fmt(giftAnnualVolume)} × 3%`,
+                `הכנסה שנתית = ₪${fmt(giftAnnualVolume)} × 3%`,
               ]}
               result={R.giftYearlyProfit}
             />
@@ -143,18 +143,22 @@ export default function SlideResults() {
           <span className="text-sm" style={{ color: GOLD }}>₪{fmt(R.giftYearlyProfit)}</span>
           <span className="text-white/40 text-lg">=</span>
           <span className="text-2xl font-black" style={{ color: GREEN }}>₪{fmt(R.totalYearly)}</span>
-          <span className="text-xs text-white/40">רווח שנתי משוער מהפעילות</span>
+          <span className="text-xs text-white/40">ערך פיננסי שנתי משוער מהפעילות</span>
         </motion.div>
 
         <motion.div variants={item} className="shrink-0 mt-4 rounded-2xl px-6 py-5 text-center"
           style={{ background: "rgba(146,39,176,0.10)", border: "1px solid rgba(146,39,176,0.30)" }}>
           <div className="text-2xl mb-2">⚠️</div>
           <p className="text-base font-black text-white leading-snug">
-            הערכה זו מתייחסת לרווח לפני פיתוח ערוצי הכנסה משותפים
+            הערכה זו מתייחסת לערך הפיננסי לפני פיתוח ערוצי הכנסה משותפים
           </p>
           <p className="text-sm text-white/70 mt-1.5 leading-relaxed">
             (כגון ארנק מתנות לחגים ועוד) — <span className="font-black" style={{ color: "#E879F9" }}>מדובר בפוטנציאל נוסף שטרם מומש</span>
           </p>
+        </motion.div>
+
+        <motion.div variants={item} className="shrink-0 mt-3 text-center text-[11px] text-white/40 leading-relaxed px-8">
+          הסימולטור מיועד לבחינת תרחישים בלבד. התוצאות מבוססות על הנתונים וההנחות שהוזנו ואינן מהוות תחזית או התחייבות מסחרית.
         </motion.div>
       </motion.div>
 

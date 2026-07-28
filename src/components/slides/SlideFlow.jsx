@@ -114,10 +114,10 @@ export default function SlideFlow() {
           <div className="flex items-stretch justify-center gap-5 mt-2">
             <div className="self-stretch w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent" />
             <h1 className="text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
-              סימולטור צפי <span style={{ color: PB_BLUE }}>הכנסות</span> ו<span style={{ color: GOLD }}>רווחים</span>
+              סימולטור צפי <span style={{ color: PB_BLUE }}>הכנסות</span> ו<span style={{ color: GOLD }}>ערך פיננסי</span>
             </h1>
           </div>
-          <p className="mt-2 text-white/45 text-sm">הזינו את הנתונים שלכם · לחצו חשב · קבלו הערכת רווח שנתי עם הסבר מלא</p>
+          <p className="mt-2 text-white/45 text-sm">הזינו את הנתונים שלכם · לחצו חשב · קבלו הערכת ערך פיננסי שנתי עם הסבר מלא</p>
         </motion.div>
 
         {/* Inputs */}
@@ -140,7 +140,7 @@ export default function SlideFlow() {
                 color={PB_BLUE}
               />
               <div className="text-[11px] text-white/45 rounded-lg px-2 py-1.5" style={{ background: PB_BLUE + "11" }}>
-                חישוב: הרווח החודשי הנוסף = {interchangeGrowthPct}% × ₪{fmt(interchangeCurrent)}
+                חישוב: ההכנסה החודשית הנוספת = {interchangeGrowthPct}% × ₪{fmt(interchangeCurrent)}
                 {interchangeCurrent > 0 && interchangeGrowthPct > 0 && (
                   <div className="mt-0.5 font-bold" style={{ color: PB_BLUE }}>= ₪{fmt(R.intMonthlyGain)}/חודש</div>
                 )}
@@ -195,7 +195,7 @@ export default function SlideFlow() {
                 אחוז עמלה קבוע: <span className="font-black" style={{ color: GOLD }}>3%</span> ממחזור המתנות וההטבות
               </div>
               <div className="text-[11px] text-white/45 rounded-lg px-2 py-1.5" style={{ background: GOLD + "11" }}>
-                חישוב: רווח שנתי = ₪{fmt(giftAnnualVolume)} × 3%
+                חישוב: הכנסה שנתית = ₪{fmt(giftAnnualVolume)} × 3%
                 {giftAnnualVolume > 0 && (
                   <div className="mt-0.5 font-bold" style={{ color: GOLD }}>= ₪{fmt(R.giftYearlyProfit)}/שנה</div>
                 )}
@@ -221,7 +221,7 @@ export default function SlideFlow() {
             <div className="w-full rounded-2xl px-5 py-4 border flex items-center justify-between gap-4"
               style={{ background: GREEN + "10", borderColor: GREEN + "33" }}>
               <div className="text-right">
-                <div className="text-sm text-white/50">רווח שנתי משוער מכלל הפעילות</div>
+                <div className="text-sm text-white/50">ערך פיננסי שנתי משוער מכלל הפעילות</div>
                 <div className="text-3xl font-black" style={{ color: GREEN }}>₪{fmt(R.totalYearly)}</div>
               </div>
               <div className="flex flex-col items-end gap-2">
@@ -235,6 +235,10 @@ export default function SlideFlow() {
           )}
         </motion.div>
       </motion.div>
+
+      <div className="text-center text-[10px] text-white/30 leading-snug shrink-0 mt-3 px-6">
+        הסימולטור מיועד לבחינת תרחישים בלבד. התוצאות מבוססות על הנתונים וההנחות שהוזנו ואינן מהוות תחזית או התחייבות מסחרית.
+      </div>
 
       <div className="flex items-center justify-between text-white/20 text-[11px] mt-4 shrink-0">
         <span className="font-bold tracking-widest">BoomBuy × PayBox</span>
