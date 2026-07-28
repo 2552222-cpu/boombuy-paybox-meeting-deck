@@ -17,6 +17,7 @@ import Slide10 from "@/components/slides/Slide10";
 import SlideAd1 from "@/components/slides/SlideAd1";
 import SlideAd2 from "@/components/slides/SlideAd2";
 import Slide11 from "@/components/slides/Slide11";
+import SlidePricing from "@/components/slides/SlidePricing";
 import Slide12 from "@/components/slides/Slide12";
 import SlideClose from "@/components/slides/SlideClose";
 import SlideOnePager from "@/components/slides/SlideOnePager";
@@ -37,6 +38,7 @@ const SLIDES = [
   Slide10,         // 13 — רודמאפ
   SlideAd1,        // 14 — קמפיין Young A
   SlideAd2,        // 15 — קמפיין Young B
+  SlidePricing,    // 15.5 — הצעת מחיר (3 מסלולים)
   Slide11,         // 16 — Q&A
   Slide12,         // 17 — Term Sheet
   SlideClose,       // 18 — סיכום + CTA
@@ -46,7 +48,7 @@ const SLIDES = [
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "ZUZ",
   "UX", "דמו", "מודל", "Gift",
-  "ריטנר", "סימולטור", "תוצאות", "רודמאפ", "📢", "📢", "Q&A", "Term", "✅", "1️⃣",
+  "ריטנר", "סימולטור", "תוצאות",   "רודמאפ", "📢", "📢", "💰", "Q&A", "Term", "✅", "1️⃣",
 ];
 
 export default function Home() {
