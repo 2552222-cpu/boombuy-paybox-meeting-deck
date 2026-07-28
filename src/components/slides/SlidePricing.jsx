@@ -79,6 +79,35 @@ const TIERS = [
     ],
     recommended: false,
   },
+  {
+    id: 4,
+    tag: "חלוקת רווחים הדדית",
+    name: "מועדון הטבות - חלוקת רווחים הדדית",
+    sub: "זהה למסלול המועדף - עם שותפות רווחית עמוקה",
+    accent: "#167F5A",
+    topNote: "חלוקת רווחים הדדית על הגידול בייתרות שנשארות באפליקציה בזכות הפעילות",
+    discount: "עד 50% הנחה",
+    discountSub: "על כל המוצרים ביחס למחיר השוק",
+    commission: "3.5% עמלת סחר",
+    commissionSub: "מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
+    impact: "השפעה מהירה על המדדים העיקריים",
+    impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
+    costLabel: "השתתפות חודשית של PayBox בתקציב ההקמה וההפעלה",
+    cost: "200,000",
+    budget: [
+      "סבסוד הטבות מזון ובילויים",
+      "הקמה והטמעה של The Box בתוך PayBox",
+      "הקמת מערך סחר ייעודי",
+      "הטבות פרימיום כגון עיסויים מסובסדים, פיננסי ועוד",
+      "פיתוח מוצרים נוספים",
+      "טכנולוגיית פריקת וניהול נקודות",
+      "תכנון קמפיינים והנעת לקוחות",
+      "מנהל לקוח ייעודי לפרויקט",
+      "פיתוח PayBox Young",
+      "שירות לקוחות",
+    ],
+    recommended: false,
+  },
 ];
 
 function BulletRow({ accent, label, sub, iconColor = GREEN }) {
@@ -125,6 +154,17 @@ function Tier({ t }) {
       </div>
 
       <div className="my-4 h-px" style={{ background: LINE }} />
+
+      {/* Prominent top note (e.g. profit-sharing clause) */}
+      {t.topNote && (
+        <div className="mb-3 p-2.5 rounded-xl flex items-start gap-2"
+          style={{ background: "rgba(22,127,90,0.08)", border: "1px solid rgba(22,127,90,0.30)" }}>
+          <Check className="w-4 h-4 mt-[3px] shrink-0" style={{ color: "#167F5A" }} />
+          <div className="flex-1 text-right">
+            <div className="text-[12.5px] font-black leading-snug" style={{ color: "#167F5A" }}>{t.topNote}</div>
+          </div>
+        </div>
+      )}
 
       {/* Feature rows - every row gets a checkmark */}
       <ul className="space-y-3 mb-4">
@@ -173,10 +213,10 @@ export default function SlidePricing() {
       {/* Header */}
       <motion.div {...fadeUp(0)} className="relative flex flex-col items-center text-center mb-7 shrink-0">
         <span className="text-[11px] font-black tracking-[0.28em] uppercase mb-3" style={{ color: GOLD_DEEP }}>
-          3 הצעות · הצעת מחיר
+          4 הצעות · הצעת מחיר
         </span>
         <h2 className="text-3xl md:text-4xl font-black tracking-[-0.02em]" style={{ color: INK }}>
-          שלוש דרכים להטמיע את <span style={{ color: GOLD_DEEP }}>The Box</span>
+          ארבע דרכים להטמיע את <span style={{ color: GOLD_DEEP }}>The Box</span>
         </h2>
         <p className="text-sm mt-3 max-w-xl" style={{ color: MUTE }}>
           בחרו את עומק השותפות - המסלול האמצעי ממוקד להניע את המדדים העיקריים במהירות המרבית.
@@ -189,7 +229,7 @@ export default function SlidePricing() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="relative grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 items-stretch"
+        className="relative grid grid-cols-1 md:grid-cols-4 gap-3 flex-1 items-stretch"
       >
         {TIERS.map((t) => (
           <motion.div key={t.id} variants={deckItem} className="flex">
