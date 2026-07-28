@@ -1,79 +1,60 @@
 import React, { createContext, useContext, useState, useMemo } from "react";
 
-export const RETAINER = 4.2; // M ₪/year (350K/month)
-
 const SimulatorContext = createContext(null);
 
 export function SimulatorProvider({ children }) {
-  // ═══ LAYER 1: PayBox מזינה — הם יודעים את המספרים האלה ═══
-  const [intRevNow,      setIntRevNow]      = useState(0);   // M ₪/שנה — רווח נוכחי מהכרטיס
-  const [intGrowthPct,   setIntGrowthPct]   = useState(0);   // % גידול מ-FIW
-  const [floatRevNow,    setFloatRevNow]    = useState(0);   // M ₪/שנה — רווח נוכחי מהיתרות
-  const [floatGrowthPct, setFloatGrowthPct] = useState(0);   // % גידול מ-ZUZ (זמן שהייה)
+  // ═══ Interchange — הכרטיס ═══
+  const [interchangeCurrent,  setInterchangeCurrent]  = useState(0); // ₪/חודש — רווח נוכחי מהעמלות (מספר)
+  const [interchangeGrowthPct, setInterchangeGrowthPct] = useState(0); // % צפי גידול (סליידר)
 
-  // ═══ LAYER 2: The Box — שניהם מסכימים ═══
-  const [giftVol,        setGiftVol]        = useState(0);   // M ₪/חודש — מחזור קבוצות מתנה
-  const [giftToBoxPct,   setGiftToBoxPct]   = useState(0);   // % שיופנה ל-The Box
+  // ═══ Float — יתרות לקוחות ═══
+  const [floatBalance,   setFloatBalance]   = useState(0); // ₪ — יתרה חודשית ממוצעת (מספר)
+  const [floatGrowthPct,  setFloatGrowthPct]  = useState(0); // % גידול צפוי — ZUZ (סליידר)
 
-  // ═══ מבנה העסקה — ייקבע בפיילוט ═══
-  const [payboxCommercePct,  setPayboxCommercePct]  = useState(1.5); // % מהGMV לפייבוקס
-  const [boombuyLayer1Pct,   setBoombuyLayer1Pct]   = useState(0);   // % מהערך הפיננסי החדש ל-BoomBuy
+  // ═══ מחזור מכירות מתנות והטבות שנתי ═══
+  const [giftAnnualVolume,  setGiftAnnualVolume]  = useState(0); // ₪/שנה — מחזור שנתי (מספר)
+  const [giftCommissionPct, setGiftCommissionPct] = useState(3); // % עמלה מהמחזור (סליידר)
+
+  const [calculated, setCalculated] = useState(false);
 
   function reset() {
-    setIntRevNow(0);      setIntGrowthPct(0);
-    setFloatRevNow(0);    setFloatGrowthPct(0);
-    setGiftVol(0);        setGiftToBoxPct(0);
-    setPayboxCommercePct(1.5);
-    setBoombuyLayer1Pct(0);
+    setInterchangeCurrent(0);  setInterchangeGrowthPct(0);
+    setFloatBalance(0);         setFloatGrowthPct(0);
+    setGiftAnnualVolume(0);    setGiftCommissionPct(3);
+    setCalculated(false);
   }
 
   const R = useMemo(() => {
-    // ── Layer 1: ערך חדש מהפעילות הפיננסית הקיימת ──────────────────────────
-    const intGain   = +(intRevNow   * (intGrowthPct   / 100)).toFixed(2); // M ₪
-    const floatGain = +(floatRevNow * (floatGrowthPct / 100)).toFixed(2); // M ₪
-    const layer1New = +(intGain + floatGain).toFixed(2);                   // M ₪
+    // Interchange — רווח חודשי נוסף = אחוז × רווח נוכחי
+    const intMonthlyGain = interchangeCurrent * (interchangeGrowthPct / 100);
+    const intYearlyGain   = intMonthlyGain * 12;
 
-    // ── Layer 2: מסחר דרך The Box ────────────────────────────────────────────
-    const giftGmv         = +(giftVol * 12 * (giftToBoxPct / 100)).toFixed(1); // M ₪/שנה
-    const payboxCommerceRev = +(giftGmv * (payboxCommercePct / 100)).toFixed(2); // M ₪/שנה
+    // Float — רווח חודשי נוסף = אחוז × יתרה × 2% ריבית נטו
+    const floatMonthlyGain = floatBalance * (floatGrowthPct / 100) * 0.02;
+    const floatYearlyGain   = floatMonthlyGain * 12;
 
-    // ── חלוקת ערך ────────────────────────────────────────────────────────────
-    // BoomBuy מקבלת % מהערך הפיננסי החדש (Layer 1) — מוסכם בעסקה
-    const boombuyLayer1Share = +(layer1New * (boombuyLayer1Pct / 100)).toFixed(2);
-    const payboxLayer1Share  = +(layer1New - boombuyLayer1Share).toFixed(2);
+    // מתנות — רווח שנתי = מחזור × אחוז עמלה
+    const giftYearlyProfit = giftAnnualVolume * (giftCommissionPct / 100);
 
-    // סה"כ ערך חדש ל-PayBox
-    const payboxTotal = +(payboxLayer1Share + payboxCommerceRev).toFixed(2);
-
-    // ── ריטנר אפקטיבי ────────────────────────────────────────────────────────
-    // ריטנר יורד ככל שBoomBuy מרוויחה מהעסקה עצמה (לא רק מהריטנר)
-    // כשהכנסות BoomBuy מהעסקה מגיעות ל-4.2M — הריטנר יורד לאפס
-    const effectiveRetainer = +(Math.max(0, RETAINER - boombuyLayer1Share)).toFixed(2);
-
-    // ── תוצאה נטו ל-PayBox ──────────────────────────────────────────────────
-    const payboxNet = +(payboxTotal - effectiveRetainer).toFixed(2);
+    const totalYearly = intYearlyGain + floatYearlyGain + giftYearlyProfit;
 
     return {
-      intGain, floatGain, layer1New,
-      giftGmv, payboxCommerceRev,
-      boombuyLayer1Share, payboxLayer1Share,
-      payboxTotal,
-      effectiveRetainer,
-      payboxNet,
+      intMonthlyGain, intYearlyGain,
+      floatMonthlyGain, floatYearlyGain,
+      giftYearlyProfit,
+      totalYearly,
     };
-  }, [intRevNow, intGrowthPct, floatRevNow, floatGrowthPct,
-      giftVol, giftToBoxPct, payboxCommercePct, boombuyLayer1Pct]);
+  }, [interchangeCurrent, interchangeGrowthPct, floatBalance, floatGrowthPct, giftAnnualVolume, giftCommissionPct]);
 
   return (
     <SimulatorContext.Provider value={{
-      intRevNow,      setIntRevNow,
-      intGrowthPct,   setIntGrowthPct,
-      floatRevNow,    setFloatRevNow,
-      floatGrowthPct, setFloatGrowthPct,
-      giftVol,        setGiftVol,
-      giftToBoxPct,   setGiftToBoxPct,
-      payboxCommercePct, setPayboxCommercePct,
-      boombuyLayer1Pct,  setBoombuyLayer1Pct,
+      interchangeCurrent,  setInterchangeCurrent,
+      interchangeGrowthPct, setInterchangeGrowthPct,
+      floatBalance,   setFloatBalance,
+      floatGrowthPct,  setFloatGrowthPct,
+      giftAnnualVolume,  setGiftAnnualVolume,
+      giftCommissionPct, setGiftCommissionPct,
+      calculated, setCalculated,
       reset, R,
     }}>
       {children}
