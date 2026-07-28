@@ -79,7 +79,7 @@ export default function Slide1() {
               style={{
                 width: 96, height: 96,
                 backgroundImage: `url(${THE_BOX_LOGO})`,
-                backgroundSize: "cover",
+                backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
               }}
@@ -149,7 +149,7 @@ export default function Slide1() {
               <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0"
                 style={{
                   backgroundImage: `url(${THE_BOX_LOGO})`,
-                  backgroundSize: "cover",
+                  backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                 }}

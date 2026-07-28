@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { PayBoxLogo } from "@/components/slides/Logos";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
 const PAYBOX_LOGO = BASE + "9452db55b_61.png";
@@ -41,7 +42,7 @@ export default function IntroSlide() {
         style={{
           width: 128, height: 128,
           backgroundImage: `url(${THE_BOX_LOGO})`,
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
@@ -76,9 +77,7 @@ export default function IntroSlide() {
         transition={{ delay: 1.7, duration: 0.6, ease: EASE }}
         className="relative mt-5 flex items-center gap-3"
       >
-        <div className="rounded-lg bg-white px-2 py-1">
-          <img src={PAYBOX_LOGO} alt="PayBox" className="h-5 w-auto object-contain" />
-        </div>
+        <PayBoxLogo size={28} textColor="white" />
         <span className="text-white/40 text-xs font-black tracking-[0.3em] uppercase">×</span>
         <span className="text-white/80 text-xs font-black tracking-[0.3em] uppercase">BoomBuy</span>
       </motion.div>

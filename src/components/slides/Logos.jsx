@@ -31,7 +31,7 @@ export function TheBoxLogo({ size = 48, textColor = "white" }) {
       <img
         src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/2b893cba0_image.png"
         alt="The Box"
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />
     </div>
   );
