@@ -24,29 +24,15 @@ export function PayBoxLogo({ size = 48, textColor = "white" }) {
   );
 }
 
-// The Box logo - gift box with person jumping out
+// The Box logo - uses the new uncropped brand asset (icon + wordmark)
 export function TheBoxLogo({ size = 48, textColor = "white" }) {
   return (
-    <div className="flex flex-col items-center gap-1" style={{ width: size * 1.5 }}>
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width={size * 1.5} height={size}>
-        <rect x="5" y="5" width="70" height="70" rx="16" fill="#6FB3E0" />
-        {/* Gift box bottom */}
-        <rect x="18" y="42" width="44" height="22" rx="3" stroke="white" strokeWidth="2.2" fill="none" />
-        {/* Gift box lid */}
-        <rect x="15" y="33" width="50" height="10" rx="2" stroke="white" strokeWidth="2.2" fill="none" />
-        {/* Ribbon vertical */}
-        <line x1="40" y1="33" x2="40" y2="64" stroke="white" strokeWidth="2.2" />
-        {/* Ribbon horizontal on lid */}
-        <line x1="15" y1="38" x2="65" y2="38" stroke="white" strokeWidth="2.2" />
-        {/* Person popping out */}
-        <circle cx="40" cy="19" r="5.5" stroke="white" strokeWidth="2" fill="none" />
-        <path d="M40 24.5 L40 30" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <path d="M40 27 L34 23" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        <path d="M40 27 L46 23" stroke="white" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-      <span style={{ color: textColor, fontWeight: 900, fontSize: size * 0.3, letterSpacing: "-0.02em" }}>
-        The Box
-      </span>
+    <div className="flex items-center justify-center" style={{ width: size * 1.5, height: size }}>
+      <img
+        src="https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/df7ae6128_65.png"
+        alt="The Box"
+        style={{ width: "100%", height: "100%", objectFit: "contain" }}
+      />
     </div>
   );
 }

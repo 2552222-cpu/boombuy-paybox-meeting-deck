@@ -4,7 +4,7 @@ import { PayBoxLogo } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
-const THE_BOX_LOGO = BASE + "96ca92369_60.png";
+const THE_BOX_LOGO = BASE + "df7ae6128_65.png";
 const BOOMBUY_LOGO = BASE + "f01a26580_.png";
 
 // Product images from the marketplace — used in the phone mockup
@@ -79,7 +79,8 @@ export default function Slide1() {
               style={{
                 width: 96, height: 96,
                 backgroundImage: `url(${THE_BOX_LOGO})`,
-                backgroundSize: "cover",
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
               }}
             />
@@ -148,7 +149,8 @@ export default function Slide1() {
               <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0"
                 style={{
                   backgroundImage: `url(${THE_BOX_LOGO})`,
-                  backgroundSize: "cover",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                 }}
               />

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
 const PAYBOX_LOGO = BASE + "9452db55b_61.png";
-const THE_BOX_LOGO = BASE + "96ca92369_60.png";
+const THE_BOX_LOGO = BASE + "df7ae6128_65.png";
 const EASE = [0.22, 1, 0.36, 1];
 
 export default function IntroSlide() {
@@ -41,7 +41,8 @@ export default function IntroSlide() {
         style={{
           width: 128, height: 128,
           backgroundImage: `url(${THE_BOX_LOGO})`,
-          backgroundSize: "cover",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
       >
