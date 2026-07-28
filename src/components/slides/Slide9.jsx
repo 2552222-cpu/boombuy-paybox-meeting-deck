@@ -85,10 +85,10 @@ export default function Slide9() {
           {/* Layer 1 */}
           <motion.div variants={item} className="flex-1 flex flex-col">
             <div className="flex items-center gap-2 mb-5">
-              <div className="h-px flex-1" style={{ background: "linear-gradient(to right, #4F7FE0, transparent)" }} />
               <span className="text-sm font-black tracking-widest" style={{ color: "#4F7FE0" }}>
                 שכבה 1 — הכנסות קיימות שגדלות
               </span>
+              <div className="w-0.5 h-6 rounded-full bg-gradient-to-b from-[#4F7FE0] to-transparent" />
             </div>
 
             <div className="flex-1 flex flex-col gap-3">
@@ -115,10 +115,10 @@ export default function Slide9() {
           {/* Layer 2 */}
           <motion.div variants={item} className="flex-1 flex flex-col">
             <div className="flex items-center gap-2 mb-5">
-              <div className="h-px flex-1" style={{ background: "linear-gradient(to right, #D4AF37, transparent)" }} />
               <span className="text-sm font-black tracking-widest" style={{ color: "#D4AF37" }}>
                 שכבה 2 — הכנסות חדשות לגמרי
               </span>
+              <div className="w-0.5 h-6 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent" />
             </div>
 
             <div className="flex-1 flex flex-col gap-3">
