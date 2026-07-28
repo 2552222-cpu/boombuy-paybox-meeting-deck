@@ -149,14 +149,14 @@ export default function SlideResults() {
           <span className="text-xs text-white/40">רווח שנתי משוער מהפעילות</span>
         </motion.div>
 
-        <motion.div variants={item} className="shrink-0 mt-4 rounded-2xl px-5 py-4 text-right"
+        <motion.div variants={item} className="shrink-0 mt-4 rounded-2xl px-6 py-5 text-center"
           style={{ background: "rgba(146,39,176,0.10)", border: "1px solid rgba(146,39,176,0.30)" }}>
-          <div className="flex items-center gap-2 mb-1.5 justify-end">
-            <span className="text-base font-black text-white">לפני פיתוח ערוצי הכנסה משותפים</span>
-            <span className="text-lg">⚠️</span>
-          </div>
-          <p className="text-sm text-white/75 leading-relaxed">
-            הערכה זו מתייחסת לרווח <span className="font-black text-white">לפני פיתוח ערוצי הכנסה משותפים</span> (כגון ארנק מתנות לחגים ועוד) — <span className="font-black" style={{ color: "#E879F9" }}>מדובר בפוטנציאל נוסף שטרם מומש.</span>
+          <div className="text-2xl mb-2">⚠️</div>
+          <p className="text-base font-black text-white leading-snug">
+            הערכה זו מתייחסת לרווח לפני פיתוח ערוצי הכנסה משותפים
+          </p>
+          <p className="text-sm text-white/70 mt-1.5 leading-relaxed">
+            (כגון ארנק מתנות לחגים ועוד) — <span className="font-black" style={{ color: "#E879F9" }}>מדובר בפוטנציאל נוסף שטרם מומש</span>
           </p>
         </motion.div>
       </motion.div>
