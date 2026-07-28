@@ -2,7 +2,6 @@ import React from "react";
 
 const NAVY = "#0B1930";
 const GOLD = "#D4AF37";
-const BLUE = "#4F7FE0";
 
 export default function SlideOnePager() {
   return (
@@ -52,40 +51,12 @@ export default function SlideOnePager() {
         {/* COL 3: המודל */}
         <div className="rounded-2xl p-5 border border-blue-900/50 text-right" style={{ background: "#080e1a" }}>
           <div className="text-xs font-black tracking-widest text-blue-400 mb-3">המודל העסקי</div>
-          <div className="space-y-2 text-sm text-white/70">
-            <div>💰 ריטנר 350K ₪/חודש | יורד עם הצמיחה</div>
-            <div>📈 GMV 210M ₪ → ריטנר ÷2</div>
-            <div>🎯 GMV 420M ₪ → ריטנר = 0</div>
-            <div>🤝 PayBox: 0–3% מה-GMV של The Box</div>
+          <div className="text-sm text-white/80 leading-relaxed font-bold">
+            שותפות אמיתית בין החברות המגדילה משמעותית את ערוצי ההכנסה הקיימים ומייצרת ערוצי הכנסה חדשים
           </div>
         </div>
       </div>
 
-      {/* BOTTOM STRIP: Numbers */}
-      <div className="w-full max-w-5xl grid grid-cols-4 gap-3 mb-8">
-        {[
-          { num: "400K+", label: "משתמשי PayBox", sub: "CC + Young", color: BLUE },
-          { num: "4.2M ₪", label: "ריטנר שנתי", sub: "השקעה — לא הוצאה", color: GOLD },
-          { num: "90 יום", label: "פיילוט ראשון", sub: "KPIs מוסכמים", color: "#34D399" },
-          { num: "0 ₪", label: "עלות ZUZ לפייבוקס", sub: "הכל על BoomBuy", color: "#22d3ee" },
-        ].map((item, i) => (
-          <div key={i} className="rounded-xl p-4 text-center border border-gray-800" style={{ background: "#0a0f1a" }}>
-            <div className="text-2xl font-black" style={{ color: item.color }}>{item.num}</div>
-            <div className="text-xs font-bold text-white mt-1">{item.label}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{item.sub}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* CTA */}
-      <div className="rounded-2xl px-10 py-5 text-center" style={{ background: "linear-gradient(135deg,#1a1000,#0a1628)", border: `1.5px solid ${GOLD}` }}>
-        <div className="text-white font-black text-xl mb-1">
-          מוכנים לפיילוט 90 יום?
-        </div>
-        <div className="text-white/50 text-sm">
-          API חיבור | שבועות בלבד | ללא סיכון תפעולי לפייבוקס
-        </div>
-      </div>
 
       {/* Footer */}
       <div className="flex items-center gap-4 mt-8 text-gray-600 text-xs">
