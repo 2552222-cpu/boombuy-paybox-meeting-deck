@@ -8,18 +8,19 @@ const GOLD_DEEP = "#7A5C12";
 const INK = "#1A1A1A";
 const MUTE = "#6B7280";
 const LINE = "#E6E8EC";
+const GREEN = "#0F9D58";
 
 const TIERS = [
   {
     id: 1,
     tag: "מודל בסיס",
     name: "אתר צרכנות קלאסי",
-    sub: "מסחר בסגנון דולצה-ויטה",
+    sub: "מסחר בסגנון דולצ'ה-ויטה",
     accent: "#3B6E8F",
     discount: "מחירי הנחה",
-    discountNote: "לא שוברי שוק — מבוססים על הקטלוג הקיים של בומביי",
-    commission: "5%",
-    commissionLabel: "עמלת סחר מהמחזור · ללא שותפויות נקודתיות",
+    discountSub: "לא שוברי שוק — מבוססים על הקטלוג הקיים של בומביי",
+    commission: "5% עמלת סחר",
+    commissionSub: "מהמחזור בלבד · ללא שותפויות נקודתיות",
     impact: "יצירת ערך נוסף ללקוחות",
     impactSub: "פחות השפעה על המדדים העיקריים (סליקה, השארת כסף וכו')",
     cost: "75,000",
@@ -37,9 +38,9 @@ const TIERS = [
     sub: "המסלול המועדף להשפעה מהירה על המדדים",
     accent: GOLD_DEEP,
     discount: "עד 50% הנחה",
-    discountNote: "על כל המוצרים ביחס למחיר השוק",
-    commission: "3.5%",
-    commissionLabel: "עמלת סחר מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
+    discountSub: "על כל המוצרים ביחס למחיר השוק",
+    commission: "3.5% עמלת סחר",
+    commissionSub: "מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
     impact: "השפעה מהירה על המדדים העיקריים",
     impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
     cost: "350,000",
@@ -62,9 +63,9 @@ const TIERS = [
     sub: "זהה למסלול המועדף — ההבדל בעמלת הסחר בלבד",
     accent: "#5A4FBF",
     discount: "עד 50% הנחה",
-    discountNote: "על כל המוצרים ביחס למחיר השוק",
-    commission: "1.5%",
-    commissionLabel: "עמלת סחר מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
+    discountSub: "על כל המוצרים ביחס למחיר השוק",
+    commission: "1.5% עמלת סחר",
+    commissionSub: "מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
     impact: "השפעה מהירה על המדדים העיקריים",
     impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
     cost: "200,000",
@@ -76,12 +77,24 @@ const TIERS = [
   },
 ];
 
+function BulletRow({ accent, label, sub, iconColor = GREEN }) {
+  return (
+    <li className="flex items-start gap-2">
+      <Check className="w-4 h-4 mt-[3px] shrink-0" style={{ color: iconColor }} />
+      <div className="flex-1 text-right">
+        <div className="text-[13px] font-bold leading-tight" style={{ color: INK }}>{label}</div>
+        {sub && <div className="text-[11px] mt-0.5 leading-snug" style={{ color: MUTE }}>{sub}</div>}
+      </div>
+    </li>
+  );
+}
+
 function Tier({ t }) {
   const isRec = t.recommended;
   return (
     <div
       dir="rtl"
-      className="relative flex flex-col rounded-3xl p-5 text-right h-full"
+      className="relative flex flex-col rounded-3xl p-5 h-full"
       style={{
         background: isRec ? "#FFFBEE" : "#FFFFFF",
         border: isRec ? "2px solid " + GOLD : "1px solid " + LINE,
@@ -98,7 +111,7 @@ function Tier({ t }) {
         </div>
       )}
 
-      {/* Header block */}
+      {/* Header */}
       <div className="text-right">
         <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: t.accent }}>
           {t.tag}
@@ -109,39 +122,26 @@ function Tier({ t }) {
 
       <div className="my-4 h-px" style={{ background: LINE }} />
 
-      {/* Discount */}
-      <div className="text-right mb-4">
-        <div className="text-xl font-black" style={{ color: t.accent }}>{t.discount}</div>
-        <div className="text-[11px] mt-0.5" style={{ color: MUTE }}>{t.discountNote}</div>
-      </div>
-
-      {/* Commission */}
-      <div className="text-right mb-4">
-        <div className="text-xl font-black" style={{ color: INK }}>{t.commission}</div>
-        <div className="text-[11px] mt-0.5 leading-snug" style={{ color: MUTE }}>{t.commissionLabel}</div>
-      </div>
-
-      {/* Impact */}
-      <div className="text-right mb-4">
-        <div className="flex items-center gap-1.5 justify-end">
-          <span className="text-[12px] font-bold" style={{ color: INK }}>{t.impact}</span>
-          <Check className="w-3.5 h-3.5 shrink-0" style={{ color: "#0F9D58" }} />
-        </div>
-        <div className="text-[11px] mt-0.5" style={{ color: MUTE }}>{t.impactSub}</div>
-      </div>
+      {/* Feature rows — every row gets a checkmark */}
+      <ul className="space-y-3 mb-4">
+        <BulletRow accent={t.accent} label={t.discount} sub={t.discountSub} iconColor={t.accent} />
+        <BulletRow accent={t.accent} label={t.commission} sub={t.commissionSub} iconColor={t.accent} />
+        <BulletRow accent={t.accent} label={t.impact} sub={t.impactSub} iconColor={t.accent} />
+      </ul>
 
       <div className="my-1 h-px" style={{ background: LINE }} />
 
       {/* Cost — right aligned */}
       <div className="text-right mt-3">
-        <div className="text-2xl font-black" style={{ color: INK }}>
-          ₪{t.cost}
-          <span className="text-[12px] font-normal mr-1.5" style={{ color: MUTE }}>ש\"ח / חודש</span>
+        <div className="flex items-baseline gap-1.5 justify-end">
+          <span className="text-3xl font-black" style={{ color: INK }}>{t.cost}</span>
+          <span className="text-xl font-bold" style={{ color: INK }}>₪</span>
         </div>
+        <div className="text-[11px] mt-0.5 font-medium" style={{ color: MUTE }}>ש\"ח לחודש</div>
       </div>
 
       {/* Budget breakdown — prominent */}
-      <div className="mt-4 rounded-2xl p-3.5 text-right"
+      <div className="mt-4 rounded-2xl p-3.5"
         style={{
           background: isRec ? "rgba(200,160,40,0.10)" : "#FAFAFB",
           border: "1px solid " + (isRec ? "rgba(200,160,40,0.30)" : LINE),
@@ -155,10 +155,7 @@ function Tier({ t }) {
         </div>
         <ul className="space-y-1.5">
           {t.budget.map((b, i) => (
-            <li key={i} className="flex items-center gap-2 justify-end text-right">
-              <span className="text-[11px] leading-snug" style={{ color: INK }}>{b}</span>
-              <span className="w-1 h-1 rounded-full shrink-0" style={{ background: t.accent }} />
-            </li>
+            <BulletRow key={i} accent={t.accent} label={b} iconColor={t.accent} />
           ))}
         </ul>
       </div>
