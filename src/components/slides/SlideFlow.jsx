@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useSimulator } from "@/contexts/SimulatorContext";
 import { EASE } from "@/components/slides/deckAnim";
+import * as RSlider from "@radix-ui/react-slider";
 
 const PB_BLUE = "#4F7FE0";
 const GOLD    = "#D4AF37";
@@ -40,7 +41,6 @@ function NumberField({ label, value, onChange, hint }) {
 }
 
 function Slider({ label, sub, value, min, max, step, format, onChange, color }) {
-  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
   return (
     <div>
       <div className="flex justify-between items-center mb-1">
@@ -50,16 +50,29 @@ function Slider({ label, sub, value, min, max, step, format, onChange, color }) 
         </span>
       </div>
       {sub && <div className="text-[11px] text-white/40 mb-3 leading-snug">{sub}</div>}
-      <div className="relative h-6 flex items-center">
-        <div className="absolute inset-x-0 h-3 rounded-full bg-white/10" />
-        <div className="absolute left-0 h-3 rounded-full transition-all"
-          style={{ width: `${pct}%`, background: color }} />
-        <div className="absolute w-6 h-6 rounded-full bg-white shadow-lg transition-all border-2"
-          style={{ left: `calc(${pct}% - 12px)`, borderColor: color }} />
-        <input type="range" min={min} max={max} step={step} value={value}
-          onChange={(e) => onChange(+e.target.value)}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-      </div>
+      <RSlider.Root
+        dir="ltr"
+        value={[value]}
+        min={min}
+        max={max}
+        step={step}
+        onValueChange={(vals) => onChange(vals[0])}
+        className="relative flex w-full touch-none select-none items-center py-2"
+      >
+        <RSlider.Track
+          className="relative h-3 w-full grow overflow-hidden rounded-full"
+          style={{ background: "rgba(255,255,255,0.10)" }}
+        >
+          <RSlider.Range
+            className="absolute h-full rounded-full"
+            style={{ background: color }}
+          />
+        </RSlider.Track>
+        <RSlider.Thumb
+          className="block w-6 h-6 rounded-full bg-white border-2 shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 cursor-grab active:cursor-grabbing"
+          style={{ borderColor: color }}
+        />
+      </RSlider.Root>
     </div>
   );
 }
