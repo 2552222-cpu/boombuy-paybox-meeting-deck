@@ -43,6 +43,7 @@ const TIERS = [
     commissionSub: "מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
     impact: "השפעה מהירה על המדדים העיקריים",
     impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
+    costLabel: "השתתפות חודשית של PayBox בתקציב ההקמה וההפעלה",
     cost: "350,000",
     budget: [
       "סבסוד הטבות מזון ובילויים",
@@ -69,6 +70,7 @@ const TIERS = [
     commissionSub: "מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
     impact: "השפעה מהירה על המדדים העיקריים",
     impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
+    costLabel: "השתתפות חודשית של PayBox בתקציב ההקמה וההפעלה",
     cost: "250,000",
     budget: [
       "אותן עלויות כמו מודל 2",
@@ -134,8 +136,10 @@ function Tier({ t }) {
 
       {/* Cost — right aligned */}
       <div className="text-right mt-3">
+        {t.costLabel && (
+          <div className="text-[12px] font-medium mb-1.5 leading-snug" style={{ color: MUTE }}>{t.costLabel}</div>
+        )}
         <div className="text-3xl font-black leading-tight" style={{ color: INK }}>{t.cost} ₪</div>
-        <div className="text-[11px] mt-0.5 font-medium" style={{ color: MUTE }}>ש\"ח לחודש</div>
       </div>
 
       {/* Budget breakdown — prominent */}
