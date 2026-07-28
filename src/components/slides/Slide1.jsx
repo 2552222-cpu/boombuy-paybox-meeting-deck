@@ -4,7 +4,7 @@ import { PayBoxLogo } from "@/components/slides/Logos";
 import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
-const THE_BOX_LOGO = BASE + "df7ae6128_65.png";
+const THE_BOX_LOGO = BASE + "c645cca81_65.png";
 const BOOMBUY_LOGO = BASE + "fb3c29ac1_200.png";
 
 // Product images from the marketplace — used in the phone mockup
@@ -78,15 +78,11 @@ export default function Slide1() {
             transition={{ delay: 0.5, type: "spring", stiffness: 190, damping: 20 }}
             className="flex justify-end mb-8"
           >
-            <div
-              className="rounded-3xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
-              style={{
-                width: 96, height: 96,
-                backgroundImage: `url(${THE_BOX_LOGO})`,
-                backgroundSize: "260%",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "72% 28%",
-              }}
+            <img
+              src={THE_BOX_LOGO}
+              alt="The Box"
+              className="rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.28)] object-contain"
+              style={{ height: 150, width: "auto", maxWidth: 280 }}
             />
           </motion.div>
 
