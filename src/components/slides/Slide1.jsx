@@ -81,8 +81,8 @@ export default function Slide1() {
             <img
               src={THE_BOX_LOGO}
               alt="The Box"
-              className="rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.28)] object-contain"
-              style={{ height: 150, width: "auto", maxWidth: 280 }}
+              className="rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.28)]"
+              style={{ height: 150, width: 240, objectFit: "cover", objectPosition: "top center" }}
             />
           </motion.div>
 
