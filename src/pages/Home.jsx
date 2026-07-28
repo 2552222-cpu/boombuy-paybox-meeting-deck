@@ -52,10 +52,10 @@ export default function Home() {
 
         {SLIDES.map((Slide, i) => (
           <motion.section key={i} id={`slide-${i + 1}`} className="min-h-screen w-full"
-            initial={i === 0 ? { opacity: 1 } : { opacity: 0, y: 30 }}
-            whileInView={i === 0 ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ amount: 0.15, once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ amount: 0.4 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             <Slide />
           </motion.section>
         ))}
