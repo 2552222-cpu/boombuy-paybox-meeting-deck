@@ -10,6 +10,7 @@ export function SimulatorProvider({ children }) {
   // ═══ Float — יתרות לקוחות ═══
   const [floatBalance,   setFloatBalance]   = useState(0); // ₪ — יתרה חודשית ממוצעת (מספר)
   const [floatGrowthPct,  setFloatGrowthPct]  = useState(0); // % גידול צפוי — ZUZ (סליידר)
+  const [floatAnnualRatePct, setFloatAnnualRatePct] = useState(2); // % שיעור ערך שנתי נטו של היתרות (ברירת מחדל 2% — הנחת המחשה)
 
   // ═══ מחזור מכירות מתנות והטבות שנתי ═══
   const [giftAnnualVolume,  setGiftAnnualVolume]  = useState(0); // ₪/שנה — מחזור שנתי (מספר)
@@ -20,6 +21,7 @@ export function SimulatorProvider({ children }) {
   function reset() {
     setInterchangeCurrent(0);  setInterchangeGrowthPct(0);
     setFloatBalance(0);         setFloatGrowthPct(0);
+    setFloatAnnualRatePct(2);
     setGiftAnnualVolume(0);    setGiftCommissionPct(3);
     setCalculated(false);
   }
@@ -29,9 +31,9 @@ export function SimulatorProvider({ children }) {
     const intMonthlyGain = interchangeCurrent * (interchangeGrowthPct / 100);
     const intYearlyGain   = intMonthlyGain * 12;
 
-    // Float — רווח חודשי נוסף = אחוז × יתרה × 2% ריבית נטו
-    const floatMonthlyGain = floatBalance * (floatGrowthPct / 100) * 0.02;
-    const floatYearlyGain   = floatMonthlyGain * 12;
+    // Float — ערך שנתי חדש מהיתרות = יתרה × אחוז גידול × שיעור ערך שנתי (הנחת עבודה).
+    // אין להכפיל שוב ב-12 — שיעור הערך כבר שנתי.
+    const floatYearlyGain = floatBalance * (floatGrowthPct / 100) * (floatAnnualRatePct / 100);
 
     // מתנות — רווח שנתי = מחזור × אחוז עמלה
     const giftYearlyProfit = giftAnnualVolume * (giftCommissionPct / 100);
@@ -40,11 +42,11 @@ export function SimulatorProvider({ children }) {
 
     return {
       intMonthlyGain, intYearlyGain,
-      floatMonthlyGain, floatYearlyGain,
+      floatYearlyGain,
       giftYearlyProfit,
       totalYearly,
     };
-  }, [interchangeCurrent, interchangeGrowthPct, floatBalance, floatGrowthPct, giftAnnualVolume, giftCommissionPct]);
+  }, [interchangeCurrent, interchangeGrowthPct, floatBalance, floatGrowthPct, floatAnnualRatePct, giftAnnualVolume, giftCommissionPct]);
 
   return (
     <SimulatorContext.Provider value={{
@@ -52,6 +54,7 @@ export function SimulatorProvider({ children }) {
       interchangeGrowthPct, setInterchangeGrowthPct,
       floatBalance,   setFloatBalance,
       floatGrowthPct,  setFloatGrowthPct,
+      floatAnnualRatePct, setFloatAnnualRatePct,
       giftAnnualVolume,  setGiftAnnualVolume,
       giftCommissionPct, setGiftCommissionPct,
       calculated, setCalculated,

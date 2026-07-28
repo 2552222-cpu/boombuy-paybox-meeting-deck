@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Cpu, Store, Sparkles, Boxes } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import { EASE } from "@/components/slides/deckAnim";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const CATS = [
   { img: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/e2af722d7_generated_image.png", name: "Box Gifts",      he: "מתנות כלליות" },
@@ -108,7 +107,6 @@ export default function Slide3() {
         <span>03 / 12</span>
       </div>
 
-      <SpeakerNotes notes={SCRIPT} />
     </div>
   );
 }

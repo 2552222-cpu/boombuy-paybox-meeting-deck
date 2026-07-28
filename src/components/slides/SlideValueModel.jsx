@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 // ─── PAYBOX VALUE MODEL — 2 VIEWS ─────────────────────────────────────────────
 // Slide A: Revenue sources TODAY (confirmed + assumptions marked)
@@ -269,7 +268,6 @@ export default function SlideValueModel() {
         <span className="text-[10px] text-white/20">✓ מאומת · * הנחת BoomBuy · מקורות: דוחות דיסקונט 2024, כלכליסט, BizPortal</span>
       </div>
 
-      <SpeakerNotes notes={view === "today" ? SCRIPT_A : SCRIPT_B} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { EASE } from "@/components/slides/deckAnim";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 // ─── ZUZ COIN SVG ────────────────────────────────────────────────────────────
 function ZuzCoin({ size = 220 }) {
@@ -74,7 +73,7 @@ function ZuzCoin({ size = 220 }) {
       {/* Bottom arc text "ISSUED BY PAYBOX" */}
       <path id="bottomArc" d="M 30 150 A 80 80 0 0 0 190 150" fill="none"/>
       <text fontSize="7" fontWeight="700" fill="#4a7090" fontFamily="system-ui,sans-serif" letterSpacing="1">
-        <textPath href="#bottomArc" startOffset="10%">ISSUED BY PAYBOX · ZUZIM ECOSYSTEM</textPath>
+        <textPath href="#bottomArc" startOffset="10%">POWERED BY THE BOX · ZUZIM ECOSYSTEM</textPath>
       </text>
 
       {/* Sheen overlay */}
@@ -85,10 +84,10 @@ function ZuzCoin({ size = 220 }) {
 
 // ─── EARN MECHANICS ──────────────────────────────────────────────────────────
 const EARN_WAYS = [
-  { emoji:"💳", title:"שימוש בכרטיס אשראי", desc:"כל עסקת אשראי = ZUZ אוטומטי", example:"500 ₪ = 50 ZUZ" },
-  { emoji:"🏦", title:"כסף שוכב בחשבון", desc:"יתרה שבועית = ZUZ על הזמן", example:"5,000 ₪ שבוע = 100 ZUZ" },
-  { emoji:"🎁", title:"קבוצת מתנה פועלת", desc:"כל קבוצה שנפתחת = בונוס", example:"קבוצה = 200 ZUZ" },
-  { emoji:"🍖", title:"על האש / אירוע", desc:"גמר קבוצה = ZUZ כפול", example:"2,100 ₪ = 420 ZUZ" },
+  { emoji:"💳", title:"שימוש בכרטיס אשראי", desc:"כל עסקת אשראי מזכה ZUZ באופן אוטומטי" },
+  { emoji:"🏦", title:"כסף שוכב בחשבון", desc:"יתרה שבועית מזכה ZUZ על הזמן" },
+  { emoji:"🎁", title:"קבוצת מתנה פועלת", desc:"כל קבוצה שנפתחת מזכה בונוס" },
+  { emoji:"🍖", title:"על האש / אירוע", desc:"גמר קבוצה מזכה ZUZ מוגדל" },
 ];
 
 const SPEND_WAYS = [
@@ -128,9 +127,11 @@ export default function Slide5() {
           <div className="h-8 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent"/>
         </div>
         <h1 className="text-3xl md:text-4xl font-black leading-[1.15] tracking-[-0.02em]">
-          ZUZ | המטבע שגורם לכסף לזוז
+          ZUZ | יחידת ההטבה שמניעה פעילות
         </h1>
-        <p className="mt-2 text-white/40 text-sm">כל פעולה בפייבוקס = ZUZ · כל ZUZ = עסקה ב-The Box</p>
+        <p className="mt-2 text-white/55 text-sm leading-relaxed max-w-2xl mx-auto">
+          ZUZ היא יחידת הטבה פנימית ב-The Box. עלות ההטבות והסבסוד ממומנת על ידי BoomBuy בהתאם למודל שיסוכם.
+        </p>
       </motion.div>
 
       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{once:true,amount:0.15}}
@@ -151,8 +152,8 @@ export default function Slide5() {
               style={{ mixBlendMode:"screen", filter:"drop-shadow(0 20px 40px rgba(91,164,207,0.4))" }}
             />
             <div className="text-center">
-              <p className="text-[10px] font-bold tracking-widest text-white/30 uppercase">Issued by PayBox</p>
-              <p className="text-lg font-black text-white mt-1">1 ZUZ ≈ 1 ₪ ערך הטבה</p>
+              <p className="text-[10px] font-bold tracking-widest text-white/45 uppercase">Powered by The Box</p>
+              <p className="text-sm font-bold text-white/85 mt-1 leading-snug">ערך ZUZ נקבע בהתאם להטבה ולתנאי המועדון</p>
               <p className="text-[11px] text-white/40 mt-0.5">זוז | עברית לוקדמון + "לזוז" + מטבע יהודי עתיק</p>
             </div>
           </motion.div>
@@ -167,9 +168,6 @@ export default function Slide5() {
                 <div className="flex-1">
                   <p className="text-sm font-bold text-white">{w.title}</p>
                   <p className="text-[11px] text-white/45">{w.desc}</p>
-                </div>
-                <div className="text-right shrink-0">
-                  <p className="text-[11px] font-black text-[#D4AF37] whitespace-nowrap">{w.example}</p>
                 </div>
               </motion.div>
             ))}
@@ -197,19 +195,18 @@ export default function Slide5() {
             💡 ZUZ לא יוצא החוצה | הוא חי <span className="text-[#D4AF37]">רק בתוך פייבוקס</span>
           </p>
           <p className="text-xs text-white/45 mt-1">
-            כל ZUZ שנוצר = לחץ נוסף לקנות ב-The Box = GMV גדל = עמלה גדלה = ריטיינר מתקזז
+            כל ZUZ שנוצר = לחץ נוסף לקנות ב-The Box = GMV גדל = עמלה גדלה = השתתפות PayBox בתקציב ההפעלה פוחתת
           </p>
         </motion.div>
       </motion.div>
 
       <div className="text-center text-[10px] text-gray-600 mt-1 px-4">
-        ⚖️ ZUZ = תוכנית הטבות בלבד | אינו אמצעי תשלום, אינו מטבע, אינו נסחר. הגדרה משפטית: נקודות ערך לשימוש ב-The Box בלבד.
+        ⚖️ ZUZ אינו אמצעי תשלום, אינו מטבע ואינו ניתן למשיכה. נקודות ערך לשימוש ב-The Box בלבד.
       </div>
       <div className="flex items-center justify-between text-gray-600 text-[11px] shrink-0 mt-4">
         <span className="font-bold tracking-widest">BOOMBUY × PAYBOX</span>
         <span>05 / 13</span>
       </div>
-      <SpeakerNotes notes={SCRIPT}/>
     </div>
   );
 }

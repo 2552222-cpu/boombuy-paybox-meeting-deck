@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PayBoxLogo } from "@/components/slides/Logos";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
 const THE_BOX_LOGO = BASE + "c645cca81_65.png";
@@ -217,7 +216,6 @@ export default function Slide1() {
         <span>01 / 12</span>
       </motion.div>
 
-      <SpeakerNotes notes={SCRIPT} />
     </div>
   );
 }

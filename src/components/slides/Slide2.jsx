@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowDownToLine, CreditCard, Wallet } from "lucide-react";
 import { EASE } from "@/components/slides/deckAnim";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const STATS = [
   { value:"100%", label:"מכספי הקבוצות", sub:"נמשכים לעו\"ש בנקים אחרים | הכסף בורח מהמערכת", icon: ArrowDownToLine, color:"#EF4444" },
@@ -72,7 +71,6 @@ export default function Slide2() {
         <span>02 / 12</span>
       </div>
 
-      <SpeakerNotes notes={SCRIPT} />
     </div>
   );
 }

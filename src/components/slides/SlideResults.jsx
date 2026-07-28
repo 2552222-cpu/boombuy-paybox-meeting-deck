@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useSimulator } from "@/contexts/SimulatorContext";
 import { EASE } from "@/components/slides/deckAnim";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 import { ArrowDown } from "lucide-react";
 
 const PB_BLUE = "#4F7FE0";
@@ -45,7 +44,7 @@ export default function SlideResults() {
   const {
     calculated,
     interchangeCurrent, interchangeGrowthPct,
-    floatBalance, floatGrowthPct,
+    floatBalance, floatGrowthPct, floatAnnualRatePct,
     giftAnnualVolume,
     R,
   } = useSimulator();
@@ -111,10 +110,10 @@ export default function SlideResults() {
               color={PURPLE}
               badge="Float · יתרות לקוחות"
               lines={[
-                `יתרה חודשית ממוצעת: ₪${fmt(floatBalance)}`,
+                `יתרה ממוצעת בחודש: ₪${fmt(floatBalance)}`,
                 `צפי גידול: ${floatGrowthPct}% (ZUZ מגדיל זמן שהייה)`,
-                `רווח חודשי נוסף = ${floatGrowthPct}% × ₪${fmt(floatBalance)} × 2% = <b style="color:${PURPLE}">₪${fmt(R.floatMonthlyGain)}</b>`,
-                `רווח שנתי = ₪${fmt(R.floatMonthlyGain)} × 12 חודשים`,
+                `שיעור ערך שנתי נטו: ${floatAnnualRatePct}% (הנחת המחשה)`,
+                `ערך שנתי חדש = ${floatGrowthPct}% × ₪${fmt(floatBalance)} × ${floatAnnualRatePct}% = <b style="color:${PURPLE}">₪${fmt(R.floatYearlyGain)}</b>`,
               ]}
               result={R.floatYearlyGain}
             />
@@ -164,7 +163,6 @@ export default function SlideResults() {
         <span>11 / 16</span>
       </div>
 
-      <SpeakerNotes notes={SCRIPT} />
     </div>
   );
 }

@@ -44,7 +44,7 @@ export default function SlideOnePager() {
             <div>💳 Interchange + Float גדלים אוטומטית</div>
           </div>
           <div className="mt-4 pt-3 border-t text-center text-xs font-black" style={{ borderColor: GOLD + "33", color: GOLD }}>
-            Layer 1 + Layer 2 | ריטנר = מועדון שמממן את עצמו
+            Layer 1 + Layer 2 | תקציב התשתית
           </div>
         </div>
 

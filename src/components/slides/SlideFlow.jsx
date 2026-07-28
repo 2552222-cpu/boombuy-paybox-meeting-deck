@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useSimulator } from "@/contexts/SimulatorContext";
 import { EASE } from "@/components/slides/deckAnim";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const PB_BLUE = "#4F7FE0";
 const GOLD    = "#D4AF37";
@@ -88,6 +87,7 @@ export default function SlideFlow() {
     interchangeGrowthPct, setInterchangeGrowthPct,
     floatBalance,   setFloatBalance,
     floatGrowthPct,  setFloatGrowthPct,
+    floatAnnualRatePct, setFloatAnnualRatePct,
     giftAnnualVolume,  setGiftAnnualVolume,
     calculated, setCalculated,
     reset, R,
@@ -165,10 +165,19 @@ export default function SlideFlow() {
                 onChange={setFloatGrowthPct}
                 color={PURPLE}
               />
+              <Slider
+                label="שיעור ערך שנתי נטו של היתרות"
+                sub="לפי נתוני PayBox · ברירת מחדל 2% — הנחת המחשה בלבד"
+                value={floatAnnualRatePct}
+                min={0} max={10} step={0.1}
+                format={(v) => `${v}%`}
+                onChange={setFloatAnnualRatePct}
+                color={PURPLE}
+              />
               <div className="text-[11px] text-white/45 rounded-lg px-2 py-1.5" style={{ background: PURPLE + "11" }}>
-                חישוב: רווח חודשי = {floatGrowthPct}% × ₪{fmt(floatBalance)} × 2% ריבית
+                חישוב: ערך שנתי חדש = {floatGrowthPct}% × ₪{fmt(floatBalance)} × {floatAnnualRatePct}%
                 {floatBalance > 0 && floatGrowthPct > 0 && (
-                  <div className="mt-0.5 font-bold" style={{ color: PURPLE }}>= ₪{fmt(R.floatMonthlyGain)}/חודש</div>
+                  <div className="mt-0.5 font-bold" style={{ color: PURPLE }}>= ₪{fmt(R.floatYearlyGain)}/שנה</div>
                 )}
               </div>
             </Section>
@@ -232,7 +241,6 @@ export default function SlideFlow() {
         <span>10 / 16</span>
       </div>
 
-      <SpeakerNotes notes={SCRIPT} />
     </div>
   );
 }

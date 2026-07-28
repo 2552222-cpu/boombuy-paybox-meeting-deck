@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { EASE } from "@/components/slides/deckAnim";
-import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const SCRIPT = `"שתי שכבות הכנסה ברורות.
 
@@ -146,7 +145,6 @@ export default function Slide9() {
         <span>09 / 16</span>
       </div>
 
-      <SpeakerNotes notes={SCRIPT} />
     </div>
   );
 }
