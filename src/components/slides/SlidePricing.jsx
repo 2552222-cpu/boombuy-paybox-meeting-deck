@@ -136,25 +136,27 @@ function Tier({ t }) {
         </div>
       )}
 
-      {/* Header */}
-      <div className="text-right">
-        <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: t.accent }}>
-          {t.tag}
+      {/* Header + features — fixed-height block keeps the price aligned across all 4 columns */}
+      <div className="flex flex-col min-h-[280px]">
+        <div className="text-right">
+          <div className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: t.accent }}>
+            {t.tag}
+          </div>
+          <h3 className="text-base font-black leading-tight" style={{ color: INK }}>{t.name}</h3>
+          <p className="text-[11px] mt-0.5" style={{ color: MUTE }}>{t.sub}</p>
         </div>
-        <h3 className="text-base font-black leading-tight" style={{ color: INK }}>{t.name}</h3>
-        <p className="text-[11px] mt-0.5" style={{ color: MUTE }}>{t.sub}</p>
+
+        <div className="my-4 h-px" style={{ background: LINE }} />
+
+        {/* Feature rows - every row gets a checkmark */}
+        <ul className="space-y-3 mb-4">
+          <BulletRow accent={t.accent} label={t.discount} sub={t.discountSub} iconColor={t.accent} />
+          <BulletRow accent={t.accent} label={t.commission} sub={t.commissionSub} iconColor={t.accent} />
+          <BulletRow accent={t.accent} label={t.impact} sub={t.impactSub} iconColor={t.accent} />
+        </ul>
+
+        <div className="mb-1 mt-auto h-px" style={{ background: LINE }} />
       </div>
-
-      <div className="my-4 h-px" style={{ background: LINE }} />
-
-      {/* Feature rows - every row gets a checkmark */}
-      <ul className="space-y-3 mb-4">
-        <BulletRow accent={t.accent} label={t.discount} sub={t.discountSub} iconColor={t.accent} />
-        <BulletRow accent={t.accent} label={t.commission} sub={t.commissionSub} iconColor={t.accent} />
-        <BulletRow accent={t.accent} label={t.impact} sub={t.impactSub} iconColor={t.accent} />
-      </ul>
-
-      <div className="my-1 h-px" style={{ background: LINE }} />
 
       {/* Cost - right aligned */}
       <div className="text-right mt-3">
