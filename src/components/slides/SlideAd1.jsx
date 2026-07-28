@@ -3,8 +3,8 @@ import React from "react";
 const ADS = [
   { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/a1f6c9e56_1.png", alt: "PayBox Young | העברתם משכורת אלינו?" },
   { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/3597b64a0_.png", alt: "PayBox Young | רוצים מתנות והטבות בחצי מחיר?" },
-  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/2693b3d35_-3.png", alt: "PayBox Young | רוצים לחסוך ולנצל כל שקל?" },
-  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/546fdbf47_superchargeyourhrimpact531pdf.png", alt: "PayBox Young | עברתם טסט? מברוק!" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/af22feaad_-3.png", alt: "PayBox Young | רוצים לחסוך ולנצל כל שקל?" },
+  { src: "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/bd3e9c76c_superchargeyourhrimpact531pdf1.png", alt: "PayBox Young | עברתם טסט? מברוק!" },
 ];
 
 export default function SlideAd1() {
