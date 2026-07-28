@@ -18,7 +18,7 @@ const TIERS = [
     sub: "מסחר בסגנון דולצ'ה-ויטה",
     accent: "#3B6E8F",
     discount: "מחירי הנחה",
-    discountSub: "לא שוברי שוק — מבוססים על הקטלוג הקיים של בומביי",
+    discountSub: "לא שוברי שוק - מבוססים על הקטלוג הקיים של בומביי",
     commission: "שוברים בהנחה",
     commissionSub: "עשרות שוברים בהנחה של 10%",
     impact: "יצירת ערך נוסף ללקוחות",
@@ -34,7 +34,7 @@ const TIERS = [
   {
     id: 2,
     tag: "מומלץ · מודל שותפות",
-    name: "מועדון הטבות — שותפות בומביי × פייבוקס",
+    name: "מועדון הטבות - שותפות בומביי × פייבוקס",
     sub: "המסלול המועדף להשפעה מהירה על המדדים",
     accent: GOLD_DEEP,
     discount: "עד 50% הנחה",
@@ -54,6 +54,7 @@ const TIERS = [
       "טכנולוגיית פריקת וניהול נקודות",
       "תכנון קמפיינים והנעת לקוחות",
       "מנהל לקוח ייעודי לפרויקט",
+      "פיתוח PayBox Young",
       "שירות לקוחות",
     ],
     recommended: true,
@@ -61,8 +62,8 @@ const TIERS = [
   {
     id: 3,
     tag: "בומביי משקיעה יותר",
-    name: "מועדון הטבות — בומביי לוקחת יותר סיכון",
-    sub: "זהה למסלול המועדף — ההבדל בעמלת הסחר בלבד",
+    name: "מועדון הטבות - בומביי לוקחת יותר סיכון",
+    sub: "זהה למסלול המועדף - ההבדל בעמלת הסחר בלבד",
     accent: "#5A4FBF",
     discount: "עד 50% הנחה",
     discountSub: "על כל המוצרים ביחס למחיר השוק",
@@ -125,7 +126,7 @@ function Tier({ t }) {
 
       <div className="my-4 h-px" style={{ background: LINE }} />
 
-      {/* Feature rows — every row gets a checkmark */}
+      {/* Feature rows - every row gets a checkmark */}
       <ul className="space-y-3 mb-4">
         <BulletRow accent={t.accent} label={t.discount} sub={t.discountSub} iconColor={t.accent} />
         <BulletRow accent={t.accent} label={t.commission} sub={t.commissionSub} iconColor={t.accent} />
@@ -134,7 +135,7 @@ function Tier({ t }) {
 
       <div className="my-1 h-px" style={{ background: LINE }} />
 
-      {/* Cost — right aligned */}
+      {/* Cost - right aligned */}
       <div className="text-right mt-3">
         {t.costLabel && (
           <div className="text-[12px] font-medium mb-1.5 leading-snug" style={{ color: MUTE }}>{t.costLabel}</div>
@@ -142,13 +143,13 @@ function Tier({ t }) {
         <div className="text-3xl font-black leading-tight" style={{ color: INK }}>{t.cost} ₪</div>
       </div>
 
-      {/* Budget breakdown — prominent */}
+      {/* Budget breakdown - prominent */}
       <div className="mt-4 rounded-2xl p-3.5"
         style={{
           background: isRec ? "rgba(200,160,40,0.10)" : "#FAFAFB",
           border: "1px solid " + (isRec ? "rgba(200,160,40,0.30)" : LINE),
         }}>
-        <div className="flex items-center gap-1.5 justify-end pb-2 mb-2"
+        <div className="flex items-center gap-1.5 justify-start pb-2 mb-2"
           style={{ borderBottom: "1px solid " + (isRec ? "rgba(200,160,40,0.25)" : LINE) }}>
           <span className="text-[11px] font-black" style={{ color: isRec ? GOLD_DEEP : INK }}>
             למה מיועד התקציב
@@ -178,7 +179,7 @@ export default function SlidePricing() {
           שלוש דרכים להטמיע את <span style={{ color: GOLD_DEEP }}>The Box</span>
         </h2>
         <p className="text-sm mt-3 max-w-xl" style={{ color: MUTE }}>
-          בחרו את עומק השותפות — המסלול האמצעי ממוקד להניע את המדדים העיקריים במהירות המרבית.
+          בחרו את עומק השותפות - המסלול האמצעי ממוקד להניע את המדדים העיקריים במהירות המרבית.
         </p>
       </motion.div>
 
@@ -202,7 +203,7 @@ export default function SlidePricing() {
       {/* Asterisk note */}
       <motion.div {...fadeUp(0.3)} className="relative mt-5 text-center shrink-0">
         <p className="text-[11px] leading-relaxed" style={{ color: MUTE }}>
-          <span className="font-black" style={{ color: GOLD_DEEP }}>*</span> עמלת הסחר אינה כוללת מוצרי מזון, סופרים והטבות מסובסדות.
+          <span className="font-black text-lg align-middle" style={{ color: GOLD_DEEP }}>*</span> עמלת הסחר אינה כוללת מוצרי מזון, סופרים והטבות מסובסדות.
         </p>
       </motion.div>
 
