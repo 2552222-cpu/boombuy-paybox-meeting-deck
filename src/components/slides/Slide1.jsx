@@ -51,8 +51,8 @@ export default function Slide1() {
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
-          className="h-7 w-auto object-contain opacity-90"
-          style={{ mixBlendMode: "lighten" }}
+          className="h-12 w-auto object-contain opacity-95 brightness-125 contrast-110"
+          style={{ mixBlendMode: "lighten", filter: "drop-shadow(0 0 10px rgba(173,216,230,0.5))" }}
         />
         <PayBoxLogo size={28} textColor="white" />
       </motion.div>

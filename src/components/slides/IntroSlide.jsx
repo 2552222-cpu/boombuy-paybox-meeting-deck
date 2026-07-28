@@ -43,14 +43,14 @@ export default function IntroSlide() {
         <img
           src={PAYBOX_LOGO}
           alt="PayBox"
-          className="h-28 w-28 object-contain rounded-2xl shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
+          className="h-28 w-28 object-contain rounded-3xl shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
         />
-        <span className="text-white/40 text-2xl font-black">×</span>
+        <span className="block w-px h-14 bg-white/25" />
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
-          className="h-20 w-auto object-contain"
-          style={{ mixBlendMode: "lighten" }}
+          className="h-28 w-auto object-contain brightness-125 contrast-110"
+          style={{ mixBlendMode: "lighten", filter: "drop-shadow(0 0 12px rgba(173,216,230,0.55))" }}
         />
       </motion.div>
 
@@ -67,11 +67,11 @@ export default function IntroSlide() {
 
       {/* Gold underline */}
       <motion.div
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: 220, opacity: 1 }}
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ height: 56, opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.65, ease: EASE }}
-        className="relative mt-3 h-px"
-        style={{ background: "linear-gradient(90deg,transparent 0%,#D4AF37 50%,transparent 100%)" }}
+        className="relative mt-4 w-[2px] rounded-full"
+        style={{ background: "linear-gradient(to bottom,transparent 0%,#D4AF37 50%,transparent 100%)" }}
       />
 
       {/* Brand lockup */}
@@ -81,13 +81,13 @@ export default function IntroSlide() {
         transition={{ delay: 1.7, duration: 0.6, ease: EASE }}
         className="relative mt-5 flex items-center gap-3"
       >
-        <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-9 object-contain rounded-lg shadow shrink-0" />
-        <span className="text-white/40 text-xs font-black">×</span>
+        <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-9 object-contain rounded-2xl shadow shrink-0" />
+        <span className="block w-px h-7 bg-white/25" />
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
-          className="h-6 w-auto object-contain shrink-0"
-          style={{ mixBlendMode: "lighten" }}
+          className="h-8 w-auto object-contain shrink-0 brightness-125 contrast-110"
+          style={{ mixBlendMode: "lighten", filter: "drop-shadow(0 0 8px rgba(173,216,230,0.5))" }}
         />
       </motion.div>
 
