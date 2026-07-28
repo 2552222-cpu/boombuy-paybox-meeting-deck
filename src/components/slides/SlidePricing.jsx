@@ -13,7 +13,7 @@ const GREEN = "#0F9D58";
 const TIERS = [
   {
     id: 1,
-    tag: "מודל בסיס",
+    tag: "מודל 1 · מודל בסיס",
     name: "אתר צרכנות קלאסי",
     sub: "מסחר בסגנון דולצ'ה-ויטה",
     accent: "#3B6E8F",
@@ -33,7 +33,7 @@ const TIERS = [
   },
   {
     id: 2,
-    tag: "מומלץ · מודל שותפות",
+    tag: "מודל 2 · מומלץ · מודל שותפות",
     name: "מועדון הטבות - שותפות בומביי × פייבוקס",
     sub: "המסלול המועדף להשפעה מהירה על המדדים",
     accent: GOLD_DEEP,
@@ -61,7 +61,7 @@ const TIERS = [
   },
   {
     id: 3,
-    tag: "בומביי משקיעה יותר",
+    tag: "מודל 3 · בומביי משקיעה יותר",
     name: "מועדון הטבות - בומביי לוקחת יותר סיכון",
     sub: "זהה למסלול המועדף - ההבדל בעמלת הסחר בלבד",
     accent: "#5A4FBF",
@@ -81,11 +81,10 @@ const TIERS = [
   },
   {
     id: 4,
-    tag: "חלוקת רווחים הדדית",
+    tag: "מודל 4 · חלוקת רווחים הדדית",
     name: "מועדון הטבות - חלוקת רווחים הדדית",
     sub: "זהה למסלול המועדף - עם שותפות רווחית עמוקה",
     accent: "#167F5A",
-    topNote: "חלוקת רווחים הדדית על הגידול בייתרות שנשארות באפליקציה בזכות הפעילות",
     discount: "עד 50% הנחה",
     discountSub: "על כל המוצרים ביחס למחיר השוק",
     commission: "3.5% עמלת סחר",
@@ -95,16 +94,9 @@ const TIERS = [
     costLabel: "השתתפות חודשית של PayBox בתקציב ההקמה וההפעלה",
     cost: "200,000",
     budget: [
-      "סבסוד הטבות מזון ובילויים",
-      "הקמה והטמעה של The Box בתוך PayBox",
-      "הקמת מערך סחר ייעודי",
-      "הטבות פרימיום כגון עיסויים מסובסדים, פיננסי ועוד",
-      "פיתוח מוצרים נוספים",
-      "טכנולוגיית פריקת וניהול נקודות",
-      "תכנון קמפיינים והנעת לקוחות",
-      "מנהל לקוח ייעודי לפרויקט",
-      "פיתוח PayBox Young",
-      "שירות לקוחות",
+      "אותן עלויות כמו מודל 2",
+      "בומביי נוטלת על עצמה יותר סיכון",
+      "חלוקת רווחים הדדית על הגידול ביתרות שנשארות באפליקציה בזכות הפעילות",
     ],
     recommended: false,
   },
@@ -154,17 +146,6 @@ function Tier({ t }) {
       </div>
 
       <div className="my-4 h-px" style={{ background: LINE }} />
-
-      {/* Prominent top note (e.g. profit-sharing clause) */}
-      {t.topNote && (
-        <div className="mb-3 p-2.5 rounded-xl flex items-start gap-2"
-          style={{ background: "rgba(22,127,90,0.08)", border: "1px solid rgba(22,127,90,0.30)" }}>
-          <Check className="w-4 h-4 mt-[3px] shrink-0" style={{ color: "#167F5A" }} />
-          <div className="flex-1 text-right">
-            <div className="text-[12.5px] font-black leading-snug" style={{ color: "#167F5A" }}>{t.topNote}</div>
-          </div>
-        </div>
-      )}
 
       {/* Feature rows - every row gets a checkmark */}
       <ul className="space-y-3 mb-4">
