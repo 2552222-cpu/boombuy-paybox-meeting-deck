@@ -5,7 +5,7 @@ import SpeakerNotes from "@/components/slides/SpeakerNotes";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
 const THE_BOX_LOGO = BASE + "df7ae6128_65.png";
-const BOOMBUY_LOGO = BASE + "f01a26580_.png";
+const BOOMBUY_LOGO = BASE + "fb3c29ac1_200.png";
 
 // Product images from the marketplace — used in the phone mockup
 const TILES = [
@@ -51,7 +51,8 @@ export default function Slide1() {
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
-          className="h-7 w-auto object-contain brightness-0 invert opacity-80"
+          className="h-7 w-auto object-contain opacity-90"
+          style={{ mixBlendMode: "lighten" }}
         />
         <PayBoxLogo size={28} textColor="white" />
       </motion.div>

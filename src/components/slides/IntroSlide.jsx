@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { PayBoxLogo } from "@/components/slides/Logos";
 
 const BASE = "https://media.base44.com/images/public/6a5bfeae7b17fd8c674492a6/";
-const PAYBOX_LOGO = BASE + "9452db55b_61.png";
+const PAYBOX_LOGO = BASE + "e41d5e20e_59.png";
+const BOOMBUY_LOGO = BASE + "fb3c29ac1_200.png";
 const THE_BOX_LOGO = BASE + "2b893cba0_image.png";
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -38,9 +38,20 @@ export default function IntroSlide() {
         initial={{ scale: 0.6, opacity: 0, y: 28 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         transition={{ delay: 0.55, type: "spring", stiffness: 190, damping: 18 }}
-        className="relative mt-8"
+        className="relative mt-8 flex items-center gap-6"
       >
-        <PayBoxLogo size={80} textColor="white" />
+        <img
+          src={PAYBOX_LOGO}
+          alt="PayBox"
+          className="h-28 w-28 object-contain rounded-2xl shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
+        />
+        <span className="text-white/40 text-2xl font-black">×</span>
+        <img
+          src={BOOMBUY_LOGO}
+          alt="BoomBuy"
+          className="h-20 w-auto object-contain"
+          style={{ mixBlendMode: "lighten" }}
+        />
       </motion.div>
 
       {/* THE BOX headline */}
@@ -70,9 +81,14 @@ export default function IntroSlide() {
         transition={{ delay: 1.7, duration: 0.6, ease: EASE }}
         className="relative mt-5 flex items-center gap-3"
       >
-        <PayBoxLogo size={28} textColor="white" />
-        <span className="text-white/40 text-xs font-black tracking-[0.3em] uppercase">×</span>
-        <span className="text-white/80 text-xs font-black tracking-[0.3em] uppercase">BoomBuy</span>
+        <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-9 object-contain rounded-lg shadow shrink-0" />
+        <span className="text-white/40 text-xs font-black">×</span>
+        <img
+          src={BOOMBUY_LOGO}
+          alt="BoomBuy"
+          className="h-6 w-auto object-contain shrink-0"
+          style={{ mixBlendMode: "lighten" }}
+        />
       </motion.div>
 
       {/* Tagline */}
