@@ -46,7 +46,7 @@ export default function SlideResults() {
     calculated,
     interchangeCurrent, interchangeGrowthPct,
     floatBalance, floatGrowthPct,
-    giftAnnualVolume, giftCommissionPct,
+    giftAnnualVolume,
     R,
   } = useSimulator();
 
@@ -128,8 +128,8 @@ export default function SlideResults() {
               badge="מתנות והטבות"
               lines={[
                 `מחזור שנתי: ₪${fmt(giftAnnualVolume)}`,
-                `אחוז עמלה: ${giftCommissionPct}%`,
-                `רווח שנתי = ₪${fmt(giftAnnualVolume)} × ${giftCommissionPct}%`,
+                `אחוז עמלה קבוע: 3%`,
+                `רווח שנתי = ₪${fmt(giftAnnualVolume)} × 3%`,
               ]}
               result={R.giftYearlyProfit}
             />
@@ -147,6 +147,10 @@ export default function SlideResults() {
           <span className="text-white/40 text-lg">=</span>
           <span className="text-2xl font-black" style={{ color: GREEN }}>₪{fmt(R.totalYearly)}</span>
           <span className="text-xs text-white/40">רווח שנתי משוער מהפעילות</span>
+        </motion.div>
+
+        <motion.div variants={item} className="shrink-0 mt-3 text-center text-xs text-white/40 leading-relaxed">
+          * הערכה זו מתייחסת לרווח <span className="font-bold text-white/55">לפני פיתוח ערוצי הכנסה משותפים</span> (כגון ארנק מתנות לחגים ועוד) — מדובר בפוטנציאל נוסף שטרם מומש.
         </motion.div>
       </motion.div>
 

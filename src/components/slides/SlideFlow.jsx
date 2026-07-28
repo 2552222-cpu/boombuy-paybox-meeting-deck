@@ -41,17 +41,22 @@ function NumberField({ label, value, onChange, hint }) {
 }
 
 function Slider({ label, sub, value, min, max, step, format, onChange, color }) {
-  const pct = Math.min(100, ((value - min) / (max - min)) * 100);
+  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
   return (
     <div>
       <div className="flex justify-between items-center mb-1">
         <span className="text-sm text-white/80 font-medium">{label}</span>
-        <span className="text-base font-black" style={{ color }}>{format ? format(value) : value}</span>
+        <span className="text-sm font-black px-2 py-0.5 rounded-md" style={{ color, background: color + "1F" }}>
+          {format ? format(value) : value}
+        </span>
       </div>
-      {sub && <div className="text-[11px] text-white/35 mb-2 leading-snug">{sub}</div>}
-      <div className="relative h-2.5 rounded-full bg-white/10">
-        <div className="absolute left-0 top-0 h-full rounded-full transition-all"
+      {sub && <div className="text-[11px] text-white/40 mb-3 leading-snug">{sub}</div>}
+      <div className="relative h-6 flex items-center">
+        <div className="absolute inset-x-0 h-3 rounded-full bg-white/10" />
+        <div className="absolute left-0 h-3 rounded-full transition-all"
           style={{ width: `${pct}%`, background: color }} />
+        <div className="absolute w-6 h-6 rounded-full bg-white shadow-lg transition-all border-2"
+          style={{ left: `calc(${pct}% - 12px)`, borderColor: color }} />
         <input type="range" min={min} max={max} step={step} value={value}
           onChange={(e) => onChange(+e.target.value)}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -84,7 +89,6 @@ export default function SlideFlow() {
     floatBalance,   setFloatBalance,
     floatGrowthPct,  setFloatGrowthPct,
     giftAnnualVolume,  setGiftAnnualVolume,
-    giftCommissionPct, setGiftCommissionPct,
     calculated, setCalculated,
     reset, R,
   } = sim;
@@ -178,17 +182,11 @@ export default function SlideFlow() {
                 onChange={setGiftAnnualVolume}
                 hint="מחזור מכירות מתנות והטבות שנתי משוער (סכום)"
               />
-              <Slider
-                label="אחוז עמלה מהמחזור"
-                sub="אחוז העמלה שמתקבל ממחזור המתנות וההטבות"
-                value={giftCommissionPct}
-                min={0} max={10} step={0.5}
-                format={(v) => `${v}%`}
-                onChange={setGiftCommissionPct}
-                color={GOLD}
-              />
+              <div className="text-[11px] text-white/65 rounded-lg px-3 py-2 border" style={{ background: GOLD + "0F", borderColor: GOLD + "22" }}>
+                אחוז עמלה קבוע: <span className="font-black" style={{ color: GOLD }}>3%</span> ממחזור המתנות וההטבות
+              </div>
               <div className="text-[11px] text-white/45 rounded-lg px-2 py-1.5" style={{ background: GOLD + "11" }}>
-                חישוב: רווח שנתי = ₪{fmt(giftAnnualVolume)} × {giftCommissionPct}%
+                חישוב: רווח שנתי = ₪{fmt(giftAnnualVolume)} × 3%
                 {giftAnnualVolume > 0 && (
                   <div className="mt-0.5 font-bold" style={{ color: GOLD }}>= ₪{fmt(R.giftYearlyProfit)}/שנה</div>
                 )}
