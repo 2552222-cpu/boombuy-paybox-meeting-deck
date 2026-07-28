@@ -109,15 +109,15 @@ export default function SlideFlow() {
         className="flex-1 flex flex-col min-h-0">
 
         {/* Header */}
-        <motion.div variants={item} className="shrink-0 text-right mb-4 flex items-start gap-5">
-          <div>
-            <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>סימולטור אינטראקטיבי</span>
-            <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
+        <motion.div variants={item} className="shrink-0 text-center mb-4 flex flex-col items-center">
+          <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>סימולטור אינטראקטיבי</span>
+          <div className="flex items-stretch justify-center gap-5 mt-2">
+            <div className="self-stretch w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent" />
+            <h1 className="text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
               סימולטור צפי <span style={{ color: PB_BLUE }}>הכנסות</span> ו<span style={{ color: GOLD }}>רווחים</span>
             </h1>
-            <p className="mt-1 text-white/45 text-sm">הזינו את הנתונים שלכם · לחצו חשב · קבלו הערכת רווח שנתי עם הסבר מלא</p>
           </div>
-          <div className="w-0.5 h-16 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent mt-1" />
+          <p className="mt-2 text-white/45 text-sm">הזינו את הנתונים שלכם · לחצו חשב · קבלו הערכת רווח שנתי עם הסבר מלא</p>
         </motion.div>
 
         {/* Inputs */}

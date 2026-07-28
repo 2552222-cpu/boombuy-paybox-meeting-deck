@@ -72,10 +72,10 @@ export default function SlideResults() {
         className="flex-1 flex flex-col min-h-0">
 
         {/* Header + total */}
-        <motion.div variants={item} className="shrink-0 flex items-start justify-between mb-5 gap-5">
-          <div className="flex items-start gap-5">
-            <div className="w-0.5 h-16 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent mt-1" />
-            <div className="text-right">
+        <motion.div variants={item} className="shrink-0 flex items-center justify-center mb-5 gap-10 flex-wrap">
+          <div className="flex items-stretch gap-5">
+            <div className="self-stretch w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent" />
+            <div className="text-center">
               <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>תוצאות הסימולטור</span>
               <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
                 רווח שנתי משוער <span style={{ color: GREEN }}>מהפעילות</span>

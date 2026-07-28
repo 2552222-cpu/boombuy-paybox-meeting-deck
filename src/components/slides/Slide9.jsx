@@ -67,16 +67,16 @@ export default function Slide9() {
         className="flex-1 flex flex-col">
 
         {/* Header */}
-        <motion.div variants={item} className="relative text-right shrink-0 flex items-start gap-5 justify-end">
-          <div>
-            <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: "#D4AF37" }}>ערך השותפות</span>
-            <h1 className="mt-3 text-4xl md:text-5xl font-black leading-[1.06] tracking-[-0.02em]">
+        <motion.div variants={item} className="relative text-center shrink-0 flex flex-col items-center">
+          <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: "#D4AF37" }}>ערך השותפות</span>
+          <div className="flex items-stretch justify-center gap-5 mt-3">
+            <div className="self-stretch w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent" />
+            <h1 className="text-4xl md:text-5xl font-black leading-[1.06] tracking-[-0.02em]">
               שתי שכבות הכנסה.<br />
               <span style={{ color: "#4F7FE0" }}>הכסף כבר בפנים — הוא פשוט גדל.</span>
             </h1>
-            <p className="mt-3 text-white/40 text-base">שכבה 1 מגדילה את מה שיש · שכבה 2 מייצרת מה שאין</p>
           </div>
-          <div className="h-16 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent shrink-0 mt-1" />
+          <p className="mt-3 text-white/40 text-base">שכבה 1 מגדילה את מה שיש · שכבה 2 מייצרת מה שאין</p>
         </motion.div>
 
         {/* Two layers */}
