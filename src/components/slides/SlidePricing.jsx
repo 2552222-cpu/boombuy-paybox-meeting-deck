@@ -201,11 +201,11 @@ export default function SlidePricing() {
         <div className="flex items-center justify-center gap-4">
           <div className="w-0.5 h-10 rounded-full bg-gradient-to-b from-[#C8A028] to-transparent" />
           <h2 className="text-3xl md:text-4xl font-black tracking-[-0.02em]" style={{ color: INK }}>
-            ארבע דרכים להטמיע את <span style={{ color: GOLD_DEEP }}>The Box</span>
+            ארבע חלופות למודל השותפות
           </h2>
         </div>
         <p className="text-sm mt-3 max-w-xl" style={{ color: MUTE }}>
-          בחרו את עומק השותפות - המסלול האמצעי ממוקד להניע את המדדים העיקריים במהירות המרבית.
+          PayBox בוחרת את חלוקת ההשקעה, הסיכון והערך העתידי.
         </p>
       </motion.div>
 
