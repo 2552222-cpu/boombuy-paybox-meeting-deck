@@ -5,20 +5,15 @@ import IntroSlide from "@/components/slides/IntroSlide";
 import Slide1 from "@/components/slides/Slide1";
 import Slide2 from "@/components/slides/Slide2";
 import Slide3 from "@/components/slides/Slide3";
-import Slide4 from "@/components/slides/Slide4";
 import Slide5 from "@/components/slides/Slide5";
 import Slide6 from "@/components/slides/Slide6";
 import Slide7 from "@/components/slides/Slide7";
-import Slide8 from "@/components/slides/Slide8";
 import Slide9 from "@/components/slides/Slide9";
 import SlideFlow from "@/components/slides/SlideFlow";
 import SlideResults from "@/components/slides/SlideResults";
 import Slide10 from "@/components/slides/Slide10";
 import SlideAd1 from "@/components/slides/SlideAd1";
-import Slide11 from "@/components/slides/Slide11";
 import SlidePricing from "@/components/slides/SlidePricing";
-import Slide12 from "@/components/slides/Slide12";
-import SlideClose from "@/components/slides/SlideClose";
 import SlideOnePager from "@/components/slides/SlideOnePager";
 
 const SLIDES = [
@@ -29,24 +24,19 @@ const SLIDES = [
   Slide5,          // 04 — ZUZ
   Slide6,          // 05 — משתמשים קונים בחצי מחיר
   Slide7,          // 06 — עד 50% הנחה על מוצרים
-  Slide4,          // 07 — המודל
-  Slide8,          // 08 — PayGift
   Slide9,          // 09 — שתי שכבות הערך
   SlideFlow,       // 10 — סימולטור
   SlideResults,    // 11 — תוצאות
   Slide10,         // 13 — רודמאפ
   SlidePricing,    // 14 — הצעת מחיר (4 מסלולים)
   SlideAd1,        // 15 — קמפיין Young (A+B)
-  Slide11,         // 16 — Q&A
-  Slide12,         // 17 — Term Sheet
-  SlideClose,       // 18 — סיכום + CTA
-  SlideOnePager,     // 19 — One Pager סיכום אחד
+  SlideOnePager,     // 16 — One Pager סיכום אחד
 ];
 
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "ZUZ",
-  "UX", "דמו", "מודל", "Gift",
-  "ריטנר", "סימולטור", "תוצאות",   "רודמאפ", "💰", "📢", "Q&A", "Term", "✅", "1️⃣",
+  "UX", "דמו",
+  "ריטנר", "סימולטור", "תוצאות",   "רודמאפ", "💰", "📢", "1️⃣",
 ];
 
 export default function Home() {
