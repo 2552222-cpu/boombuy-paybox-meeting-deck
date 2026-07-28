@@ -19,15 +19,15 @@ const TIERS = [
     accent: "#3B6E8F",
     discount: "מחירי הנחה",
     discountSub: "לא שוברי שוק — מבוססים על הקטלוג הקיים של בומביי",
-    commission: "5% עמלת סחר",
-    commissionSub: "מהמחזור בלבד · ללא שותפויות נקודתיות",
+    commission: "שוברים בהנחה",
+    commissionSub: "עשרות שוברים בהנחה של 10%",
     impact: "יצירת ערך נוסף ללקוחות",
     impactSub: "פחות השפעה על המדדים העיקריים (סליקה, השארת כסף וכו')",
     cost: "75,000",
     budget: [
-      "שירות לקוחות",
       "סבסוד מינימלי של הטבות",
       "הקמה והטמעה של The Box בסביבת PayBox",
+      "שירות לקוחות",
     ],
     recommended: false,
   },
@@ -45,14 +45,15 @@ const TIERS = [
     impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
     cost: "350,000",
     budget: [
-      "שירות לקוחות",
       "סבסוד הטבות מזון ובילויים",
       "הקמה והטמעה של The Box בתוך PayBox",
       "הקמת מערך סחר ייעודי",
+      "הטבות פרימיום כגון עיסויים מסובסדים, פיננסי ועוד",
       "פיתוח מוצרים נוספים",
       "טכנולוגיית פריקת וניהול נקודות",
       "תכנון קמפיינים והנעת לקוחות",
       "מנהל לקוח ייעודי לפרויקט",
+      "שירות לקוחות",
     ],
     recommended: true,
   },
@@ -68,7 +69,7 @@ const TIERS = [
     commissionSub: "מהמחזור* + שותפויות נקודתיות בפיננסים, תיירות ומתנות לחגים",
     impact: "השפעה מהירה על המדדים העיקריים",
     impactSub: "טכנולוגיית פריקת נקודות על-פי חוקים הנקבעים מראש",
-    cost: "200,000",
+    cost: "250,000",
     budget: [
       "אותן עלויות כמו מודל 2",
       "בומביי נוטלת על עצמה יותר סיכון",
@@ -133,10 +134,7 @@ function Tier({ t }) {
 
       {/* Cost — right aligned */}
       <div className="text-right mt-3">
-        <div className="flex items-baseline gap-1.5 justify-end">
-          <span className="text-3xl font-black" style={{ color: INK }}>{t.cost}</span>
-          <span className="text-xl font-bold" style={{ color: INK }}>₪</span>
-        </div>
+        <div className="text-3xl font-black leading-tight" style={{ color: INK }}>{t.cost} ₪</div>
         <div className="text-[11px] mt-0.5 font-medium" style={{ color: MUTE }}>ש\"ח לחודש</div>
       </div>
 
