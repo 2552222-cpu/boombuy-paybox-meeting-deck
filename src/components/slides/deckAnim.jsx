@@ -12,6 +12,15 @@ export const fadeUp = (delay = 0, y = 22) => ({
   transition: { duration: 0.7, ease: EASE, delay },
 });
 
+// Luxurious full-slide reveal — slow cinematic rise with subtle scale-in.
+// Triggers early in scroll (18% visible) and plays once per slide.
+export const slideReveal = {
+  initial: { opacity: 0, y: 72, scale: 0.975 },
+  whileInView: { opacity: 1, y: 0, scale: 1 },
+  viewport: { once: true, amount: 0.18 },
+  transition: { duration: 1.15, ease: [0.16, 1, 0.3, 1] },
+};
+
 // Child item for staggered containers (variants drive hidden/show).
 export const deckItem = {
   hidden: { opacity: 0, y: 20 },

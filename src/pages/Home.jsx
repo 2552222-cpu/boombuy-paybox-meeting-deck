@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { slideReveal } from "@/components/slides/deckAnim";
 import { SimulatorProvider } from "@/contexts/SimulatorContext";
 import IntroSlide from "@/components/slides/IntroSlide";
 import Slide1 from "@/components/slides/Slide1";
@@ -52,10 +53,8 @@ export default function Home() {
 
         {SLIDES.map((Slide, i) => (
           <motion.section key={i} id={`slide-${i + 1}`} className="min-h-screen w-full"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.4 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+            {...slideReveal}
+            style={{ willChange: "transform, opacity" }}>
             <Slide />
           </motion.section>
         ))}
