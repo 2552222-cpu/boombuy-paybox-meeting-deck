@@ -36,10 +36,10 @@ const SLIDES = [
   SlideFlow,       // 10 — סימולטור
   SlideResults,    // 11 — תוצאות
   Slide10,         // 13 — רודמאפ
-  SlideAd1,        // 14 — קמפיין Young A
-  SlideAd2,        // 15 — קמפיין Young B
-  SlidePricing,    // 15.5 — הצעת מחיר (3 מסלולים)
-  Slide11,         // 16 — Q&A
+  SlidePricing,    // 14 — הצעת מחיר (4 מסלולים)
+  SlideAd1,        // 15 — קמפיין Young A
+  SlideAd2,        // 16 — קמפיין Young B
+  Slide11,         // 17 — Q&A
   Slide12,         // 17 — Term Sheet
   SlideClose,       // 18 — סיכום + CTA
   SlideOnePager,     // 19 — One Pager סיכום אחד
@@ -48,7 +48,7 @@ const SLIDES = [
 const LABELS = [
   "🎬", "The Box", "בעיה", "פתרון", "ZUZ",
   "UX", "דמו", "מודל", "Gift",
-  "ריטנר", "סימולטור", "תוצאות",   "רודמאפ", "📢", "📢", "💰", "Q&A", "Term", "✅", "1️⃣",
+  "ריטנר", "סימולטור", "תוצאות",   "רודמאפ", "💰", "📢", "📢", "Q&A", "Term", "✅", "1️⃣",
 ];
 
 export default function Home() {
