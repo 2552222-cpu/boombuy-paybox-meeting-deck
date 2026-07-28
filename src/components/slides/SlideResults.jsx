@@ -54,8 +54,6 @@ export default function SlideResults() {
     return (
       <div dir="rtl" className="relative min-h-screen w-full flex flex-col items-center justify-center px-8 text-white"
         style={{ background: "linear-gradient(160deg, #060e1c 0%, #0B1930 60%, #0D1F3C 100%)", fontFamily: "'Heebo', sans-serif" }}>
-        <div className="absolute top-0 left-0 right-0 h-[2px]"
-          style={{ background: "linear-gradient(90deg, transparent, #D4AF37, transparent)" }} />
         <div className="text-center">
           <div className="text-6xl mb-4">🧮</div>
           <h2 className="text-2xl font-black mb-2">התוצאות מופיעות כאן לאחר החישוב</h2>
@@ -70,20 +68,20 @@ export default function SlideResults() {
   return (
     <div dir="rtl" className="relative min-h-screen w-full flex flex-col px-6 md:px-12 py-8 text-white overflow-hidden"
       style={{ background: "linear-gradient(160deg, #060e1c 0%, #0B1930 60%, #0D1F3C 100%)", fontFamily: "'Heebo', sans-serif" }}>
-      <div className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{ background: "linear-gradient(90deg, transparent, #D4AF37, transparent)" }} />
-
       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }}
         className="flex-1 flex flex-col min-h-0">
 
         {/* Header + total */}
-        <motion.div variants={item} className="shrink-0 flex items-start justify-between mb-5">
-          <div className="text-right">
-            <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>תוצאות הסימולטור</span>
-            <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
-              רווח שנתי משוער <span style={{ color: GREEN }}>מהפעילות</span>
-            </h1>
-            <p className="mt-1 text-white/45 text-sm">כל מספר חושב ישירות מהנתונים שהזנתם · לפניכם הסבר מלא</p>
+        <motion.div variants={item} className="shrink-0 flex items-start justify-between mb-5 gap-5">
+          <div className="flex items-start gap-5">
+            <div className="w-0.5 h-16 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent mt-1" />
+            <div className="text-right">
+              <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>תוצאות הסימולטור</span>
+              <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
+                רווח שנתי משוער <span style={{ color: GREEN }}>מהפעילות</span>
+              </h1>
+              <p className="mt-1 text-white/45 text-sm">כל מספר חושב ישירות מהנתונים שהזנתם · לפניכם הסבר מלא</p>
+            </div>
           </div>
           <div className="text-right rounded-2xl px-5 py-3 border shrink-0"
             style={{ background: GREEN + "12", borderColor: GREEN + "44" }}>

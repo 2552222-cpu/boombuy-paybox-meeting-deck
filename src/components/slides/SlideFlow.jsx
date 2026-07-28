@@ -105,19 +105,19 @@ export default function SlideFlow() {
   return (
     <div dir="rtl" className="relative min-h-screen w-full flex flex-col px-6 md:px-12 py-8 text-white overflow-hidden"
       style={{ background: "linear-gradient(160deg, #060e1c 0%, #0B1930 60%, #0D1F3C 100%)", fontFamily: "'Heebo', sans-serif" }}>
-      <div className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{ background: "linear-gradient(90deg, transparent, #D4AF37, transparent)" }} />
-
       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }}
         className="flex-1 flex flex-col min-h-0">
 
         {/* Header */}
-        <motion.div variants={item} className="shrink-0 text-right mb-4">
-          <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>סימולטור אינטראקטיבי</span>
-          <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
-            סימולטור צפי <span style={{ color: PB_BLUE }}>הכנסות</span> ו<span style={{ color: GOLD }}>רווחים</span>
-          </h1>
-          <p className="mt-1 text-white/45 text-sm">הזינו את הנתונים שלכם · לחצו חשב · קבלו הערכת רווח שנתי עם הסבר מלא</p>
+        <motion.div variants={item} className="shrink-0 text-right mb-4 flex items-start gap-5">
+          <div>
+            <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: GOLD }}>סימולטור אינטראקטיבי</span>
+            <h1 className="mt-2 text-3xl md:text-4xl font-black leading-tight tracking-[-0.02em]">
+              סימולטור צפי <span style={{ color: PB_BLUE }}>הכנסות</span> ו<span style={{ color: GOLD }}>רווחים</span>
+            </h1>
+            <p className="mt-1 text-white/45 text-sm">הזינו את הנתונים שלכם · לחצו חשב · קבלו הערכת רווח שנתי עם הסבר מלא</p>
+          </div>
+          <div className="w-0.5 h-16 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent mt-1" />
         </motion.div>
 
         {/* Inputs */}

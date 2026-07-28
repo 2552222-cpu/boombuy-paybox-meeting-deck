@@ -63,21 +63,20 @@ export default function Slide9() {
       className="relative min-h-screen w-full flex flex-col px-8 md:px-16 py-12 text-white overflow-hidden"
       style={{ background: "linear-gradient(160deg, #07101E 0%, #0B1930 60%, #0D1F3C 100%)" }}
     >
-      {/* Gold top stripe */}
-      <div className="absolute top-0 left-0 right-0 h-[2px]"
-        style={{ background: "linear-gradient(90deg, transparent, #D4AF37, transparent)" }} />
-
       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}
         className="flex-1 flex flex-col">
 
         {/* Header */}
-        <motion.div variants={item} className="text-right shrink-0">
-          <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: "#D4AF37" }}>ערך השותפות</span>
-          <h1 className="mt-3 text-4xl md:text-5xl font-black leading-[1.06] tracking-[-0.02em]">
-            שתי שכבות הכנסה.<br />
-            <span style={{ color: "#4F7FE0" }}>הכסף כבר בפנים — הוא פשוט גדל.</span>
-          </h1>
-          <p className="mt-3 text-white/40 text-base">שכבה 1 מגדילה את מה שיש · שכבה 2 מייצרת מה שאין</p>
+        <motion.div variants={item} className="relative text-right shrink-0 flex items-start gap-5 justify-end">
+          <div>
+            <span className="text-xs font-black tracking-[0.25em] uppercase" style={{ color: "#D4AF37" }}>ערך השותפות</span>
+            <h1 className="mt-3 text-4xl md:text-5xl font-black leading-[1.06] tracking-[-0.02em]">
+              שתי שכבות הכנסה.<br />
+              <span style={{ color: "#4F7FE0" }}>הכסף כבר בפנים — הוא פשוט גדל.</span>
+            </h1>
+            <p className="mt-3 text-white/40 text-base">שכבה 1 מגדילה את מה שיש · שכבה 2 מייצרת מה שאין</p>
+          </div>
+          <div className="h-16 w-0.5 rounded-full bg-gradient-to-b from-[#D4AF37] to-transparent shrink-0 mt-1" />
         </motion.div>
 
         {/* Two layers */}
