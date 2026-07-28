@@ -43,9 +43,9 @@ export default function IntroSlide() {
         <img
           src={PAYBOX_LOGO}
           alt="PayBox"
-          className="h-28 w-auto rounded-[22px] shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
+          className="h-36 w-auto rounded-[22px] shadow-[0_18px_60px_rgba(0,0,0,0.45)]"
         />
-        <span className="block w-px h-14 bg-white/25" />
+        <span className="block w-px h-36 bg-white/25" />
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
@@ -84,8 +84,8 @@ export default function IntroSlide() {
         transition={{ delay: 1.7, duration: 0.6, ease: EASE }}
         className="relative mt-5 flex items-center gap-3"
       >
-        <img src={PAYBOX_LOGO} alt="PayBox" className="h-9 w-auto rounded-xl shadow shrink-0" />
-        <span className="block w-px h-7 bg-white/25" />
+        <img src={PAYBOX_LOGO} alt="PayBox" className="h-12 w-auto rounded-md shadow shrink-0" />
+        <span className="block w-px h-12 bg-white/25" />
         <img
           src={BOOMBUY_LOGO}
           alt="BoomBuy"
